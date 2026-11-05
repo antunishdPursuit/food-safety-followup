@@ -8,6 +8,8 @@ Use Node.js 20.9 or newer. Run `npm install`, then `npm run dev`, and open `http
 
 The interface currently uses labeled sample locations, public-data fixtures, and fictional internal checks. Follow-up edits are held only in the browser session and reset on refresh. The live NYC import, verified CAMIS matching, and persistent follow-up API are still to be connected. The preview does not report current inspection results or confirm corrective action.
 
+The frontend includes separate location list/map, location detail, record comparison, follow-up create/edit, and completion-dialog screens. The list and map use the same location IDs. Sample inspections include both a no-violation result and a missing-data state so they are not confused. The ERD and backend integration are separate team work.
+
 The selected job description is [sweetgreen Senior Food Safety Manager](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701). This independent course project is not affiliated with sweetgreen and has no access to its internal systems or records.
 
 The [concept images](Production/Product%20Concepts) illustrate possible screens. Their locations, findings, counts, and dates are sample values, not verified inspection results.

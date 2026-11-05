@@ -1,5 +1,5 @@
-import ManagerWorkspace from '../components/ManagerWorkspace';
+import LocationsPage from '../components/LocationsPage';
 
 export default function Home() {
-  return <ManagerWorkspace />;
+  return <LocationsPage />;
 }
