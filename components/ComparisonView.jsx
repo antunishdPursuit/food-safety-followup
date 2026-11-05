@@ -26,6 +26,7 @@ export default function ComparisonView() {
   const visibleFlags = historicalFlag ? [...flags, historicalFlag] : flags;
   const supporting = flag ? citations.filter((citation) => flag.citationIds.includes(citation.id)) : [];
   const suggestedChecks = detail.internalChecks.filter((check) => supporting.some((citation) => citation.id === check.suggestedCitationId));
+  const linkedCheck = suggestedChecks.find((check) => suggestions[check.id]?.decision === 'linked');
   const viewTitle = flag?.type === 'Repeat code' ? 'Compare two sample citations' : suggestedChecks.length ? 'Compare sample citation and demo check' : 'Review sample citation';
   const viewDescription = flag?.type === 'Repeat code' ? 'Review the two sample citations that produced the repeat-code flag.' : suggestedChecks.length ? 'Review the sample citation and fictional demo check before deciding whether to link them.' : 'Review the sample citation behind this flag.';
 
@@ -48,7 +49,7 @@ export default function ComparisonView() {
           </article>;
         })}</>}
       </section>
-      <aside className="comparison-side"><h2>Manager decision</h2><p>Public inspection data cannot confirm a correction. Review the source and context before recording an action.</p><Link className="text-button" href={`/locations/${id}`}>Back to location</Link></aside>
+      <aside className="comparison-side"><h2>Manager decision</h2><p>Public inspection data cannot confirm a correction. Record an action only after reviewing the source and context.</p><Link className="primary-button" href={`/locations/${id}/follow-ups/new?citation=${linkedCheck?.suggestedCitationId || supporting[0]?.id}${linkedCheck ? `&check=${linkedCheck.id}` : ''}`}>Create follow-up</Link><Link className="text-button" href={`/locations/${id}`}>Back to location</Link></aside>
     </div>}
   </>;
 }
