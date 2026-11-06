@@ -1,6 +1,6 @@
 # NYC Food Safety Follow-Up — Product Requirements Document
 
-**Status:** Product draft for team review. Implementation has not started.
+**Status:** Product requirements reviewed. The frontend preview is implemented with labeled sample fixtures; verified NYC data and persistent follow-ups are pending.
 **Selected JD:** [sweetgreen — Senior Food Safety Manager](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701), New York, NY / Remote. The linked role describes NYC Region duties. The posting's current status should be checked at the source.
 **Primary user:** The food safety manager responsible for sweetgreen's NYC Region.
 **Scope:** Sweetgreen locations in New York City only.
@@ -30,7 +30,7 @@ The city dataset has one row per citation or special no-violation/not-yet-inspec
 
 The proposed backend work will build the NYC restaurant list from Sweetgreen's public locations page, then verify each restaurant's NYC Open Data CAMIS ID using its address. Business name alone is insufficient. Public inspection coordinates can position matched locations on the map when present. Any location without usable coordinates remains in the list, and any location without a reliable CAMIS match is labeled **inspection match unverified**; neither is silently treated as clear. The product aims to include all currently listed NYC Sweetgreen restaurants and shows coverage count and last refresh time. The frontend receives the verified location records from the backend, rather than making its own city-data request.
 
-The prototype includes a small mix of fictional audit and temperature-check records for the same locations. Include one issue linked by the manager to a public citation and one internal concern without a public citation. Both are visibly marked fictional. The working app's public citations come from NYC Open Data; the images below contain sample values only.
+The prototype includes a small mix of fictional audit and temperature-check records for the same locations. Include one issue linked by the manager to a citation and one internal concern without a citation. Both are visibly marked fictional. The current frontend uses labeled sample citation fixtures; the target working product will use verified NYC Open Data citations. The images below contain sample values only.
 
 ## Manager flow
 
@@ -56,7 +56,7 @@ The prototype includes a small mix of fictional audit and temperature-check reco
 
 Version one includes NYC public-data import, verified location mapping, labeled demo checks, manager-owned follow-ups, two core flag types, coverage/freshness display, and responsive screens. It excludes real Sweetgreen integration, employee accounts, notifications, regulatory submissions, automatic closure, and other cities. AI-generated explanations or suggested actions would need separate review and are not required for version one.
 
-This PRD is ready for team product and technical review. The proposed backend work verifies location/CAMIS matches against NYC Open Data; the proposed frontend work connects the map and screens to the agreed API. The team can adjust ownership together. No Sweetgreen internal data has been verified.
+The PRD has been reviewed. The frontend preview covers the map, location review, record comparison, and follow-up flow using bundled sample data. The remaining backend work verifies location/CAMIS matches against NYC Open Data; integration will connect the screens to the agreed API and persist follow-ups. No Sweetgreen internal data has been verified.
 
 ## Requirements and acceptance
 
