@@ -1,6 +1,6 @@
 # Local project guidance and review export
 AGENTS.local.md
-Production/Product Concepts/NYC Food Safety Follow-Up - Valerie Review.pdf
+Production/Product Concepts/*.pdf
 
 # Common local and generated files
 .env
