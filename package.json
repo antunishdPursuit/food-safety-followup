@@ -15,6 +15,7 @@
     "data:import": "node scripts/data.mjs import",
     "data:status": "node scripts/data.mjs status",
     "seed:demo": "node scripts/seed.mjs demo",
+    "demo:reset": "node scripts/demo-reset.mjs",
     "seed:sample": "node scripts/seed.mjs sample",
     "dev:sample": "node scripts/dev-sample.mjs"
   },
