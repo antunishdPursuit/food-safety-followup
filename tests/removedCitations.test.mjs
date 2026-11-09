@@ -70,7 +70,9 @@ test('a removed citation cannot be chosen for a new follow-up or a new link', as
   await refreshWith(dir, [row('1', '2026-09-18', '04L'), row('1', '2026-08-01', '10F', 'Earlier'), row('2', '2026-09-20', '04L')]);
   const message = 'This finding is no longer in the city records and cannot be used for new work.';
   await assert.rejects(createFollowUp({ locationId: 'a', citationId: ids.d06, owner: 'Manager', dueDate: '2026-12-02', notes: 'Another.' }, { dir }), (error) => error.fields.citationId === message);
-  await assert.rejects(setCheckLink('k1', { decision: 'linked', citationId: ids.d06 }, { dir }), (error) => error.fields.citationId === message);
+  for (const decision of ['linked', 'dismissed']) {
+    await assert.rejects(setCheckLink('k1', { decision, citationId: ids.d06 }, { dir }), (error) => error.fields.citationId === message);
+  }
   await assert.rejects(setCheckLink('k1', { decision: 'linked' }, { dir }), (error) => error.fields.citationId === 'Choose the citation to link.', 'no automatic pick either');
   assert.equal((await readDb(dir)).links.k1, undefined);
 });

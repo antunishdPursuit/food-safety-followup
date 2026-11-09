@@ -4,6 +4,7 @@ import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { seedSample } from '../lib/server/sample.js';
+import { readDb, updateDb } from '../lib/server/store.js';
 
 async function routes() {
   process.env.FSF_DATA_DIR = await fs.mkdtemp(path.join(os.tmpdir(), 'fsf-write-'));
@@ -160,6 +161,25 @@ test('the manager can link a check that has no suggestion to any citation at the
   assert.equal((await link('check-2', { decision: 'linked', citationId: 'citation-99' })).status, 422);
   assert.equal((await link('check-2', { decision: 'maybe' })).body.error.fields.decision, 'Choose linked or dismissed.');
   assert.equal((await link('nope', { decision: 'dismissed' })).status, 404);
+});
+
+test('dismissals validate explicit citation ids and leave invalid decisions unsaved', async () => {
+  const { link } = await routes();
+  const dir = process.env.FSF_DATA_DIR;
+  await updateDb((db) => {
+    db.internalChecks['other-check'] = { id: 'other-check', locationId: 'sample-queens', type: 'Audit', date: '2026-11-01', note: 'Fictional check.', source: 'Fictional demo check' };
+  }, dir);
+  const before = (await readDb(dir)).links;
+  for (const [checkId, citationId] of [['check-1', 'missing-citation'], ['other-check', 'citation-1']]) {
+    const response = await link(checkId, { decision: 'dismissed', citationId });
+    assert.equal(response.status, 422);
+    assert.equal(response.body.error.fields.citationId, 'This citation is not part of this location.');
+    assert.deepEqual((await readDb(dir)).links, before);
+  }
+  const validDismissal = await link('check-1', { decision: 'dismissed', citationId: 'citation-1' });
+  assert.equal(validDismissal.status, 200);
+  assert.equal(validDismissal.body.link.citationId, 'citation-1');
+  assert.equal((await link('other-check', { decision: 'dismissed' })).body.link.citationId, null);
 });
 
 test('simultaneous requests all save with distinct ids', async () => {

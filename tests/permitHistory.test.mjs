@@ -123,7 +123,9 @@ test('after a permit change a link request without a citation id cannot pick the
 test('after a permit change a history citation cannot be chosen explicitly for a link or a new follow-up', async () => {
   const { dir, cited } = await storeWithCheckAfterPermitChange();
   const message = 'This finding is history from a previous permit and cannot be used for new work.';
-  await assert.rejects(setCheckLink('k1', { decision: 'linked', citationId: cited.id }, { dir }), (error) => error.fields.citationId === message);
+  for (const decision of ['linked', 'dismissed']) {
+    await assert.rejects(setCheckLink('k1', { decision, citationId: cited.id }, { dir }), (error) => error.fields.citationId === message);
+  }
   await assert.rejects(
     createFollowUp({ locationId: 'union-square', citationId: cited.id, owner: 'Manager', dueDate: '2026-12-02', notes: 'Another action.' }, { dir }),
     (error) => error.status === 422 && error.fields.citationId === message,
