@@ -23,7 +23,7 @@ async function routes() {
     create: (body, extra) => send(POST, 'POST', '/api/follow-ups', body, {}, extra),
     update: (id, body) => send(PATCH, 'PATCH', `/api/follow-ups/${id}`, body, { id }),
     link: (id, body) => send(PUT, 'PUT', `/api/internal-checks/${id}/link`, body, { id }),
-    send, POST, PATCH, detail,
+    send, POST, PATCH, PUT, detail,
   };
 }
 
@@ -180,6 +180,35 @@ test('dismissals validate explicit citation ids and leave invalid decisions unsa
   assert.equal(validDismissal.status, 200);
   assert.equal(validDismissal.body.link.citationId, 'citation-1');
   assert.equal((await link('other-check', { decision: 'dismissed' })).body.link.citationId, null);
+});
+
+test('JSON lookalike media types are rejected, while JSON with a charset remains supported', async () => {
+  const { create } = await routes();
+  for (const contentType of ['text/plain; foo=application/json', 'application/jsonp', 'application/json-malicious', 'application/x-www-form-urlencoded; foo=application/json']) {
+    assert.equal((await create(valid, { 'content-type': contentType })).status, 415, contentType);
+  }
+  assert.equal((await create(valid, { 'content-type': 'Application/JSON; charset=utf-8' })).status, 201);
+});
+
+test('foreign and opaque browser origins cannot create, edit or dismiss records', async () => {
+  const { create, send, POST, PATCH, PUT } = await routes();
+  const made = await create(valid);
+  const dir = process.env.FSF_DATA_DIR;
+  const before = await readDb(dir);
+  for (const origin of ['https://other.example', 'null', 'https://x', 'http://x:3000']) {
+    const headers = { 'content-type': 'application/json', origin };
+    for (const [handler, method, url, body, params] of [
+      [POST, 'POST', '/api/follow-ups', valid, {}],
+      [PATCH, 'PATCH', `/api/follow-ups/${made.body.id}`, { notes: 'Unwanted edit.' }, { id: made.body.id }],
+      [PUT, 'PUT', '/api/internal-checks/check-1/link', { decision: 'dismissed' }, { id: 'check-1' }],
+    ]) assert.equal((await send(handler, method, url, body, params, headers)).status, 403);
+    assert.deepEqual(await readDb(dir), before);
+  }
+  assert.equal((await create(valid, { 'content-type': 'application/json', 'sec-fetch-site': 'cross-site' })).status, 403);
+  assert.deepEqual(await readDb(dir), before);
+  assert.equal((await create(valid, { 'content-type': 'application/json', origin: 'http://x' })).status, 201);
+  assert.equal((await create(valid, { 'content-type': 'application/json', host: '127.0.0.1:3000', origin: 'http://127.0.0.1:3000' })).status, 201);
+  assert.equal((await create(valid, { 'content-type': 'application/json', host: '127.0.0.1:3000', origin: 'http://x' })).status, 403);
 });
 
 test('simultaneous requests all save with distinct ids', async () => {
