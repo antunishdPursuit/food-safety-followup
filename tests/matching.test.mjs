@@ -17,9 +17,9 @@ test('directory and city spellings reduce to the same street', () => {
 });
 
 test('a range matches either end, while Queens grid numbers must match exactly', () => {
-  assert.equal(buildingMatches('76-78', '76'), true);
-  assert.equal(buildingMatches('76-78', '78'), true);
-  assert.equal(buildingMatches('76-78', '80'), false);
+  assert.equal(buildingMatches('76-78', '76', 'Brooklyn'), true);
+  assert.equal(buildingMatches('76-78', '78', 'Brooklyn'), true);
+  assert.equal(buildingMatches('76-78', '80', 'Brooklyn'), false);
   assert.equal(buildingMatches('106-24', '106-24'), true);
   assert.equal(buildingMatches('106-24', '106'), false);
 });
