@@ -40,7 +40,7 @@ Using the value levers from class:
 - Up to 99 of the 271 citations carry codes that a restaurant can cure within 7 days (an upper bound). The data cannot show which were cured.
 - 17 of the 271 citations use administrative codes that the city does not score, such as calorie posting and plastic straws. They are not food-safety findings.
 - The city removes violations dismissed at a hearing and drops closed restaurants, so counts can fall between refreshes.
-- Matching needed a person for 9 of 38 locations, so scaling to many more restaurants would need a better review step. Run fresh on all 38, the rule alone verified 29, all of them agreeing with the final match, and offered the right permit first for the other 9. An independent building check agrees for 33 of 37 testable locations; Hudson Yards and NoMad still need a manual check.
+- Matching needed a person for 9 of 38 locations, so scaling to many more restaurants would need a better review step. Run fresh on all 38, the rule alone verified 29, all of them agreeing with the final match, and offered the right permit first for the other 9. An independent building check agrees for 33 of 37 testable locations, and the two it could not settle (Hudson Yards and NoMad) agree on a map.
 - The location list came from reading Sweetgreen's public pages once. Sweetgreen's terms of use limit automated reading, so the list is a one-time snapshot, and the preferred plan is to rebuild it from city permit data.
 - Storage is a local file with no sign-in. Fine for a local demo, not for public use.
 - Existing audit and compliance tools were not evaluated. If one already covers this, the case weakens.
