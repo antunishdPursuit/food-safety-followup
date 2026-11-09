@@ -78,6 +78,35 @@ Each gap in the PRD gets a logged assumption, with how to check it. Safe means s
 12. **Demo checks on real locations.** Gap: the PRD wants fictional checks for the same locations. Assumption: add only notes that say they are fictional and claim nothing about the restaurant. Check: every card and export shows the `Fictional demo check` source. Safe.
 13. **Map position and phone as evidence.** Gap: the PRD says to verify by address, but the city sometimes lists a corner or alternate address for the same storefront (66 East 55th Street for "60 E 55th St"). Assumption: each location page publishes its own map position and phone number, so a Sweetgreen-named permit within 250 m of that position, or with the same phone number, is offered as a candidate. It is never verified automatically. Why: on 2026-11-09 all 29 automatic matches were within 116 m of the page's position (median 32 m). Check: `npm run data:status` shows each distance. Two permits can share one corporate phone number, so a phone match is evidence, not proof. Safe as a candidate; risky if it verified on its own.
 
+### What the data cannot show
+
+The inspection results come from NYC Open Data (DOHMH New York City Restaurant Inspection Results). What follows was checked on 2026-11-09 against the city's data dictionary, Health Code Article 81, and Chapter 23 of Title 24 of the Rules of the City of New York, plus counts from the stored data and the city's live data.
+
+- **A correction never shows.** A restaurant can "cure" a first-time violation by sending proof within 7 days. The violation stays on the record and no score or grade changes, so the data cannot show that anything was corrected. Only a follow-up with a completion note can. Of the 271 stored citations, up to 99 carry codes that can be cured (10F, 10B, 09C, 08B, 20-08); which were cured is unknown.
+- **"Repeat code" is this project's rule.** It means the same violation code on different inspection dates at one location. The city's own repeat penalties apply only to certain unscored violations (plastic straws and tobacco, for example), not to food-safety codes, so the flag is a prompt to look, not a legal finding.
+- **Counts are not weighted by severity.** The city scores each violation at a condition level from I to V (for example by the number of flies), but the dataset gives only the code and a critical flag. When several pest types are cited in one inspection, the city scores only the highest. A count of citations says nothing about how serious each one was.
+- **Critical is not the same as a public health hazard.** The dataset's critical flag covers both. Codes 04N, 04L, and 04M are critical but are not public health hazards.
+- **Some codes are not scored.** Codes 15 to 22 are administrative or special-program violations (calorie posting, plastic straws, and the healthy-eating poster, for example). They do not count toward a score or a grade. They are 17 of the 271 stored citations.
+- **10F is a broad upkeep code.** Since the 2020 rules, "conditions conducive to pests" with no pests present are cited as 10F, along with dirty or damaged floors, walls, and equipment. It is 64 of 271 citations and appears at 35 of 38 locations, so it says little about any one restaurant.
+- **The city removes records.** Violations dismissed at a hearing are removed from the dataset, and restaurants that close drop out of it. Counts can fall between refreshes. The dataset keeps about three years of inspections for each restaurant.
+- **Almost every inspection finds something.** All 118 stored inspections have at least one violation. That is typical: in the 12 months before 2026-11-09 only 0.3 percent of New York cycle initial inspections found none, and none of the 41 Sweetgreen-named permits or 98 salad restaurants had one. The pace matches too: the median is two cycle initial inspections per restaurant in three years, here and citywide.
+- **Rules change over time.** Code meanings and thresholds changed in 2020, the cure rule started on 6 March 2023, and new unscored codes arrived in 2025. The stored data (October 2022 on) uses the current table, but a count across years mixes rule periods. Each row keeps the city's own description of its violation.
+
+### How well the match rule works
+
+Measured on 2026-11-09 by running the rule fresh on all 38 locations against every Sweetgreen-named permit in the city data (41 permits):
+
+- The rule alone verified 29 locations, and all 29 agree with the final match (29 of 29). A person was needed for 9 of 38.
+- The other 9 were offered as candidates with the correct permit ranked first every time, and no wrong permit was offered to any location. A person confirmed all 9.
+- The measure is partly circular, because the manager confirmed those 9 using the same kinds of evidence (distance and phone). An independent address check (the NYC Planning Labs geocoder on the page address, compared with the building in the city record) agrees on the building for 33 of the 37 locations it could test. Two more are supported by a corner address (61st + Lex) or an exact phone number (Penn Plaza). Two still need a manual check against an independent source: Hudson Yards (the page says 10 Hudson Yards, the permit says 501 West 30th Street) and NoMad (the page says 1153 Broadway, the permit says 1164 Broadway).
+- The correct permit is within 227 m of the page position for every location that can be measured (median 32 m). A 100 m radius would contain it for 35 of 38 locations and a 250 m radius for 37 of 38; at 250 m two wrong permits sit inside some radius, and none was offered to a location.
+- A phone number on the page equals the permit's phone for only 8 locations, because the city's phone is whatever the owner supplied and some permits share one number. Phone is weak evidence.
+
+### Data sources and terms
+
+- NYC Open Data is read through its public API. The city's data FAQ states no restrictions on use. The dataset's separate terms page no longer exists (checked 2026-11-09), and the general NYC.gov terms disclaim accuracy.
+- Sweetgreen's public location pages were read once on 2026-11-09 for names, addresses, map positions, and phone numbers. Sweetgreen's terms of use (updated 25 July 2025) bar automated scraping (section 8(e)) and limit use to personal, non-commercial purposes (section 7.1). This is not legal advice. The snapshot in `data/` is a one-time record, so do not run `npm run data:directory` again. The preferred plan is to rebuild the list from city permit data and retire the scraper.
+
 ### Checks
 
 `npm test` covers the store, directory parsing, address matching, the NYC client and import, the flag rules, and every endpoint. The tests use fake city responses, and a guard makes any request to the NYC Open Data service or sweetgreen.com fail, so a test run gives the same answer with or without a network. `npm run build` checks the route handlers.
