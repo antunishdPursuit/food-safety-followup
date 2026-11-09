@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
+import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
 import { createFollowUp } from '../lib/server/mutations.js';
 import { getLocationDetail } from '../lib/server/service.js';
 import { readDb, updateDb } from '../lib/server/store.js';
@@ -16,6 +16,48 @@ const row = (camis, date, code) => ({ camis, inspection_date: `${date}T00:00:00.
 const client = (establishments, rows = []) => ({ findSweetgreenEstablishments: async () => establishments, findEstablishmentsAtAddress: async () => [], fetchInspectionRows: async () => rows });
 
 const holdersOf = async (dir, camis) => Object.values((await readDb(dir)).locations).filter((location) => location.matchStatus === 'verified' && location.camis === camis).map((location) => location.id);
+
+test('retained automatic permits are not offered to other locations, while free candidates remain confirmable', async () => {
+  const { dir } = await storeWhereAHoldsThePermit();
+  const changed = { ...permitAtB(), dba: 'SWEETGREEN', street: 'WASHINGTON AVENUE' };
+  const summary = await matchLocationsToCity({ client: client([changed]), dir });
+  const db = await readDb(dir);
+  assert.deepEqual(await holdersOf(dir, '123'), ['a']);
+  assert.equal(db.locations.b.matchStatus, 'unverified');
+  assert.deepEqual(db.locations.b.candidates, []);
+  assert.deepEqual(summary, { verified: 1, candidate: 0, unverified: 1 });
+
+  const free = { ...changed, camis: '456' };
+  await matchLocationsToCity({ client: client([changed, free]), dir });
+  assert.deepEqual((await readDb(dir)).locations.b.candidates.map((item) => item.camis), ['456']);
+  await confirmMatch({ locationId: 'b', camis: '456', dir });
+  assert.deepEqual(await holdersOf(dir, '456'), ['b']);
+  assert.deepEqual(await holdersOf(dir, '123'), ['a']);
+});
+
+test('a held named permit does not hide a free differently named address candidate', async () => {
+  const { dir } = await storeWhereAHoldsThePermit();
+  const held = { ...permitAtB(), street: 'WASHINGTON AVENUE' };
+  const free = { ...permitAtB('456'), dba: 'OTHER BUSINESS' };
+  await matchLocationsToCity({ client: client([held, free]), dir });
+  assert.deepEqual((await readDb(dir)).locations.b.candidates.map((item) => item.camis), ['456']);
+  await confirmMatch({ locationId: 'b', camis: '456', dir });
+  assert.deepEqual(await holdersOf(dir, '456'), ['b']);
+  assert.deepEqual(await holdersOf(dir, '123'), ['a']);
+});
+
+test('held permits do not fill the candidate limit ahead of a free named permit', async () => {
+  const { dir } = await storeWhereAHoldsThePermit();
+  const held = Array.from({ length: 5 }, (_, index) => ({ ...permitAtB(`00${index}`), street: 'WASHINGTON AVENUE' }));
+  await updateDb((db) => {
+    for (const permit of held) db.locations[`holder-${permit.camis}`] = { id: `holder-${permit.camis}`, matchStatus: 'verified', camis: permit.camis, candidates: [] };
+  }, dir);
+  const free = { ...permitAtB('999'), street: 'WASHINGTON AVENUE' };
+  await matchLocationsToCity({ client: client([...held, free]), dir });
+  assert.deepEqual((await readDb(dir)).locations.b.candidates.map((item) => item.camis), ['999']);
+  await confirmMatch({ locationId: 'b', camis: '999', dir });
+  assert.deepEqual(await holdersOf(dir, '999'), ['b']);
+});
 
 // A is verified automatically with permit 123 and has a follow-up on one of its citations.
 async function storeWhereAHoldsThePermit() {
