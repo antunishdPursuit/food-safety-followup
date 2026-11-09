@@ -22,6 +22,10 @@ The [concept images](Production/Product%20Concepts) illustrate possible screens.
 
 The backend is a set of Next.js Route Handlers in `app/api` over a small server library in `lib/server`. It builds the NYC Sweetgreen list from the public locations page, verifies each location's NYC Open Data CAMIS permit by address, imports public inspection records, applies the flag rules, and saves manager follow-ups. The screens do not call it yet; the response shapes extend the ones in `data/preview.json`, so connecting them is a swap, not a redesign.
 
+![Architecture: public pages and city data are matched and imported by the backend; the manager alone confirms matches, judges findings, and closes follow-ups](docs/architecture.svg)
+
+The same diagram is at `docs/architecture.png` (3200 by 1800, for slides). `docs/demo-script.md` is the two-and-a-half-minute demo on real data, and `docs/submission/` holds the deck outline and a business case draft.
+
 ### Set up the live data
 
 Run these in order. Each step is safe to repeat. The city service can be slow (one lookup took 45 seconds) and sometimes returns "service unavailable"; the client waits up to 90 seconds and retries, and a failed run changes nothing.
@@ -35,6 +39,7 @@ Run these in order. Each step is safe to repeat. The city service can be slow (o
 | `npm run data:confirm -- <locationId> <camis>` | The manager picks one candidate permit for a location. A confirmed match is never replaced by a later automatic one. |
 | `npm run data:import` | Imports inspection records for verified locations. Re-importing yields the same records and ids, and a finding keeps its id when the city removes or reorders other findings with the same code, so a follow-up never moves to a different finding. If the city request fails, stored records and follow-ups stay as they were and the error is recorded. |
 | `npm run seed:demo` | Adds two fictional checks to up to three verified locations that have city citations: one that names the code of the location's most recent citation (called a temperature or pest check when that citation's description says so, otherwise an audit) and a walkthrough with no citation. Both say they are fictional. |
+| `npm run demo:reset -- --yes` | Clears the follow-ups and link decisions a rehearsal leaves behind, after saving a copy of the store in `.data/backups/`. It does nothing without `--yes`. |
 
 To try the whole contract without city data, run `npm run dev:sample`. It creates the labeled sample store in `.data-sample/` when it is missing, never in the live store, and starts the app on it. `npm run seed:sample` rebuilds that store. The commands are written in Node, without Unix-only shell syntax, so they work in Windows shells too (a test guards this). `.env.example` lists the settings; none is required.
 
