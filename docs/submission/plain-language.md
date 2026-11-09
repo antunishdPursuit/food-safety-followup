@@ -29,6 +29,8 @@ The posting's own words include "audits," "sanitation violations," "corrective a
 | flag; needs review | an item that needs attention; a finding nobody has acted on |
 | repeat code; repeat flag | the same violation coming back |
 | regional signal | the same violation at several restaurants |
+| points; severity; condition level | leave out: the city data has none |
+| cure | the restaurant's proof of correction to the city; the violation stays on the record |
 | match to a permit | connect each restaurant to its official city record |
 | import; refresh | bring in the latest inspection results |
 | audit trail | documentation |
