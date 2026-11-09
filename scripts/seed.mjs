@@ -5,6 +5,9 @@ import { dataDir } from '../lib/server/config.js';
 import { seedDemoChecks } from '../lib/server/demo.js';
 import { seedSample } from '../lib/server/sample.js';
 
+// Read .env when this Node version can (20.12 or newer); otherwise use the shell's environment.
+try { process.loadEnvFile?.(); } catch { /* no .env file */ }
+
 const [command] = process.argv.slice(2);
 
 try {

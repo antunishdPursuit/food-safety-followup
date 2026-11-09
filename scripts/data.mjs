@@ -9,6 +9,9 @@ import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory }
 import { createNycClient } from '../lib/server/nyc.js';
 import { readDb } from '../lib/server/store.js';
 
+// Read .env when this Node version can (20.12 or newer); otherwise use the shell's environment.
+try { process.loadEnvFile?.(); } catch { /* no .env file */ }
+
 const [command, ...args] = process.argv.slice(2);
 const dir = dataDir();
 
