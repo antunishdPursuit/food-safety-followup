@@ -73,6 +73,16 @@ test('importing groups city rows by inspection and keeps every other location un
   assert.equal(db.importStatus.error, null);
 });
 
+test('importing with no verified location does not record a successful refresh', async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'fsf-import-'));
+  await syncDirectory({ snapshot, dir });
+  let asked = false;
+  const result = await refreshInspections({ client: fakeClient({ fetchInspectionRows: async () => { asked = true; return []; } }), dir });
+  assert.deepEqual(result, { ok: false, skipped: true, error: 'No location is verified yet. Run npm run data:match first.' });
+  assert.equal(asked, false, 'the city is not asked for anything');
+  assert.equal((await readDb(dir)).importStatus.lastSuccess, null);
+});
+
 test('importing twice produces the same records and ids, with no duplicates', async () => {
   const dir = await preparedStore();
   await refreshInspections({ client: fakeClient(), dir });

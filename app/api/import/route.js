@@ -20,7 +20,7 @@ export const POST = handle(async (request) => {
   running = true;
   try {
     const result = await refreshInspections({ client: createNycClient() });
-    return json(result, result.ok ? 200 : 502);
+    return json(result, result.ok ? 200 : result.skipped ? 409 : 502);
   } finally {
     running = false;
   }

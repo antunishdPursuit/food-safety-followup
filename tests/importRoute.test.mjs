@@ -24,12 +24,13 @@ test('refreshing from the web is off unless an import key is configured', async 
 });
 
 test('a missing or wrong key is refused, and the right key runs the refresh', async () => {
+  // The sample store has no verified location, so the refresh reports that instead of claiming success.
   process.env.FSF_IMPORT_KEY = 'correct-key';
   const post = await route();
   assert.equal((await post()).status, 401);
   assert.equal((await post({ 'x-import-key': 'wrong' })).status, 401);
   const ok = await post({ 'x-import-key': 'correct-key' });
-  assert.equal(ok.status, 200);
-  assert.deepEqual(ok.body, { ok: true, locations: 0, inspections: 0, citations: 0 });
+  assert.equal(ok.status, 409);
+  assert.deepEqual(ok.body, { ok: false, skipped: true, error: 'No location is verified yet. Run npm run data:match first.' });
   delete process.env.FSF_IMPORT_KEY;
 });
