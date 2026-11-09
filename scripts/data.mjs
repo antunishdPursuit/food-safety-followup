@@ -1,0 +1,56 @@
+// Command-line steps for the city data. Run through the npm scripts:
+//   npm run data:sync      bring the saved Sweetgreen directory into the store
+//   npm run data:match     match each location to its NYC CAMIS permit by address
+//   npm run data:confirm -- <locationId> <camis>   choose one of a location's candidate permits
+//   npm run data:import    refresh inspection records for verified locations
+//   npm run data:status    show coverage, freshness, and candidates needing a decision
+import { dataDir } from '../lib/server/config.js';
+import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
+import { createNycClient } from '../lib/server/nyc.js';
+import { readDb } from '../lib/server/store.js';
+
+const [command, ...args] = process.argv.slice(2);
+const dir = dataDir();
+
+async function status() {
+  const db = await readDb(dir);
+  const locations = Object.values(db.locations).filter((location) => !location.delisted);
+  const count = (state) => locations.filter((location) => location.matchStatus === state).length;
+  console.log(`Store: ${dir}`);
+  console.log(`Locations: ${locations.length} (verified ${count('verified')}, candidate ${count('candidate')}, unverified ${count('unverified')})`);
+  console.log(`Last successful import: ${db.importStatus.lastSuccess || 'never'}`);
+  if (db.importStatus.error) console.log(`Last import error (${db.importStatus.lastAttempt}): ${db.importStatus.error}`);
+  for (const location of locations.filter((item) => item.matchStatus === 'candidate')) {
+    console.log(`\n${location.id} (${location.address}) needs a decision:`);
+    for (const candidate of location.candidates) console.log(`  CAMIS ${candidate.camis}  ${candidate.dba}  ${candidate.address}  - ${candidate.reason}`);
+    console.log(`  npm run data:confirm -- ${location.id} <camis>`);
+  }
+}
+
+const steps = {
+  sync: async () => console.log(await syncDirectory({ dir })),
+  match: async () => console.log(await matchLocationsToCity({ client: createNycClient(), dir })),
+  import: async () => {
+    const result = await refreshInspections({ client: createNycClient(), dir });
+    console.log(result);
+    if (!result.ok) process.exitCode = 1;
+  },
+  confirm: async () => {
+    const [locationId, camis] = args;
+    if (!locationId || !camis) throw new Error('Usage: npm run data:confirm -- <locationId> <camis>');
+    const location = await confirmMatch({ locationId, camis, dir });
+    console.log(`${location.id} is now verified with CAMIS ${location.camis}. Run npm run data:import to load its inspections.`);
+  },
+  status,
+};
+
+if (!steps[command]) {
+  console.error(`Unknown command "${command || ''}". Use one of: ${Object.keys(steps).join(', ')}.`);
+  process.exit(2);
+}
+try {
+  await steps[command]();
+} catch (error) {
+  console.error(error.message);
+  process.exit(1);
+}
