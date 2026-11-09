@@ -87,7 +87,7 @@ test('contradictory business evidence from an address lookup also resets an auto
 
 test('a manager confirmation during a city lookup takes precedence over the pending automatic result', async () => {
   const { dir } = await storeWhereAHoldsThePermit();
-  await matchLocationsToCity({ dir, client: {
+  await assert.rejects(matchLocationsToCity({ dir, client: {
     ...client([]),
     findSweetgreenEstablishments: async () => {
       // Another match run offers a candidate, and the manager confirms it while this lookup is pending.
@@ -95,7 +95,7 @@ test('a manager confirmation during a city lookup takes precedence over the pend
       await confirmMatch({ locationId: 'a', camis: '123', dir });
       return [{ ...permitAtA(), street: 'OTHER STREET' }];
     },
-  } });
+  } }), /changed during the city lookup/);
   const db = await readDb(dir);
   assert.equal(db.locations.a.confirmedByManager, true);
   assert.equal(db.locations.a.matchStatus, 'verified');
@@ -105,13 +105,13 @@ test('a manager confirmation during a city lookup takes precedence over the pend
 
 test('a newer automatic permit is not reset by a pending contradiction of the old permit', async () => {
   const { dir } = await storeWhereAHoldsThePermit();
-  await matchLocationsToCity({ dir, client: {
+  await assert.rejects(matchLocationsToCity({ dir, client: {
     ...client([]),
     findSweetgreenEstablishments: async () => {
       await matchLocationsToCity({ dir, client: client([permitAtA('456')]) });
       return [{ ...permitAtA(), street: 'OTHER STREET' }];
     },
-  } });
+  } }), /changed during the city lookup/);
   const db = await readDb(dir);
   assert.equal(db.locations.a.matchStatus, 'verified');
   assert.equal(db.locations.a.camis, '456');
@@ -121,13 +121,13 @@ test('a newer automatic permit is not reset by a pending contradiction of the ol
 for (const [street, zip] of [['999 Broadway', '10003'], ['870 Broadway', '10001']]) {
   test(`a directory change to ${street} ${zip} during matching cannot restore the old permit`, async () => {
     const { dir, cited } = await storeWhereAHoldsThePermit();
-    await matchLocationsToCity({ dir, client: {
+    await assert.rejects(matchLocationsToCity({ dir, client: {
       ...client([]),
       findSweetgreenEstablishments: async () => {
         await syncDirectory({ snapshot: { ...snapshot, locations: [listing('a', street, zip), snapshot.locations[1]] }, dir });
         return [permitAtA()];
       },
-    } });
+    } }), /changed during the city lookup/);
     const db = await readDb(dir);
     assert.equal(db.locations.a.street, street);
     assert.equal(db.locations.a.zip, zip);
@@ -138,6 +138,19 @@ for (const [street, zip] of [['999 Broadway', '10003'], ['870 Broadway', '10001'
     assert.equal(Object.values(db.followUps)[0].citationId, cited.id);
   });
 }
+
+test('an earlier verified lookup cannot overwrite a newer verified permit assignment', async () => {
+  const { dir } = await storeWhereAHoldsThePermit();
+  await assert.rejects(matchLocationsToCity({ dir, client: {
+    ...client([]),
+    findSweetgreenEstablishments: async () => {
+      await matchLocationsToCity({ dir, client: client([permitAtA('456')]) });
+      return [permitAtA('123')];
+    },
+  } }), /changed during the city lookup/);
+  assert.equal((await readDb(dir)).locations.a.camis, '456');
+  assert.equal((await readDb(dir)).locations.a.matchStatus, 'verified');
+});
 
 // A is verified automatically with permit 123 and has a follow-up on one of its citations.
 async function storeWhereAHoldsThePermit() {
