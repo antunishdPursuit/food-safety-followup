@@ -17,14 +17,14 @@ One storyline, on real data: a critical pest finding at one restaurant was cited
 | Time | Screen | You do | You say |
 | --- | --- | --- | --- |
 | 0:00 to 0:20 | Map and list | Show the 38 locations, the coverage line, and the last refresh date | "A food safety manager for a New York restaurant group has to connect public inspection findings to documented corrective action. This is Food Safety Follow-Up, built for sweetgreen's Senior Food Safety Manager role. All 38 New York restaurants are connected to their official city records." |
-| 0:20 to 0:38 | Click **Chambers St** | Scroll to the inspection history and the **Needs attention** cards | "Every record names its source. This is public NYC data: four inspections and 16 citations. The newest is a re-inspection on 29 July 2026, grade A, with three citations. The tool lists 20 items for review." |
-| 0:38 to 1:05 | Open the **Repeat code** flag for 04N | Show the two citations side by side | "Code 04N, filth flies, a critical violation, was cited on 14 July and again on 29 July, fifteen days apart. The tool marks the repeat. It does not say why it happened or whether anyone acted. That is for the manager." |
+| 0:20 to 0:38 | Click **Chambers St** | Scroll to the inspection history and the **Needs attention** cards | "Every record names its source. This is public NYC data: four inspections and 16 violations. The newest is a re-inspection on 29 July 2026, grade A, with three citations. The tool lists 20 items for review." |
+| 0:38 to 1:05 | Open the **Repeat code** flag for 04N | Show the two citations side by side | "Code 04N, filth flies, a critical violation, was cited on 14 July and again on 29 July, fifteen days apart. The tool marks the repeat, meaning the same code on two inspection dates. It does not say why it happened or whether anyone acted. That is for the manager." |
 | 1:05 to 1:25 | Same page, **Fictional demo check** | Click **Link records** | "This pest activity check is a fictional demo record, labeled as fictional. It names code 04N, so the tool suggests the link. A written rule suggests it; I decide. The records stay separate until I link them." |
 | 1:25 to 1:55 | Click **Create follow-up** | Owner: `Kitchen manager`. Due date: `2026-11-20`. Notes: `Pest control visit; re-check seals and drains; verify before the next inspection.` Status: Open. **Save follow-up** | "I record an owner, a due date, and the action. The owner is just a name. Nothing is sent to anyone. The item for that violation clears, from 20 items to 19, because it now has a corrective action." |
-| 1:55 to 2:15 | Open the follow-up, **Mark complete…** | Completion note: `Pest control completed; seals replaced; verified on a walkthrough.` Finish | "City data can never confirm a correction, so completion needs my note. The original finding stays visible, and the repeat marker stays, because a later inspection could cite the same violation again." |
+| 1:55 to 2:15 | Open the follow-up, **Mark complete…** | Completion note: `Pest control completed; seals replaced; verified on a walkthrough.` Finish | "City data never shows a correction, even when a restaurant cures a violation with the city, so completion needs my note. The original finding stays visible, and the repeat marker stays, because a later inspection could cite the same violation again." |
 | 2:15 to 2:30 | Back on the location | Pause on the location page | "One user, one workflow: public findings, labeled demo checks, and my decisions, in one place. A working model, with no access to sweetgreen's internal systems." |
 
-The narration is about 250 words, roughly 100 seconds at a relaxed 150 words a minute, which leaves about 50 seconds for clicking and typing. Speak while you type. If you run long, shorten the 0:38 beat first.
+The narration is about 265 words, roughly 105 seconds at a relaxed 150 words a minute, which leaves about 45 seconds for clicking and typing. Speak while you type. If you run long, shorten the 0:38 beat first.
 
 ## Real numbers to have in mind (2026-11-09)
 
@@ -33,6 +33,8 @@ The narration is about 250 words, roughly 100 seconds at a relaxed 150 words a m
 - Chambers St: 125 Chambers St, permit 50091763, 4 inspections, 16 citations, 20 flags (16 needs review, 4 repeat). The repeat codes are 04N and 08A (14 and 29 July 2026), 02B (2024 and 2026), and 10F (2024 and 2025).
 - Code 04N appears at 13 locations. Code 10F appears at 35 of the 38.
 - Across all locations: 316 flags, of which 45 are repeat flags at 25 locations.
+- Of the 271 citations: 17 use administrative codes that the city does not score (calorie posting 16-03, 16-04, and 16-06; straws 19-07; the healthy-eating poster 20-08); 64 are code 10F, a broad upkeep code; and up to 99 carry codes that a restaurant can cure (10F, 10B, 09C, 08B, 20-08), an upper bound, because the data cannot show which were cured.
+- All 118 inspections have at least one violation. That is normal: only 0.3 percent of New York cycle initial inspections in the last 12 months had none, and none of the 41 Sweetgreen-named permits has one. The inspection pace also matches the city's: the median is two cycle initial inspections per restaurant in three years, here and citywide.
 
 ## Say, and do not say
 
@@ -41,6 +43,10 @@ The narration is about 250 words, roughly 100 seconds at a relaxed 150 words a m
 - Do not say "needs review" means nobody acted. It means no follow-up is linked in this prototype.
 - Do not say the app uses AI. It applies written rules.
 - Do not claim it improves anything yet. The hypothesis is untested and no baseline has been measured.
+- Say "violations" for what the city recorded, never "points" or "severity". The data has the code and a critical flag, and nothing about how serious each violation was.
+- Say "repeat" only with its meaning: the same code on a different inspection date. It is our rule, not the city's.
+- Do not call 04N a public health hazard. The city classes it as critical, which is a different class.
+- Do not say a cure or a completed follow-up means the problem is gone. Both show only what someone recorded.
 
 ## If something goes wrong
 
@@ -77,3 +83,8 @@ curl -s -X PATCH localhost:3000/api/follow-ups/FOLLOW-UP-ID -H 'content-type: ap
 - **What if the city service is down?** It was, for stretches on 2026-11-09. A failed refresh keeps the stored records, and follow-ups stay available.
 - **Why not close findings automatically?** City data cannot show that a correction happened. Only the manager can, with a note.
 - **What is next?** Test with a real food safety manager against a measured baseline, then add durable storage and protected sign-in before any public use.
+- **What does "repeat" mean?** The same violation code on a different inspection date at one restaurant. It is our rule. The city's own repeat penalties apply only to certain non-food-safety codes, such as plastic straws and tobacco.
+- **Can the city data show a violation was fixed?** No. A restaurant can "cure" a first-time violation by sending proof within 7 days, but the violation stays on the public record and no score or grade changes. Only the manager's note shows a correction.
+- **Why is code 10F at almost every restaurant?** Since 2020 the city files general upkeep problems under 10F, such as dirty or damaged floors, walls, and equipment, and also conditions that invite pests when no pests are seen. It is a broad code, so it says little about any one restaurant.
+- **Why are there no clean inspections?** Almost no New York cycle inspection finds zero violations: 0.3 percent in the last 12 months. None of the 41 Sweetgreen-named permits or 98 salad restaurants had one either.
+- **How well does the matching work?** Run fresh on all 38, the rule alone verified 29 and every one agreed with the final match. The other 9 were offered with the right permit ranked first, and a person confirmed them. An independent building check agrees for 33 of the 37 locations it could test. Hudson Yards and NoMad still need a manual check, because their page address and permit address are in different buildings.
