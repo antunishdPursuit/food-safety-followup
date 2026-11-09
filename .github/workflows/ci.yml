@@ -1,0 +1,42 @@
+name: CI
+
+# A fast signal on every pull request. It is not a required check: nothing here blocks a merge.
+# It never runs the live city or Sweetgreen lookups (npm run data:* and seed:* stay manual), and it has
+# no linting, browser tests, or deployment.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 20.10 is the oldest version the README promises; lts/* is the current long-term-support release.
+        node: ['20.10', 'lts/*']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+  audit:
+    runs-on: ubuntu-latest
+    # Reported, never blocking: an advisory in a dependency should be seen, not stop an unrelated change.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm audit --audit-level=high
