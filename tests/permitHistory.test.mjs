@@ -4,7 +4,7 @@ import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
-import { createFollowUp } from '../lib/server/mutations.js';
+import { createFollowUp, setCheckLink, updateFollowUp } from '../lib/server/mutations.js';
 import { getLocationDetail, listLocations } from '../lib/server/service.js';
 import { readDb, updateDb } from '../lib/server/store.js';
 
@@ -95,6 +95,53 @@ test('the old match cannot come back until the new address is verified', async (
   await matchLocationsToCity({ client: client([permit('1')], []), dir });
   assert.equal((await readDb(dir)).locations['union-square'].matchStatus, 'unverified');
   assert.equal((await refreshInspections({ client: client([permit('1')], []), dir })).skipped, true);
+});
+
+// Regression: after a permit change the detail view showed no suggestion, but the link request, sent without a
+// citation id, still searched history and could pick the old permit's citation.
+async function storeWithCheckAfterPermitChange() {
+  const { dir, cited } = await storeWithFollowUp();
+  await updateDb((db) => {
+    db.internalChecks.k1 = { id: 'k1', locationId: 'union-square', date: '2026-10-20', type: 'Audit', source: 'Fictional demo check', note: 'Fictional.', citationCode: '06D' };
+  }, dir);
+  const before = await getLocationDetail('union-square', { dir });
+  assert.equal(before.internalChecks[0].suggestedCitationId, cited.id, 'before the change the code points at the current citation');
+  await matchLocationsToCity({ client: client([permit('2')], [row('2', '2026-11-01', '08A')]), dir });
+  return { dir, cited };
+}
+
+test('after a permit change a link request without a citation id cannot pick the old permit’s citation', async () => {
+  const { dir } = await storeWithCheckAfterPermitChange();
+  const detail = await getLocationDetail('union-square', { dir });
+  assert.equal(detail.internalChecks[0].suggestedCitationId, undefined, 'the detail view suggests nothing');
+  await assert.rejects(setCheckLink('k1', { decision: 'linked' }, { dir }), (error) => error.status === 422 && error.fields.citationId === 'Choose the citation to link.');
+  assert.equal((await readDb(dir)).links.k1, undefined, 'nothing was saved');
+  const dismissed = await setCheckLink('k1', { decision: 'dismissed' }, { dir });
+  assert.equal(dismissed.link.citationId, null, 'a dismissal does not record a history citation either');
+});
+
+test('after a permit change a history citation cannot be chosen explicitly for a link or a new follow-up', async () => {
+  const { dir, cited } = await storeWithCheckAfterPermitChange();
+  const message = 'This finding is history from a previous permit and cannot be used for new work.';
+  await assert.rejects(setCheckLink('k1', { decision: 'linked', citationId: cited.id }, { dir }), (error) => error.fields.citationId === message);
+  await assert.rejects(
+    createFollowUp({ locationId: 'union-square', citationId: cited.id, owner: 'Manager', dueDate: '2026-12-02', notes: 'Another action.' }, { dir }),
+    (error) => error.status === 422 && error.fields.citationId === message,
+  );
+  // The follow-up made before the change is untouched and can still be edited.
+  const { followUps } = await getLocationDetail('union-square', { dir });
+  assert.equal(followUps.length, 1);
+  assert.equal((await updateFollowUp(followUps[0].id, { notes: 'Edited after the permit change.' }, { dir })).notes, 'Edited after the permit change.');
+});
+
+test('a current citation can still be linked and followed up after a permit change', async () => {
+  const { dir } = await storeWithCheckAfterPermitChange();
+  await refreshInspections({ client: client([permit('2')], [row('2', '2026-11-01', '08A')]), dir });
+  await updateDb((db) => { db.internalChecks.k2 = { id: 'k2', locationId: 'union-square', date: '2026-11-02', type: 'Audit', source: 'Fictional demo check', note: 'Fictional.', citationCode: '08A' }; }, dir);
+  const linked = await setCheckLink('k2', { decision: 'linked' }, { dir });
+  assert.match(linked.link.citationId, /--08A$/, 'the explicit code resolves to the new permit’s citation');
+  const followUp = await createFollowUp({ locationId: 'union-square', citationId: linked.link.citationId, owner: 'Manager', dueDate: '2026-12-03', notes: 'Act on the current finding.' }, { dir });
+  assert.equal(followUp.status, 'Open');
 });
 
 test('a change in capitalization or abbreviation is not a new address', async () => {
