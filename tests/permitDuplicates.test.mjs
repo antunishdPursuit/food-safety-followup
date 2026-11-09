@@ -19,7 +19,8 @@ const holdersOf = async (dir, camis) => Object.values((await readDb(dir)).locati
 
 test('retained automatic permits are not offered to other locations, while free candidates remain confirmable', async () => {
   const { dir } = await storeWhereAHoldsThePermit();
-  const changed = { ...permitAtB(), dba: 'SWEETGREEN', street: 'WASHINGTON AVENUE' };
+  await updateDb((db) => { db.locations.b.listedPhone = '2125550100'; }, dir);
+  const changed = { camis: '123', dba: 'SWEETGREEN', phone: '2125550100' };
   const summary = await matchLocationsToCity({ client: client([changed]), dir });
   const db = await readDb(dir);
   assert.deepEqual(await holdersOf(dir, '123'), ['a']);
@@ -37,7 +38,8 @@ test('retained automatic permits are not offered to other locations, while free 
 
 test('a held named permit does not hide a free differently named address candidate', async () => {
   const { dir } = await storeWhereAHoldsThePermit();
-  const held = { ...permitAtB(), street: 'WASHINGTON AVENUE' };
+  await updateDb((db) => { db.locations.b.listedPhone = '2125550100'; }, dir);
+  const held = { camis: '123', dba: 'SWEETGREEN', phone: '2125550100' };
   const free = { ...permitAtB('456'), dba: 'OTHER BUSINESS' };
   await matchLocationsToCity({ client: client([held, free]), dir });
   assert.deepEqual((await readDb(dir)).locations.b.candidates.map((item) => item.camis), ['456']);
@@ -48,15 +50,72 @@ test('a held named permit does not hide a free differently named address candida
 
 test('held permits do not fill the candidate limit ahead of a free named permit', async () => {
   const { dir } = await storeWhereAHoldsThePermit();
-  const held = Array.from({ length: 5 }, (_, index) => ({ ...permitAtB(`00${index}`), street: 'WASHINGTON AVENUE' }));
+  const held = Array.from({ length: 5 }, (_, index) => ({ camis: `00${index}`, dba: 'SWEETGREEN', phone: '2125550100' }));
   await updateDb((db) => {
+    db.locations.b.listedPhone = '2125550100';
     for (const permit of held) db.locations[`holder-${permit.camis}`] = { id: `holder-${permit.camis}`, matchStatus: 'verified', camis: permit.camis, candidates: [] };
   }, dir);
-  const free = { ...permitAtB('999'), street: 'WASHINGTON AVENUE' };
+  const free = { camis: '999', dba: 'SWEETGREEN', phone: '2125550100' };
   await matchLocationsToCity({ client: client([...held, free]), dir });
   assert.deepEqual((await readDb(dir)).locations.b.candidates.map((item) => item.camis), ['999']);
   await confirmMatch({ locationId: 'b', camis: '999', dir });
   assert.deepEqual(await holdersOf(dir, '999'), ['b']);
+});
+
+for (const [field, value] of [['street', 'OTHER STREET'], ['building', '999'], ['zipcode', '10001'], ['dba', 'OTHER BUSINESS']]) {
+  test(`an automatic match contradicted by returned ${field} data is reset with follow-up history preserved`, async () => {
+    const { dir, cited } = await storeWhereAHoldsThePermit();
+    const changed = { ...permitAtA(), [field]: value };
+    await matchLocationsToCity({ client: client([changed]), dir });
+    const db = await readDb(dir);
+    assert.notEqual(db.locations.a.matchStatus, 'verified');
+    assert.equal(db.locations.a.camis, null);
+    assert.equal(db.locations.a.lastRefreshed, null);
+    assert.equal(db.inspections.a[0].previousPermit, true);
+    assert.equal(Object.values(db.followUps)[0].citationId, cited.id);
+  });
+}
+
+test('contradictory business evidence from an address lookup also resets an automatic match', async () => {
+  const { dir } = await storeWhereAHoldsThePermit();
+  await matchLocationsToCity({ dir, client: {
+    ...client([]),
+    findEstablishmentsAtAddress: async (zip, building) => zip === '10003' && building === '870' ? [{ ...permitAtA(), dba: 'OTHER BUSINESS' }] : [],
+  } });
+  assert.notEqual((await readDb(dir)).locations.a.matchStatus, 'verified');
+});
+
+test('a manager confirmation during a city lookup takes precedence over the pending automatic result', async () => {
+  const { dir } = await storeWhereAHoldsThePermit();
+  await matchLocationsToCity({ dir, client: {
+    ...client([]),
+    findSweetgreenEstablishments: async () => {
+      // Another match run offers a candidate, and the manager confirms it while this lookup is pending.
+      await updateDb((db) => { Object.assign(db.locations.a, { matchStatus: 'candidate', candidates: [{ camis: '123', coordinates: null }] }); }, dir);
+      await confirmMatch({ locationId: 'a', camis: '123', dir });
+      return [{ ...permitAtA(), street: 'OTHER STREET' }];
+    },
+  } });
+  const db = await readDb(dir);
+  assert.equal(db.locations.a.confirmedByManager, true);
+  assert.equal(db.locations.a.matchStatus, 'verified');
+  assert.equal(db.locations.a.camis, '123');
+  assert.notEqual(db.inspections.a[0].previousPermit, true);
+});
+
+test('a newer automatic permit is not reset by a pending contradiction of the old permit', async () => {
+  const { dir } = await storeWhereAHoldsThePermit();
+  await matchLocationsToCity({ dir, client: {
+    ...client([]),
+    findSweetgreenEstablishments: async () => {
+      await matchLocationsToCity({ dir, client: client([permitAtA('456')]) });
+      return [{ ...permitAtA(), street: 'OTHER STREET' }];
+    },
+  } });
+  const db = await readDb(dir);
+  assert.equal(db.locations.a.matchStatus, 'verified');
+  assert.equal(db.locations.a.camis, '456');
+  assert.equal(db.locations.a.lastRefreshed, null);
 });
 
 // A is verified automatically with permit 123 and has a follow-up on one of its citations.
