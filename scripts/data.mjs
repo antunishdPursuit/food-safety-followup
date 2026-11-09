@@ -4,6 +4,7 @@
 //   npm run data:confirm -- <locationId> <camis>   choose one of a location's candidate permits
 //   npm run data:import    refresh inspection records for verified locations
 //   npm run data:status    show coverage, freshness, and candidates needing a decision
+import { readFile } from 'node:fs/promises';
 import { dataDir } from '../lib/server/config.js';
 import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
 import { createNycClient } from '../lib/server/nyc.js';
@@ -31,7 +32,10 @@ async function status() {
 }
 
 const steps = {
-  sync: async () => console.log(await syncDirectory({ dir })),
+  sync: async () => {
+    const snapshot = JSON.parse(await readFile(new URL('../data/sweetgreen-nyc-locations.json', import.meta.url), 'utf8'));
+    console.log(await syncDirectory({ snapshot, dir }));
+  },
   match: async () => console.log(await matchLocationsToCity({ client: createNycClient(), dir })),
   import: async () => {
     const result = await refreshInspections({ client: createNycClient(), dir });
