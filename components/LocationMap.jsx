@@ -19,6 +19,8 @@ export default function LocationMap({ locations, selectedId, onSelect }) {
         maxZoom: 18,
       }).addTo(map.current);
       markers = L.layerGroup().addTo(map.current);
+      const positions = locations.filter((location) => location.coordinates).map((location) => location.coordinates);
+      if (positions.length) map.current.fitBounds(positions, { padding: [24, 24], maxZoom: 13 });
       locations.filter((location) => location.coordinates).forEach((location) => {
         const selected = location.id === selectedId;
         const marker = L.circleMarker(location.coordinates, {
@@ -26,7 +28,9 @@ export default function LocationMap({ locations, selectedId, onSelect }) {
           color: '#FFFDFA', weight: 3,
           fillColor: selected ? '#0E5A6B' : '#1C1B19', fillOpacity: 1,
         }).addTo(markers);
-        marker.bindTooltip(location.name);
+        const label = document.createElement('span');
+        label.textContent = `${location.name} · ${location.isSample ? 'Sample location' : location.matchStatus === 'verified' ? 'Verified match' : 'Inspection match unverified'}`;
+        marker.bindTooltip(label);
         marker.on('click', () => selectRef.current(location.id));
       });
     });

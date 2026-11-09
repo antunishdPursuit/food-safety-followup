@@ -16,11 +16,10 @@ export default function LocationsPage() {
       <div><p className="eyebrow">NYC REGION · WORKSPACE</p><h1>Stay ahead of every follow-up.</h1><p>Choose a location to review its findings, compare sources, and record the next step.</p></div>
       <div className="intro-meta"><span>Data connection</span><strong>{importStatus.state === 'ok' ? 'Imported city data' : importStatus.state === 'not-connected' ? 'Sample mode' : importStatus.state}</strong><small>Last successful refresh: {importStatus.lastSuccess ? new Date(importStatus.lastSuccess).toLocaleString() : 'unavailable'}</small></div>
     </section>
-    {importStatus.state !== 'ok' && importStatus.state !== 'not-connected' && <p className="source-note" role="status">City import: {importStatus.state}. {importStatus.error || 'Stored records remain available; review their refresh dates.'}</p>}
     <section className="overview" aria-labelledby="locations-title">
       <div className="section-heading"><div><h2 id="locations-title">Locations</h2><p>{locations.length} locations · {importStatus.coverage}</p></div><Badge kind="review">{importStatus.coverage}</Badge></div>
       <div className="overview-grid">
-        <div className="location-list" aria-label="NYC locations">{!locations.length && <p className="empty-state">No locations loaded. Import the saved directory to begin.</p>}
+        <div className="location-list" role="region" tabIndex="0" aria-label="NYC locations">{!locations.length && <p className="empty-state">No locations loaded. Import the saved directory to begin.</p>}
           {locations.map((location) => <Link className="location-row" href={`/locations/${location.id}`} key={location.id}>
             <span className="location-main"><strong>{location.name}</strong><small>{location.address}</small><span className="row-meta"><span>{location.citationCount === null ? (location.matchStatus !== 'verified' ? 'Inspection match unverified' : location.dataState === 'not-imported' ? 'Not imported' : 'No inspection records') : `${location.citationCount} ${location.isSample ? 'sample ' : ''}citations`}</span><span>{location.openFollowUpCount} open follow-ups</span></span></span>
             <span className="row-end" aria-hidden="true">View</span>

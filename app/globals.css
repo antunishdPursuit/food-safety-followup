@@ -13,6 +13,8 @@ html{scroll-behavior:auto}
 .record-meta{font-size:.875rem!important}
 .form-disclaimer{font-size:.8125rem}
 .summary-strip,.location-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:0 0 2.5rem}
+.location-list{max-height:32rem;overflow-y:auto;scrollbar-gutter:stable}
+@media(max-width:850px){.location-list{max-height:24rem}}
 .summary-strip>div,.location-metrics>div{display:flex;flex-direction:column;gap:.2rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem}
 .summary-strip strong,.location-metrics strong{font-size:1.1rem}
 .summary-strip span,.location-metrics span{color:var(--muted);font-size:.82rem}
