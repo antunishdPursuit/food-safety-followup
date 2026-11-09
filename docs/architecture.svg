@@ -5,12 +5,6 @@
 <rect width="1600" height="900" fill="#ffffff"/>
 <text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" text-anchor="start" fill="#111827">Food Safety Follow-Up: how a finding reaches the manager</text>
 <text x="40" y="88" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" text-anchor="start" fill="#374151">Public pages and city data are matched and imported by the backend. The manager alone confirms matches, judges findings, and closes follow-ups.</text>
-<rect x="1090" y="14" width="22" height="14" rx="3" fill="#e8f0fe" stroke="#1a56db" stroke-width="2"/>
-<text x="1122" y="26" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">public source</text>
-<rect x="1090" y="36" width="22" height="14" rx="3" fill="#fff4e0" stroke="#c76a00" stroke-width="2"/>
-<text x="1122" y="48" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">fictional, labeled</text>
-<rect x="1090" y="58" width="22" height="14" rx="3" fill="#e9f7ef" stroke="#1e8e5a" stroke-width="2" stroke-dasharray="8 6"/>
-<text x="1122" y="70" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">manager decision</text>
 <rect x="20" y="118" width="1560" height="150" rx="8" fill="#f8f9fb"/>
 <text x="40" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#475569">SOURCES</text>
 <rect x="20" y="278" width="1560" height="150" rx="8" fill="#f1f3f7"/>
@@ -112,4 +106,10 @@
 <text x="1080" y="816" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">Dashed boxes are the only places a person</text>
 <text x="1080" y="837" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">changes what the app believes.</text>
 <text x="40" y="872" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#4b5563">Live data, 2026-11-09: 38 of 38 locations verified, 118 inspections, 271 citations (npm run data:status).</text>
+<rect x="1408" y="788" width="22" height="14" rx="3" fill="#e8f0fe" stroke="#1a56db" stroke-width="2"/>
+<text x="1440" y="800" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">public source</text>
+<rect x="1408" y="810" width="22" height="14" rx="3" fill="#fff4e0" stroke="#c76a00" stroke-width="2"/>
+<text x="1440" y="822" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">fictional, labeled</text>
+<rect x="1408" y="832" width="22" height="14" rx="3" fill="#e9f7ef" stroke="#1e8e5a" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="1440" y="844" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">manager decision</text>
 </svg>
