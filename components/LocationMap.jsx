@@ -33,5 +33,5 @@ export default function LocationMap({ locations, selectedId, onSelect }) {
     return () => { cancelled = true; map.current?.remove(); map.current = null; };
   }, [locations, selectedId]);
 
-  return <div className="map" ref={host} role="img" aria-label="Map of sample NYC locations. Use the complete location list beside the map for keyboard navigation." />;
+  return <div className="map" ref={host} role="img" aria-label="Map of NYC locations. Use the complete location list beside the map for keyboard navigation." />;
 }

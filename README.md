@@ -4,27 +4,27 @@ Food Safety Follow-Up is a course prototype for a food safety manager overseeing
 
 The workflow starts with a map and matching location list. The manager opens a restaurant's inspection history, reviews citations and repeated violation codes, compares supporting records, and records an action with an owner, due date, and notes. Completing a follow-up requires an explicit manager decision and a completion note; city inspection data alone cannot confirm that a correction occurred.
 
-The project is based on the [sweetgreen Senior Food Safety Manager job description](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701), which includes reviewing sanitation violations and driving documented corrective action in the NYC Region. This independent course project is not affiliated with sweetgreen and has no access to its internal systems or records. The scope and requirements are in [PRD.md](PRD.md); the preview's data limits are described below.
+The project is based on the [sweetgreen Senior Food Safety Manager job description](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701), which includes reviewing sanitation violations and driving documented corrective action in the NYC Region. This independent course project is not affiliated with sweetgreen and has no access to its internal systems or records. The scope and requirements are in [PRD.md](PRD.md); the app's data limits are described below.
 
-## Run the interface preview
+## Run the app
 
 Use Node.js 20.10 or newer. Run `npm install`, then `npm run dev`, and open `http://localhost:3000`. Run `npm test` and `npm run build` for the current checks.
 
-The interface currently uses labeled sample locations, public-data fixtures, and fictional internal checks. Follow-up edits are held only in the browser session and reset on refresh. The live NYC import, verified CAMIS matching, and persistent follow-up API now exist as the [backend API](#backend-api) below, but the screens are not connected to it yet. The preview does not report current inspection results or confirm corrective action.
+The screens read the [backend API](#backend-api). In the default mode, import the saved NYC directory and city records using `npm run data:sync`, `npm run data:match`, then `npm run data:import`. These commands use the saved directory and NYC Open Data; refreshing the Sweetgreen directory is not required. Candidate permit matches remain unverified until a manager confirms them. The screens show match coverage, source labels, and refresh dates. City records do not confirm corrective action.
 
-The frontend imports its location and detail responses from [`data/preview.json`](data/preview.json) through `lib/fixtures.js`. This bundled file has the same `locationsResponse` and `detailResponses` shape used by the screens. It contains fictional records today. When the verified city export arrives, check each location and CAMIS match, preserve the response shape, and replace the file and sample-specific UI labels together. A bundled file is a snapshot; it does not refresh itself or save follow-up changes.
+For an offline demonstration, run `npm run dev:sample` instead. It serves the labeled fictional records from [`data/preview.json`](data/preview.json) through a separate API store in `.data-sample/`. The default city-data store is `.data/`; neither store is committed. Follow-up creation, edits, completion notes, and internal-check link decisions are saved on the server and survive browser refresh. `npm run seed:sample` resets the sample store, including its saved actions. An empty default store shows no locations until the import steps are run.
 
-The frontend includes separate location list/map, location detail, record comparison, follow-up create/edit, and completion-dialog screens. The list and map use the same location IDs. Sample inspections include both a no-violation result and a missing-data state so they are not confused. The ERD and connecting the screens to the API are separate team work.
+The frontend includes location list/map, location detail, record comparison, follow-up create/edit, and completion-dialog screens. Pins and rows use the same location IDs. The API supplies flags and counts; findings retained as history remain visible without offering new actions. Missing inspection data is distinct from a no-violation inspection. Internal checks are unavailable unless fictional demo records have explicitly been seeded; the app has no company internal data.
 
 The [concept images](Production/Product%20Concepts) illustrate possible screens. Their locations, findings, counts, and dates are sample values, not verified inspection results.
 
 ## Backend API
 
-The backend is a set of Next.js Route Handlers in `app/api` over a small server library in `lib/server`. It builds the NYC Sweetgreen list from the public locations page, verifies each location's NYC Open Data CAMIS permit by address, imports public inspection records, applies the flag rules, and saves manager follow-ups. The screens do not call it yet; the response shapes extend the ones in `data/preview.json`, so connecting them is a swap, not a redesign.
+The backend is a set of Next.js Route Handlers in `app/api` over a small server library in `lib/server`. It builds the NYC Sweetgreen list from the public locations page, verifies each location's NYC Open Data CAMIS permit by address, imports public inspection records, applies the flag rules, and saves manager follow-ups. The screens call these endpoints for records and saved actions. Their response shapes extend the sample contract in `data/preview.json`.
 
 ### Set up the live data
 
-Run these in order. Each step is safe to repeat. The city service can be slow (one lookup took 45 seconds) and sometimes returns "service unavailable"; the client waits up to 90 seconds and retries, and a failed run changes nothing.
+The existing directory is included in the repository; start with `data:sync`, then `data:match`, review candidates with `data:status`, and run `data:import` for verified matches. Directory refresh and fictional demo seeding are optional. The city service can be slow (one lookup took 45 seconds) and sometimes returns "service unavailable"; the client waits up to 90 seconds and retries, and a failed run changes nothing.
 
 | Command | What it does |
 | --- | --- |
