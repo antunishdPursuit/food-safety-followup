@@ -129,6 +129,12 @@ test('a manager-confirmed candidate becomes verified and survives later automati
   assert.equal(locations.dumbo.confirmedByManager, true);
 });
 
+test('a permit cannot be confirmed for a second location', async () => {
+  const dir = await preparedStore();
+  await updateDb((db) => { db.locations.nolita.candidates = [{ camis: '50001', dba: 'SWEETGREEN', coordinates: null }]; db.locations.nolita.matchStatus = 'candidate'; }, dir);
+  await assert.rejects(confirmMatch({ locationId: 'nolita', camis: '50001', dir }), /already matched to union-square/);
+});
+
 test('a verified location is not downgraded, and keeps its records, when a later lookup finds less', async () => {
   const dir = await preparedStore();
   await refreshInspections({ client: fakeClient(), dir });

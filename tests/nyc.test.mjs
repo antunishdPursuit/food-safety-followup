@@ -48,6 +48,13 @@ test('large results are read page by page', async () => {
   assert.equal((await client.fetchInspectionRows(['1'])).length, 5001);
 });
 
+test('the name lookup asks for each permit’s phone number so it can be compared with the location page', async () => {
+  let asked = '';
+  const client = createNycClient({ fetchImpl: async (url) => { asked = String(url); return reply(200, [])(); }, wait: noWait });
+  await client.findSweetgreenEstablishments();
+  assert.match(decodeURIComponent(asked), /\$select=[^&]*\bphone\b/);
+});
+
 test('one establishment per CAMIS is kept, using its most recent record', async () => {
   const rows = [
     { camis: '1', dba: 'SWEETGREEN', building: '870', record_date: '2026-11-01' },
