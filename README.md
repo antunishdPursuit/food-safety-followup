@@ -34,7 +34,7 @@ Run these in order. Each step is safe to repeat. The city service can be slow (o
 | `npm run data:import` | Imports inspection records for verified locations. Re-importing yields the same records and ids. If the city request fails, stored records and follow-ups stay as they were and the error is recorded. |
 | `npm run seed:demo` | Adds two fictional checks to up to three verified locations that have city citations: one that names the code of the location's most recent citation (called a temperature or pest check when that citation's description says so, otherwise an audit) and a walkthrough with no citation. Both say they are fictional. |
 
-To try the whole contract without city data, run `npm run seed:sample` and `npm run dev:sample`. That loads the labeled fixture into `.data-sample/`, never into the live store. `.env.example` lists the settings; none is required.
+To try the whole contract without city data, run `npm run dev:sample`. It creates the labeled sample store in `.data-sample/` when it is missing, never in the live store, and starts the app on it. `npm run seed:sample` rebuilds that store. The commands are written in Node, without Unix-only shell syntax, so they work in Windows shells too (a test guards this). `.env.example` lists the settings; none is required.
 
 ### Endpoints
 
