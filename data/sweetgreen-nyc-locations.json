@@ -1,0 +1,350 @@
+{
+  "source": "Sweetgreen public locations page. Names and addresses only; not inspection or internal safety data.",
+  "sourceUrl": "https://www.sweetgreen.com/locations",
+  "fetchedAt": "2026-11-09T16:22:19.078Z",
+  "count": 38,
+  "locations": [
+    {
+      "id": "12th-university",
+      "name": "Sweetgreen 12th + University",
+      "street": "101 University Pl",
+      "locality": "New York",
+      "zip": "10003",
+      "address": "101 University Pl, New York, NY 10003",
+      "sourceUrl": "https://www.sweetgreen.com/locations/12th-university"
+    },
+    {
+      "id": "23rd-park",
+      "name": "Sweetgreen 23rd + Park",
+      "street": "27 East 23rd Street",
+      "locality": "New York",
+      "zip": "10010",
+      "address": "27 East 23rd Street, New York, NY 10010",
+      "sourceUrl": "https://www.sweetgreen.com/locations/23rd-park"
+    },
+    {
+      "id": "32nd-park",
+      "name": "Sweetgreen 32nd + Park",
+      "street": "2 Park Ave",
+      "locality": "New York",
+      "zip": "10016",
+      "address": "2 Park Ave, New York, NY 10016",
+      "sourceUrl": "https://www.sweetgreen.com/locations/32nd-park"
+    },
+    {
+      "id": "38th-broadway",
+      "name": "Sweetgreen 38th + Broadway",
+      "street": "1384 Broadway",
+      "locality": "New York",
+      "zip": "10018",
+      "address": "1384 Broadway, New York, NY 10018",
+      "sourceUrl": "https://www.sweetgreen.com/locations/38th-broadway"
+    },
+    {
+      "id": "44th-3rd",
+      "name": "Sweetgreen 44th + 3rd",
+      "street": "155 East 44th Street",
+      "locality": "New York",
+      "zip": "10017",
+      "address": "155 East 44th Street, New York, NY 10017",
+      "sourceUrl": "https://www.sweetgreen.com/locations/44th-3rd"
+    },
+    {
+      "id": "52nd-lex",
+      "name": "Sweetgreen 52nd + Lex",
+      "street": "599 Lexington Ave",
+      "locality": "New York",
+      "zip": "10022",
+      "address": "599 Lexington Ave, New York, NY 10022",
+      "sourceUrl": "https://www.sweetgreen.com/locations/52nd-lex"
+    },
+    {
+      "id": "55th-park",
+      "name": "Sweetgreen 55th + Park",
+      "street": "60 E 55th St",
+      "locality": "New York",
+      "zip": "10022",
+      "address": "60 E 55th St, New York, NY 10022",
+      "sourceUrl": "https://www.sweetgreen.com/locations/55th-park"
+    },
+    {
+      "id": "56th-broadway",
+      "name": "Sweetgreen 56th + Broadway",
+      "street": "1740 Broadway",
+      "locality": "New York",
+      "zip": "10019",
+      "address": "1740 Broadway, New York, NY 10019",
+      "sourceUrl": "https://www.sweetgreen.com/locations/56th-broadway"
+    },
+    {
+      "id": "61st-lex",
+      "name": "Sweetgreen 61st + Lex",
+      "street": "137 East 61st Street",
+      "locality": "New York",
+      "zip": "10065",
+      "address": "137 East 61st Street, New York, NY 10065",
+      "sourceUrl": "https://www.sweetgreen.com/locations/61st-lex"
+    },
+    {
+      "id": "67th-columbus",
+      "name": "Sweetgreen 67th + Columbus",
+      "street": "159 Columbus Ave",
+      "locality": "New York",
+      "zip": "10023",
+      "address": "159 Columbus Ave, New York, NY 10023",
+      "sourceUrl": "https://www.sweetgreen.com/locations/67th-columbus"
+    },
+    {
+      "id": "71st-1st",
+      "name": "Sweetgreen 71st + 1st",
+      "street": "1321 1st Ave",
+      "locality": "New York",
+      "zip": "10021",
+      "address": "1321 1st Ave, New York, NY 10021",
+      "sourceUrl": "https://www.sweetgreen.com/locations/71st-1st"
+    },
+    {
+      "id": "85th-3rd",
+      "name": "Sweetgreen 85th + 3rd",
+      "street": "1500 3rd Ave",
+      "locality": "New York",
+      "zip": "10028",
+      "address": "1500 3rd Ave, New York, NY 10028",
+      "sourceUrl": "https://www.sweetgreen.com/locations/85th-3rd"
+    },
+    {
+      "id": "91st-broadway",
+      "name": "Sweetgreen 91st + Broadway",
+      "street": "2460 Broadway",
+      "locality": "New York",
+      "zip": "10025",
+      "address": "2460 Broadway, New York, NY 10025",
+      "sourceUrl": "https://www.sweetgreen.com/locations/91st-broadway"
+    },
+    {
+      "id": "bowery",
+      "name": "Sweetgreen Bowery",
+      "street": "347 Bowery Ave",
+      "locality": "New York",
+      "zip": "10003",
+      "address": "347 Bowery Ave, New York, NY 10003",
+      "sourceUrl": "https://www.sweetgreen.com/locations/bowery"
+    },
+    {
+      "id": "bryant-park",
+      "name": "Sweetgreen Bryant Park",
+      "street": "1114 6th Avenue",
+      "locality": "New York",
+      "zip": "10036",
+      "address": "1114 6th Avenue, New York, NY 10036",
+      "sourceUrl": "https://www.sweetgreen.com/locations/bryant-park"
+    },
+    {
+      "id": "chambers-st",
+      "name": "Sweetgreen Chambers St",
+      "street": "125 Chambers St",
+      "locality": "New York",
+      "zip": "10007",
+      "address": "125 Chambers St, New York, NY 10007",
+      "sourceUrl": "https://www.sweetgreen.com/locations/chambers-st"
+    },
+    {
+      "id": "columbia-u",
+      "name": "Sweetgreen Columbia U",
+      "street": "2937 Broadway",
+      "locality": "New York",
+      "zip": "10025",
+      "address": "2937 Broadway, New York, NY 10025",
+      "sourceUrl": "https://www.sweetgreen.com/locations/columbia-u"
+    },
+    {
+      "id": "court-atlantic",
+      "name": "Sweetgreen Court + Atlantic",
+      "street": "127 Court St",
+      "locality": "Brooklyn",
+      "zip": "11201",
+      "address": "127 Court St, Brooklyn, NY 11201",
+      "sourceUrl": "https://www.sweetgreen.com/locations/court-atlantic"
+    },
+    {
+      "id": "downtown-brooklyn",
+      "name": "Sweetgreen Downtown Brooklyn",
+      "street": "106 Willoughby Street",
+      "locality": "Brooklyn",
+      "zip": "11201",
+      "address": "106 Willoughby Street, Brooklyn, NY 11201",
+      "sourceUrl": "https://www.sweetgreen.com/locations/downtown-brooklyn"
+    },
+    {
+      "id": "dumbo",
+      "name": "Sweetgreen DUMBO",
+      "street": "50 Washington St",
+      "locality": "Brooklyn",
+      "zip": "11201",
+      "address": "50 Washington St, Brooklyn, NY 11201",
+      "sourceUrl": "https://www.sweetgreen.com/locations/dumbo"
+    },
+    {
+      "id": "forest-hills",
+      "name": "Sweetgreen Forest Hills",
+      "street": "106-24 71st Avenue",
+      "locality": "Forest Hills",
+      "zip": "11375",
+      "address": "106-24 71st Avenue, Forest Hills, NY 11375",
+      "sourceUrl": "https://www.sweetgreen.com/locations/forest-hills"
+    },
+    {
+      "id": "grand-central",
+      "name": "Sweetgreen Grand Central",
+      "street": "230 Park Avenue",
+      "locality": "New York",
+      "zip": "10169",
+      "address": "230 Park Avenue, New York, NY 10169",
+      "sourceUrl": "https://www.sweetgreen.com/locations/grand-central"
+    },
+    {
+      "id": "greenpoint",
+      "name": "Sweetgreen Greenpoint",
+      "street": "723 Manhattan Avenue",
+      "locality": "Brooklyn",
+      "zip": "11222",
+      "address": "723 Manhattan Avenue, Brooklyn, NY 11222",
+      "sourceUrl": "https://www.sweetgreen.com/locations/greenpoint"
+    },
+    {
+      "id": "hudson-yards",
+      "name": "Sweetgreen Hudson Yards",
+      "street": "10 Hudson Yards",
+      "locality": "New York",
+      "zip": "10001",
+      "address": "10 Hudson Yards, New York, NY 10001",
+      "sourceUrl": "https://www.sweetgreen.com/locations/hudson-yards"
+    },
+    {
+      "id": "long-island-city",
+      "name": "Sweetgreen Long Island City",
+      "street": "25-35 44th Drive",
+      "locality": "Long Island City",
+      "zip": "11101",
+      "address": "25-35 44th Drive, Long Island City, NY 11101",
+      "sourceUrl": "https://www.sweetgreen.com/locations/long-island-city"
+    },
+    {
+      "id": "lower-east-side",
+      "name": "Sweetgreen Lower East Side",
+      "street": "167 Orchard Street",
+      "locality": "New York",
+      "zip": "10002",
+      "address": "167 Orchard Street, New York, NY 10002",
+      "sourceUrl": "https://www.sweetgreen.com/locations/lower-east-side"
+    },
+    {
+      "id": "meatpacking",
+      "name": "Sweetgreen Meatpacking",
+      "street": "32 Gansevoort St",
+      "locality": "New York",
+      "zip": "10014",
+      "address": "32 Gansevoort St, New York, NY 10014",
+      "sourceUrl": "https://www.sweetgreen.com/locations/meatpacking"
+    },
+    {
+      "id": "murray-hill",
+      "name": "Sweetgreen Murray Hill",
+      "street": "606 1st Ave",
+      "locality": "New York",
+      "zip": "10016",
+      "address": "606 1st Ave, New York, NY 10016",
+      "sourceUrl": "https://www.sweetgreen.com/locations/murray-hill"
+    },
+    {
+      "id": "nolita",
+      "name": "Sweetgreen Nolita",
+      "street": "100 Kenmare St",
+      "locality": "New York",
+      "zip": "10012",
+      "address": "100 Kenmare St, New York, NY 10012",
+      "sourceUrl": "https://www.sweetgreen.com/locations/nolita"
+    },
+    {
+      "id": "nomad",
+      "name": "Sweetgreen NoMad",
+      "street": "1153 Broadway",
+      "locality": "New York",
+      "zip": "10001",
+      "address": "1153 Broadway, New York, NY 10001",
+      "sourceUrl": "https://www.sweetgreen.com/locations/nomad"
+    },
+    {
+      "id": "park-slope",
+      "name": "Sweetgreen Park Slope",
+      "street": "76-78 Saint Marks Avenue",
+      "locality": "Brooklyn",
+      "zip": "11217",
+      "address": "76-78 Saint Marks Avenue, Brooklyn, NY 11217",
+      "sourceUrl": "https://www.sweetgreen.com/locations/park-slope"
+    },
+    {
+      "id": "penn-plaza",
+      "name": "Sweetgreen Penn Plaza",
+      "street": "7 Pennsylvania Plaza",
+      "locality": "New York",
+      "zip": "10001",
+      "address": "7 Pennsylvania Plaza, New York, NY 10001",
+      "sourceUrl": "https://www.sweetgreen.com/locations/penn-plaza"
+    },
+    {
+      "id": "rockefeller-center",
+      "name": "Sweetgreen Rockefeller Center",
+      "street": "30 Rockefeller Plaza",
+      "locality": "New York",
+      "zip": "10112",
+      "address": "30 Rockefeller Plaza, New York, NY 10112",
+      "sourceUrl": "https://www.sweetgreen.com/locations/rockefeller-center"
+    },
+    {
+      "id": "spring-hudson",
+      "name": "Sweetgreen Spring + Hudson",
+      "street": "315 Hudson Street",
+      "locality": "New York",
+      "zip": "10013",
+      "address": "315 Hudson Street, New York, NY 10013",
+      "sourceUrl": "https://www.sweetgreen.com/locations/spring-hudson"
+    },
+    {
+      "id": "union-square",
+      "name": "Sweetgreen Union Square",
+      "street": "870 Broadway",
+      "locality": "New York",
+      "zip": "10003",
+      "address": "870 Broadway, New York, NY 10003",
+      "sourceUrl": "https://www.sweetgreen.com/locations/union-square"
+    },
+    {
+      "id": "wall-street",
+      "name": "Sweetgreen Wall Street",
+      "street": "67 Wall St",
+      "locality": "New York",
+      "zip": "10005",
+      "address": "67 Wall St, New York, NY 10005",
+      "sourceUrl": "https://www.sweetgreen.com/locations/wall-street"
+    },
+    {
+      "id": "williamsburg",
+      "name": "Sweetgreen Williamsburg",
+      "street": "162 N 4th St",
+      "locality": "Brooklyn",
+      "zip": "11211",
+      "address": "162 N 4th St, Brooklyn, NY 11211",
+      "sourceUrl": "https://www.sweetgreen.com/locations/williamsburg"
+    },
+    {
+      "id": "world-trade-center",
+      "name": "Sweetgreen World Trade Center",
+      "street": "3 World Trade Center space 1300",
+      "locality": "New York",
+      "zip": "10007",
+      "address": "3 World Trade Center space 1300, New York, NY 10007",
+      "sourceUrl": "https://www.sweetgreen.com/locations/world-trade-center"
+    }
+  ]
+}
