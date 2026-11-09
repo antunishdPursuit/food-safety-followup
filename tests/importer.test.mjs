@@ -50,6 +50,16 @@ test('syncing lists every directory location as unverified until it is matched',
   assert.ok(Object.values(db.locations).every((location) => location.matchStatus === 'unverified' && location.camis === null));
 });
 
+test('syncing keeps each location’s own published position and phone apart from its map pin', async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'fsf-import-'));
+  const withEvidence = { ...snapshot, locations: snapshot.locations.map((entry) => ({ ...entry, coordinates: [40.73, -73.99], phone: '6468915700' })) };
+  await syncDirectory({ snapshot: withEvidence, dir });
+  const { locations } = await readDb(dir);
+  assert.deepEqual(locations['union-square'].listedCoordinates, [40.73, -73.99]);
+  assert.equal(locations['union-square'].listedPhone, '6468915700');
+  assert.equal(locations['union-square'].coordinates, null, 'the map pin comes only from a matched city record');
+});
+
 test('matching verifies one location, offers a candidate for another, and leaves the third unverified', async () => {
   const dir = await preparedStore();
   const { locations } = await readDb(dir);
