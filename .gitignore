@@ -7,6 +7,8 @@ Production/Product Concepts/*.pdf
 .env.*
 !.env.example
 node_modules/
+.data/
+.data-sample/
 .next/
 dist/
 coverage/
