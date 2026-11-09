@@ -4,7 +4,7 @@ import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
-import { getLocationDetail } from '../lib/server/service.js';
+import { getLocationDetail, monthsAgo } from '../lib/server/service.js';
 
 const listing = (id, street, zip) => ({ id, name: `Sweetgreen ${id}`, street, zip, address: `${street}, New York, NY ${zip}`, sourceUrl: 'u' });
 const snapshot = { fetchedAt: '2026-11-09T12:00:00.000Z', sourceUrl: 'u', locations: [listing('a', '870 Broadway', '10003'), listing('b', '50 Washington St', '11201')] };
@@ -69,4 +69,34 @@ test('the detail route reads ?regionalMonths and rejects a bad value with a 400'
   const bad = await call('?regionalMonths=abc');
   assert.equal(bad.status, 400);
   assert.equal(bad.body.error.code, 'invalid_query');
+});
+
+test('a month window is clamped to the last day of the target month, including leap years', () => {
+  const at = (date, months) => monthsAgo(new Date(`${date}T12:00:00Z`), months);
+  assert.equal(at('2026-03-31', 1), '2026-02-28', 'not 2026-03-03');
+  assert.equal(at('2024-03-31', 1), '2024-02-29', 'a leap February has 29 days');
+  assert.equal(at('2024-02-29', 12), '2023-02-28', 'a leap day a year back lands on 28 February');
+  assert.equal(at('2028-02-29', 48), '2024-02-29', 'four years back from a leap day is a leap day');
+  assert.equal(at('2026-05-31', 3), '2026-02-28');
+  assert.equal(at('2026-01-31', 1), '2025-12-31', 'it crosses a year boundary');
+  assert.equal(at('2026-03-31', 13), '2025-02-28');
+  assert.equal(at('2026-03-31', 120), '2016-03-31');
+  assert.equal(at('2026-11-09', 12), '2025-11-09', 'an ordinary day is unchanged');
+});
+
+test('at the end of a month the window starts on the last day of the earlier month, so that day still counts', async () => {
+  const rowsFor = (bDate) => [row('1', '2026-02-28', '06D'), row('2', bDate, '06D')];
+  const detailAt = async (bDate) => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'fsf-window-end-'));
+    const rows = rowsFor(bDate);
+    const client = { findSweetgreenEstablishments: async () => establishments, findEstablishmentsAtAddress: async () => [], fetchInspectionRows: async () => rows };
+    await syncDirectory({ snapshot, dir });
+    await matchLocationsToCity({ client, dir });
+    await refreshInspections({ client, dir });
+    return getLocationDetail('a', { dir, now: new Date('2026-03-31T12:00:00Z'), regionalMonths: 1 });
+  };
+  const included = await detailAt('2026-02-28');
+  assert.equal(included.regionalWindow.since, '2026-02-28');
+  assert.deepEqual(codes(included), ['06D'], 'a citation on 28 February is inside a one-month window ending 31 March');
+  assert.deepEqual(codes(await detailAt('2026-02-27')), [], 'one day earlier is outside it');
 });
