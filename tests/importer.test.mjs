@@ -109,6 +109,16 @@ test('a manager-confirmed candidate becomes verified and survives later automati
   assert.equal(locations.dumbo.confirmedByManager, true);
 });
 
+test('a verified location is not downgraded, and keeps its records, when a later lookup finds less', async () => {
+  const dir = await preparedStore();
+  await refreshInspections({ client: fakeClient(), dir });
+  await matchLocationsToCity({ client: fakeClient({ findSweetgreenEstablishments: async () => [] }), dir });
+  const db = await readDb(dir);
+  assert.equal(db.locations['union-square'].matchStatus, 'verified');
+  assert.equal(db.locations['union-square'].camis, '50001');
+  assert.equal(db.inspections['union-square'].length, 2);
+});
+
 test('a location that changes permit loses the old permit’s inspections', async () => {
   const dir = await preparedStore();
   await refreshInspections({ client: fakeClient(), dir });
