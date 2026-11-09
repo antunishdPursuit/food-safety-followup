@@ -118,6 +118,27 @@ test('a newer automatic permit is not reset by a pending contradiction of the ol
   assert.equal(db.locations.a.lastRefreshed, null);
 });
 
+for (const [street, zip] of [['999 Broadway', '10003'], ['870 Broadway', '10001']]) {
+  test(`a directory change to ${street} ${zip} during matching cannot restore the old permit`, async () => {
+    const { dir, cited } = await storeWhereAHoldsThePermit();
+    await matchLocationsToCity({ dir, client: {
+      ...client([]),
+      findSweetgreenEstablishments: async () => {
+        await syncDirectory({ snapshot: { ...snapshot, locations: [listing('a', street, zip), snapshot.locations[1]] }, dir });
+        return [permitAtA()];
+      },
+    } });
+    const db = await readDb(dir);
+    assert.equal(db.locations.a.street, street);
+    assert.equal(db.locations.a.zip, zip);
+    assert.equal(db.locations.a.matchStatus, 'unverified');
+    assert.equal(db.locations.a.camis, null);
+    assert.equal(db.locations.a.lastRefreshed, null);
+    assert.equal(db.inspections.a[0].previousPermit, true);
+    assert.equal(Object.values(db.followUps)[0].citationId, cited.id);
+  });
+}
+
 // A is verified automatically with permit 123 and has a follow-up on one of its citations.
 async function storeWhereAHoldsThePermit() {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'fsf-dup-'));
