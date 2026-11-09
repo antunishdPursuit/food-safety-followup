@@ -8,6 +8,7 @@ import { readFile } from 'node:fs/promises';
 import { dataDir } from '../lib/server/config.js';
 import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
 import { createNycClient } from '../lib/server/nyc.js';
+import { summarizeStore } from '../lib/server/status.js';
 import { readDb } from '../lib/server/store.js';
 
 // Read .env when this Node version can (20.12 or newer); otherwise use the shell's environment.
@@ -19,11 +20,12 @@ const dir = dataDir();
 async function status() {
   const db = await readDb(dir);
   const locations = Object.values(db.locations).filter((location) => !location.delisted);
-  const count = (state) => locations.filter((location) => location.matchStatus === state).length;
-  console.log(`Store: ${dir}`);
-  console.log(`Locations: ${locations.length} (verified ${count('verified')}, candidate ${count('candidate')}, unverified ${count('unverified')})`);
-  console.log(`Last successful import: ${db.importStatus.lastSuccess || 'never'}`);
-  if (db.importStatus.error) console.log(`Last import error (${db.importStatus.lastAttempt}): ${db.importStatus.error}`);
+  const summary = summarizeStore(db);
+  console.log(`Status as of ${summary.checkedAt} (store: ${dir})`);
+  console.log(`Locations: ${summary.locations} (verified ${summary.verified}: ${summary.verifiedAutomatically} automatically, ${summary.confirmedByManager} confirmed by the manager; candidate ${summary.candidates}; unverified ${summary.unverified})`);
+  console.log(`Stored records: ${summary.inspections} inspections and ${summary.citations} citations${summary.historyCitations ? `, plus ${summary.historyCitations} citations kept as history from a previous permit` : ''}`);
+  console.log(`Last successful import: ${summary.lastSuccess || 'never'}`);
+  if (summary.error) console.log(`Last import error (${summary.lastAttempt}): ${summary.error}`);
   for (const location of locations.filter((item) => item.matchStatus === 'candidate')) {
     console.log(`\n${location.id} (${location.address}) needs a decision:`);
     for (const candidate of location.candidates) console.log(`  CAMIS ${candidate.camis}  ${candidate.dba}  ${candidate.address}  - ${candidate.reason}`);
