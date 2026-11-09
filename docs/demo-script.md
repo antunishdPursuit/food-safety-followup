@@ -28,7 +28,7 @@ The narration is about 250 words, roughly 100 seconds at a relaxed 150 words a m
 
 ## Real numbers to have in mind (2026-11-09)
 
-- 38 of 38 locations verified (29 matched automatically, 9 confirmed by the manager), 37 with a map pin. Penn Plaza has no pin because the city record has no coordinates, so it appears in the list only.
+- 38 of 38 locations verified (29 matched automatically, 9 confirmed by the manager), all 38 with a map pin. Penn Plaza's pin comes from Sweetgreen's own page, because the city record has no coordinates; the screens can show that source (`coordinatesSource`).
 - 118 inspections and 271 citations across all 38 locations, from 2022-10-18 to 2026-10-23. Of the citations, 112 are critical (41 percent).
 - Chambers St: 125 Chambers St, permit 50091763, 4 inspections, 16 citations, 20 flags (16 needs review, 4 repeat). The repeat codes are 04N and 08A (14 and 29 July 2026), 02B (2024 and 2026), and 10F (2024 and 2025).
 - Code 04N appears at 13 locations. Code 10F appears at 35 of the 38.
