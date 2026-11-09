@@ -117,6 +117,72 @@ test('a failed city refresh keeps stored records and follow-ups, and records the
   assert.match(db.importStatus.error, /timeout/);
 });
 
+for (const fails of [false, true]) {
+  test(`an overlapping stale import ${fails ? 'failure' : 'success'} cannot replace a newer import`, async () => {
+    const dir = await preparedStore();
+    const now = new Date('2026-11-09T13:00:00Z');
+    let newer;
+    const stale = await refreshInspections({ dir, now, client: fakeClient({ fetchInspectionRows: async () => {
+      await refreshInspections({ dir, now, client: fakeClient({ fetchInspectionRows: async () => inspectionRows().map((row) => ({ ...row, violation_description: 'Newer city finding' })) }) });
+      newer = await readDb(dir);
+      if (fails) throw new Error('Older request failed late.');
+      return inspectionRows();
+    } }) });
+    assert.equal(stale.ok, false);
+    assert.equal(stale.skipped, true);
+    const after = await readDb(dir);
+    assert.deepEqual(after.inspections, newer.inspections);
+    assert.deepEqual(after.importStatus, newer.importStatus, 'even equal timestamps cannot hide a completed generation');
+  });
+}
+
+test('an import whose permit changed during fetch does not claim a successful refresh', async () => {
+  const dir = await preparedStore();
+  const result = await refreshInspections({ dir, client: fakeClient({ fetchInspectionRows: async () => {
+    await matchLocationsToCity({ dir, client: fakeClient({ findSweetgreenEstablishments: async () => [{ ...establishments[0], camis: '50009' }] }) });
+    return inspectionRows();
+  } }) });
+  assert.equal(result.ok, false);
+  assert.equal(result.skipped, true);
+  const db = await readDb(dir);
+  assert.equal(db.importStatus.lastSuccess, null);
+  assert.equal(db.locations['union-square'].lastRefreshed, null);
+  assert.equal(db.locations['union-square'].camis, '50009');
+});
+
+test('a partially changed verified set rejects the whole refresh before applying any fetched rows', async () => {
+  const dir = await preparedStore();
+  await confirmMatch({ locationId: 'dumbo', camis: '50002', dir });
+  await refreshInspections({ dir, now: new Date('2026-11-09T13:00:00Z'), client: fakeClient() });
+  const before = await readDb(dir);
+  let afterMatch;
+  const result = await refreshInspections({ dir, now: new Date('2026-11-09T14:00:00Z'), client: fakeClient({ fetchInspectionRows: async () => {
+    await matchLocationsToCity({ dir, client: fakeClient({ findSweetgreenEstablishments: async () => [{ ...establishments[0], camis: '50009' }, establishments[1]] }) });
+    afterMatch = await readDb(dir);
+    return inspectionRows([{ camis: '50002', inspection_date: '2026-11-01T00:00:00', inspection_type: 'Cycle', violation_code: '06D', violation_description: 'Do not apply a partial refresh.' }]);
+  } }) });
+  assert.equal(result.ok, false);
+  assert.equal(result.skipped, true);
+  const after = await readDb(dir);
+  assert.deepEqual(after.inspections, afterMatch.inspections);
+  assert.equal(after.locations.dumbo.lastRefreshed, before.locations.dumbo.lastRefreshed);
+  assert.equal(after.importStatus.lastSuccess, before.importStatus.lastSuccess);
+  assert.match(after.importStatus.error, /Verified locations changed/);
+});
+
+test('a location verified during fetch requires a fresh lookup for the complete verified set', async () => {
+  const dir = await preparedStore();
+  const result = await refreshInspections({ dir, client: fakeClient({ fetchInspectionRows: async () => {
+    await confirmMatch({ locationId: 'dumbo', camis: '50002', dir });
+    return inspectionRows();
+  } }) });
+  assert.equal(result.ok, false);
+  assert.equal(result.skipped, true);
+  const after = await readDb(dir);
+  assert.deepEqual(after.inspections, {});
+  assert.equal(after.importStatus.lastSuccess, null);
+});
+
 test('a manager-confirmed candidate becomes verified and survives later automatic matching', async () => {
   const dir = await preparedStore();
   await assert.rejects(confirmMatch({ locationId: 'dumbo', camis: '99999', dir }), /not a candidate/);
