@@ -73,4 +73,6 @@ Each gap in the PRD gets a logged assumption, with how to check it. Safe means s
 
 ### Checks
 
-`npm test` covers the store, directory parsing, address matching, the NYC client and import, the flag rules, and every endpoint. The tests use fake city responses, so they do not need the network. `npm run build` checks the route handlers.
+`npm test` covers the store, directory parsing, address matching, the NYC client and import, the flag rules, and every endpoint. The tests use fake city responses, and a guard makes any request to the NYC Open Data service or sweetgreen.com fail, so a test run gives the same answer with or without a network. `npm run build` checks the route handlers.
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) runs `npm ci`, `npm test`, and `npm run build` on Node 20.10 and the current long-term-support release for every pull request and every push to `main`, plus an `npm audit` that only reports. It is not a required check, so nothing in it blocks a merge. By choice it never runs the live city lookups (the `data:*` and `seed:*` commands stay manual), and it has no linting, browser tests, or deployment. Add those after the showcase if the team wants them.
