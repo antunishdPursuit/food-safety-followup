@@ -6,7 +6,8 @@ import path from 'node:path';
 import { seedDemoChecks } from '../lib/server/demo.js';
 import { matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
 import { getLocationDetail } from '../lib/server/service.js';
-import { setCheckLink } from '../lib/server/mutations.js';
+import { createFollowUp, setCheckLink } from '../lib/server/mutations.js';
+import { readDb } from '../lib/server/store.js';
 
 const snapshot = {
   fetchedAt: '2026-11-09T12:00:00.000Z', sourceUrl: 'https://www.sweetgreen.com/locations',
@@ -73,3 +74,44 @@ test('seeding twice changes nothing, and with no city records it adds nothing', 
   const empty = await store([]);
   assert.deepEqual(await seedDemoChecks({ dir: empty }), { locations: [], created: 0 });
 });
+
+test('demo seeding selects the current citation when a newer removed citation remains as history', async () => {
+  const current = row('1', '2026-09-18', '10F', 'Equipment');
+  const removed = row('1', '2026-10-08', '06D', 'Temperature');
+  const dir = await store([current, removed]);
+  const before = await getLocationDetail('union-square', { dir });
+  const citation = before.inspections.flatMap((inspection) => inspection.citations).find((item) => item.code === '06D');
+  await createFollowUp({ locationId: 'union-square', citationId: citation.id, owner: 'Manager', dueDate: '2026-12-01', notes: 'Review retained finding.' }, { dir });
+  await refreshInspections({ client: client([current]), dir });
+
+  assert.deepEqual(await seedDemoChecks({ dir }), { locations: ['union-square'], created: 2 });
+  const detail = await getLocationDetail('union-square', { dir });
+  const coded = detail.internalChecks.find((check) => check.id.endsWith('-coded'));
+  assert.equal((await readDb(dir)).internalChecks[coded.id].citationCode, '10F');
+  assert.equal(coded.type, 'Audit');
+  assert.match(coded.suggestedCitationId, /--10F$/);
+  assert.equal(detail.followUps.length, 1, 'the historical follow-up is preserved');
+});
+
+for (const history of ['removed citation', 'previous permit']) {
+  test(`demo seeding creates no checks when only ${history} history remains`, async () => {
+    const dir = await store([row('1', '2026-10-08', '06D')]);
+    const before = await getLocationDetail('union-square', { dir });
+    const citation = before.inspections.flatMap((inspection) => inspection.citations)[0];
+    await createFollowUp({ locationId: 'union-square', citationId: citation.id, owner: 'Manager', dueDate: '2026-12-01', notes: 'Keep this history.' }, { dir });
+    if (history === 'removed citation') {
+      await refreshInspections({ client: client([]), dir });
+    } else {
+      await matchLocationsToCity({ client: {
+        ...client([]),
+        findSweetgreenEstablishments: async () => establishments.map((item) => item.camis === '1' ? { ...item, camis: '3' } : item),
+      }, dir });
+    }
+
+    const detail = await getLocationDetail('union-square', { dir });
+    assert.equal(detail.followUps.length, 1);
+    assert.ok(detail.inspections.some((inspection) => inspection.citations.some((item) => item.id === citation.id)), 'the source finding remains available as history');
+    assert.deepEqual(await seedDemoChecks({ dir }), { locations: [], created: 0 });
+    assert.deepEqual((await getLocationDetail('union-square', { dir })).internalChecks, []);
+  });
+}
