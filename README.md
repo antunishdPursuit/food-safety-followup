@@ -32,7 +32,7 @@ Run these in order. Each step is safe to repeat. The city service can be slow (o
 | `npm run data:status` | Shows coverage, freshness, and each candidate with the reason it was not verified. |
 | `npm run data:confirm -- <locationId> <camis>` | The manager picks one candidate permit for a location. A confirmed match is never replaced by a later automatic one. |
 | `npm run data:import` | Imports inspection records for verified locations. Re-importing yields the same records and ids. If the city request fails, stored records and follow-ups stay as they were and the error is recorded. |
-| `npm run seed:demo` | Adds a fictional temperature check and walkthrough to verified locations that have city citations. Both say they are fictional. |
+| `npm run seed:demo` | Adds two fictional checks to up to three verified locations that have city citations: one that names the code of the location's most recent citation (called a temperature or pest check when that citation's description says so, otherwise an audit) and a walkthrough with no citation. Both say they are fictional. |
 
 To try the whole contract without city data, run `npm run seed:sample` and `npm run dev:sample`. That loads the labeled fixture into `.data-sample/`, never into the live store. `.env.example` lists the settings; none is required.
 
