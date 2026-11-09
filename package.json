@@ -13,7 +13,9 @@
     "data:match": "node scripts/data.mjs match",
     "data:confirm": "node scripts/data.mjs confirm",
     "data:import": "node scripts/data.mjs import",
-    "data:status": "node scripts/data.mjs status"
+    "data:status": "node scripts/data.mjs status",
+    "seed:sample": "node scripts/seed.mjs sample",
+    "dev:sample": "FSF_DATA_DIR=.data-sample next dev"
   },
   "dependencies": {
     "leaflet": "1.9.4",
