@@ -70,6 +70,17 @@ test('a Sweetgreen name at the same building number with a different street spel
   assert.match(result.candidates[0].reason, /street is spelled differently/);
 });
 
+test('city records with a wrong or missing ZIP code are offered as candidates, never verified', () => {
+  const wrongZip = matchLocation({ street: '1153 Broadway', zip: '10001' }, [city('7', 'SWEETGREEN', '1153', 'BROADWAY', '11221')]);
+  assert.equal(wrongZip.matchStatus, 'candidate');
+  assert.match(wrongZip.candidates[0].reason, /ZIP code is missing or differs/);
+  const typoNoZip = matchLocation({ street: '7 Pennsylvania Plaza', zip: '10001' }, [city('8', 'SWEETGREEN', '7', 'PENNSLYVANIA PLAZA', undefined)]);
+  assert.equal(typoNoZip.matchStatus, 'candidate');
+  assert.match(typoNoZip.candidates[0].reason, /no ZIP code/);
+  const otherBusiness = matchLocation({ street: '1153 Broadway', zip: '10001' }, [city('9', 'JOES PIZZA', '1153', 'BROADWAY', '11221')]);
+  assert.equal(otherBusiness.matchStatus, 'unverified');
+});
+
 test('no match leaves the location unverified, with no coordinates', () => {
   const result = matchLocation({ street: '870 Broadway', zip: '10003' }, [city('1', 'SWEETGREEN', '1', 'MAIN STREET', '11201')]);
   assert.deepEqual(result, { matchStatus: 'unverified', camis: null, candidates: [], coordinates: null });
