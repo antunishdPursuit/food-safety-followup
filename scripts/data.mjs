@@ -26,6 +26,7 @@ async function status() {
   console.log(`Stored records: ${summary.inspections} inspections and ${summary.citations} citations${summary.historyCitations ? `, plus ${summary.historyCitations} citations kept as history from a previous permit` : ''}`);
   console.log(`Last successful import: ${summary.lastSuccess || 'never'}`);
   if (summary.error) console.log(`Last import error (${summary.lastAttempt}): ${summary.error}`);
+  if (summary.warning) console.log(`Last import warning: ${summary.warning}`);
   for (const location of locations.filter((item) => item.matchStatus === 'candidate')) {
     console.log(`\n${location.id} (${location.address}) needs a decision:`);
     for (const candidate of location.candidates) console.log(`  CAMIS ${candidate.camis}  ${candidate.dba}  ${candidate.address}  - ${candidate.reason}`);
