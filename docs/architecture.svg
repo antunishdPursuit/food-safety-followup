@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Public pages and city data are matched and imported by the backend. The manager alone confirms matches, judges findings, and closes follow-ups.">
+<title>Food Safety Follow-Up: how a finding reaches the manager</title>
+<desc>Public pages and city data are matched and imported by the backend. The manager alone confirms matches, judges findings, and closes follow-ups.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/></marker></defs>
+<rect width="1600" height="900" fill="#ffffff"/>
+<text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" text-anchor="start" fill="#111827">Food Safety Follow-Up: how a finding reaches the manager</text>
+<text x="40" y="88" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" text-anchor="start" fill="#374151">Public pages and city data are matched and imported by the backend. The manager alone confirms matches, judges findings, and closes follow-ups.</text>
+<rect x="20" y="118" width="1560" height="150" rx="8" fill="#f8f9fb"/>
+<text x="40" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#475569">SOURCES</text>
+<rect x="20" y="278" width="1560" height="150" rx="8" fill="#f1f3f7"/>
+<text x="40" y="356" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#475569">BACKEND</text>
+<rect x="20" y="438" width="1560" height="150" rx="8" fill="#f8f9fb"/>
+<text x="40" y="516" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#475569">SCREENS</text>
+<rect x="20" y="598" width="1560" height="150" rx="8" fill="#f1f3f7"/>
+<text x="40" y="668" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#475569">MANAGER</text>
+<text x="40" y="688" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="start" fill="#475569">(only user)</text>
+<rect x="180" y="138" width="200" height="110" rx="10" fill="#e8f0fe" stroke="#1a56db" stroke-width="2.5"/>
+<text x="280.0" y="170" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Sweetgreen pages</text>
+<text x="280.0" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">38 NYC locations:</text>
+<text x="280.0" y="216" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">name, address,</text>
+<text x="280.0" y="236" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">map position, phone</text>
+<rect x="760" y="138" width="200" height="110" rx="10" fill="#e8f0fe" stroke="#1a56db" stroke-width="2.5"/>
+<text x="860.0" y="170" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">NYC Open Data</text>
+<text x="860.0" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">inspection results</text>
+<text x="860.0" y="216" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">with citations or</text>
+<text x="860.0" y="236" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">no cited violations</text>
+<rect x="1340" y="138" width="200" height="110" rx="10" fill="#fff4e0" stroke="#c76a00" stroke-width="2.5"/>
+<text x="1440.0" y="170" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Demo checks</text>
+<text x="1440.0" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">fictional, seeded,</text>
+<text x="1440.0" y="216" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">labeled on every card</text>
+<rect x="180" y="298" width="200" height="110" rx="10" fill="#eef1f4" stroke="#4b5563" stroke-width="2.5"/>
+<text x="280.0" y="330" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Directory</text>
+<text x="280.0" y="356" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">saved snapshot of</text>
+<text x="280.0" y="376" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">the 38 locations</text>
+<rect x="470" y="298" width="200" height="110" rx="10" fill="#eef1f4" stroke="#4b5563" stroke-width="2.5"/>
+<text x="570.0" y="330" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Match to permit</text>
+<text x="570.0" y="356" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">address + name =</text>
+<text x="570.0" y="376" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">verified; position</text>
+<text x="570.0" y="396" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">or phone = candidate</text>
+<rect x="760" y="298" width="200" height="110" rx="10" fill="#eef1f4" stroke="#4b5563" stroke-width="2.5"/>
+<text x="860.0" y="330" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Import</text>
+<text x="860.0" y="356" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">rows grouped into</text>
+<text x="860.0" y="376" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">inspections; retried;</text>
+<text x="860.0" y="396" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">a failure keeps data</text>
+<rect x="1050" y="298" width="200" height="110" rx="10" fill="#eef1f4" stroke="#4b5563" stroke-width="2.5"/>
+<text x="1150.0" y="330" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Store and rules</text>
+<text x="1150.0" y="356" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">locked JSON file;</text>
+<text x="1150.0" y="376" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">flags, repeats,</text>
+<text x="1150.0" y="396" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">regional signals</text>
+<rect x="1340" y="298" width="200" height="110" rx="10" fill="#eef1f4" stroke="#4b5563" stroke-width="2.5"/>
+<text x="1440.0" y="330" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">API</text>
+<text x="1440.0" y="356" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">5 endpoints +</text>
+<text x="1440.0" y="376" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">protected import</text>
+<rect x="1340" y="458" width="200" height="110" rx="10" fill="#f1f5f9" stroke="#475569" stroke-width="2.5"/>
+<text x="1440.0" y="490" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Screens</text>
+<text x="1440.0" y="516" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">map and list, detail,</text>
+<text x="1440.0" y="536" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">compare, follow-up form</text>
+<rect x="470" y="618" width="200" height="110" rx="10" fill="#e9f7ef" stroke="#1e8e5a" stroke-width="2.5" stroke-dasharray="8 6"/>
+<text x="570.0" y="650" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Confirm candidates</text>
+<text x="570.0" y="676" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">the manager picks</text>
+<text x="570.0" y="696" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">the right permit</text>
+<rect x="1050" y="618" width="200" height="110" rx="10" fill="#e9f7ef" stroke="#1e8e5a" stroke-width="2.5" stroke-dasharray="8 6"/>
+<text x="1150.0" y="650" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Review and decide</text>
+<text x="1150.0" y="676" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">flags, compare,</text>
+<text x="1150.0" y="696" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">link or dismiss</text>
+<rect x="1340" y="618" width="200" height="110" rx="10" fill="#e9f7ef" stroke="#1e8e5a" stroke-width="2.5" stroke-dasharray="8 6"/>
+<text x="1440.0" y="650" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Act and close</text>
+<text x="1440.0" y="676" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">create a follow-up;</text>
+<text x="1440.0" y="696" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">Complete needs a note</text>
+<line x1="280" y1="248" x2="280" y2="298" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="292" y="279" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="start" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">reads each page</text>
+<line x1="380" y1="353" x2="470" y2="353" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="425" y="343" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">locations</text>
+<line x1="860" y1="248" x2="860" y2="298" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="872" y="279" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="start" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">inspection rows</text>
+<line x1="790" y1="248" x2="650" y2="298" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="735" y="259" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="end" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">permit records</text>
+<line x1="670" y1="353" x2="760" y2="353" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="715" y="341" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">verified</text>
+<text x="715" y="378" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">permits</text>
+<line x1="960" y1="353" x2="1050" y2="353" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1005" y="343" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">inspections</text>
+<line x1="1370" y1="248" x2="1250" y2="298" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1332" y="259" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="end" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">demo checks</text>
+<line x1="1250" y1="335" x2="1340" y2="335" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1295" y="324" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">records</text>
+<line x1="1340" y1="378" x2="1250" y2="378" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1295" y="398" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="middle" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">saves</text>
+<line x1="1405" y1="408" x2="1405" y2="458" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1395" y="438" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="end" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">reads JSON</text>
+<line x1="1475" y1="458" x2="1475" y2="408" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1487" y="438" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="start" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">writes</text>
+<line x1="1440" y1="618" x2="1440" y2="568" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1430" y="597" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="end" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">creates, completes</text>
+<line x1="1230" y1="618" x2="1360" y2="568" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="1272" y="583" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="end" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">links, dismisses</text>
+<line x1="570" y1="618" x2="570" y2="408" stroke="#1f2937" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="582" y="520" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" text-anchor="start" fill="#1f2937" paint-order="stroke" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">npm run data:confirm</text>
+<rect x="20" y="765" width="1560" height="120" rx="8" fill="#f3f4f6"/>
+<text x="40" y="794" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#111827">Never inferred</text>
+<text x="40" y="816" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">Compliance from missing data,</text>
+<text x="40" y="837" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">or a correction from city data.</text>
+<text x="560" y="794" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#111827">Failures stay contained</text>
+<text x="560" y="816" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">A failed city refresh keeps stored records;</text>
+<text x="560" y="837" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">tests never call the live services.</text>
+<text x="1080" y="794" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" text-anchor="start" fill="#111827">Manager decides</text>
+<text x="1080" y="816" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">Dashed boxes are the only places a person</text>
+<text x="1080" y="837" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" text-anchor="start" fill="#374151">changes what the app believes.</text>
+<text x="40" y="872" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#4b5563">Live data, 2026-11-09: 38 of 38 locations verified, 118 inspections, 271 citations (npm run data:status).</text>
+<rect x="1408" y="788" width="22" height="14" rx="3" fill="#e8f0fe" stroke="#1a56db" stroke-width="2"/>
+<text x="1440" y="800" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">public source</text>
+<rect x="1408" y="810" width="22" height="14" rx="3" fill="#fff4e0" stroke="#c76a00" stroke-width="2"/>
+<text x="1440" y="822" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">fictional, labeled</text>
+<rect x="1408" y="832" width="22" height="14" rx="3" fill="#e9f7ef" stroke="#1e8e5a" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="1440" y="844" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="start" fill="#374151">manager decision</text>
+</svg>
