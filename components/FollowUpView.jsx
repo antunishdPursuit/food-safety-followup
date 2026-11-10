@@ -27,7 +27,7 @@ export default function FollowUpView({ mode }) {
   const hasUnsavedEdits = existing && (form.owner !== existing.owner || form.dueDate !== existing.dueDate || form.notes !== existing.notes || form.status !== existing.status);
 
   if (!location || !detail || (mode === 'edit' && !existing) || (mode === 'new' && ((!citation && !check) || citation?.historical))) {
-    return <section className="page-error"><h1>Follow-up unavailable</h1><p>Choose a finding from a location to create or update a follow-up.</p><Link href={location ? `/locations/${id}` : '/'}>Back to location</Link></section>;
+    return <section className="page-error"><h1>Follow-up unavailable</h1><p>Choose a finding from a location to create or update a follow-up.</p><Link href={location ? `/locations/${id}` : '/locations'}>Back to location</Link></section>;
   }
 
   async function submit(event) {
@@ -50,7 +50,7 @@ export default function FollowUpView({ mode }) {
   }
 
   return <>
-    <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Locations</Link><span aria-hidden="true">/</span><Link href={`/locations/${id}`}>{location.name}</Link><span aria-hidden="true">/</span><span>{mode === 'new' ? 'New follow-up' : 'Follow-up'}</span></nav>
+    <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/locations">Locations</Link><span aria-hidden="true">/</span><Link href={`/locations/${id}`}>{location.name}</Link><span aria-hidden="true">/</span><span>{mode === 'new' ? 'New follow-up' : 'Follow-up'}</span></nav>
     <header className="page-heading"><div><p className="eyebrow">MANAGER ACTION</p><h1>{mode === 'new' ? 'Create follow-up' : existing.status === 'Complete' ? 'Completed follow-up' : 'Update follow-up'}</h1><p>Record the next step for this finding.</p></div>{existing && <Badge kind={existing.status === 'Complete' ? 'complete' : existing.status === 'In progress' ? 'progress' : 'muted'}>{existing.status}</Badge>}</header>
     <div className="form-layout"><section className="form-context" aria-labelledby="context-title"><h2 id="context-title">Linked {citation && check ? 'findings' : 'finding'}</h2><p><strong>{location.name}</strong><br />{location.address}</p>{citation && <div className="context-finding"><SourceBadge source={location.isSample ? "Sample public-data fixture" : "NYC inspection record"} /><h3>Code {citation.code}</h3><p>{citation.description}</p></div>}{check && <div className="context-finding"><SourceBadge source="Fictional demo check" /><h3>{check.type}</h3><p>{check.note}</p></div>}<details><summary>View source record{citation && check ? 's' : ''}</summary>{citation && <p>Inspection date: {citation.inspectionDate}. {citation.critical == null ? 'Critical status unavailable.' : citation.critical ? 'Marked critical by the source.' : 'Marked noncritical by the source.'}</p>}{check && <p>Fictional demo observation date: {check.date}.</p>}</details><p className="quiet">City records cannot confirm a correction. Internal checks, when present, are labeled separately.</p></section>
       <section className="form-main" aria-labelledby="form-title"><h2 id="form-title">{existing?.status === 'Complete' ? 'Recorded action' : 'Action details'}</h2>

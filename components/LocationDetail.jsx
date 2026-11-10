@@ -11,7 +11,7 @@ export default function LocationDetail() {
   const { locationsResponse, detailResponses, actionsByLocation, suggestions } = usePreview();
   const location = locationsResponse.locations.find((item) => item.id === id);
   const detail = detailResponses[id];
-  if (!location || !detail) return <section className="page-error"><h1>Location unavailable</h1><p>This location ID is not available.</p><Link href="/">Back to locations</Link></section>;
+  if (!location || !detail) return <section className="page-error"><h1>Location unavailable</h1><p>This location ID is not available.</p><Link href="/locations">Back to locations</Link></section>;
 
   const actions = actionsByLocation[id];
   const flags = detail.flags;
@@ -20,7 +20,7 @@ export default function LocationDetail() {
   const complete = actions.filter((action) => action.status === 'Complete');
 
   return <>
-    <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Locations</Link><span aria-hidden="true">/</span><span>{location.name}</span></nav>
+    <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/locations">Locations</Link><span aria-hidden="true">/</span><span>{location.name}</span></nav>
     <header className="page-heading"><div><p className="eyebrow">LOCATION REVIEW</p><h1>{location.name}</h1><p>{location.address}</p></div><Badge kind={location.matchStatus === 'verified' ? 'complete' : 'review'}>{location.isSample ? 'Sample location' : location.matchStatus === 'verified' ? `Verified CAMIS ${location.camis}` : 'Inspection match unverified'}</Badge></header>
     <div className="source-note"><strong>{location.isSample ? 'Sample records.' : detail.importStatus.source.name + '.'}</strong> Last successful location refresh: {location.lastRefreshed ? new Date(location.lastRefreshed).toLocaleString() : 'unavailable'}. {location.matchStatus !== 'verified' && !location.isSample && 'Inspection match unverified; no city safety conclusion can be drawn.'} {location.coordinatesSource && `Pin source: ${location.coordinatesSource}.`}</div>
     <div className="location-metrics"><div><strong>{flags.length}</strong><span>flags</span></div><div><strong>{active.length}</strong><span>active follow-ups</span></div><div><strong>{location.citationCount ?? 'Unavailable'}</strong><span>current citations</span></div></div>
