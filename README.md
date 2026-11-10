@@ -39,7 +39,6 @@ Run these in order. Each step is safe to repeat. The city service can be slow (o
 | `npm run data:confirm -- <locationId> <camis>` | The manager picks one candidate permit for a location. A confirmed match is never replaced by a later automatic one. |
 | `npm run data:import` | Imports inspection records for verified locations. Re-importing yields the same records and ids, and a finding keeps its id when the city removes or reorders other findings with the same code, so a follow-up never moves to a different finding. If the city request fails, stored records and follow-ups stay as they were and the error is recorded. |
 | `npm run seed:demo` | Adds two fictional checks to up to three verified locations that have city citations: one that names the code of the location's most recent citation (called a temperature or pest check when that citation's description says so, otherwise an audit) and a walkthrough with no citation. Both say they are fictional. |
-| `npm run demo:reset -- --yes` | Clears the follow-ups and link decisions a rehearsal leaves behind, after saving a copy of the store in `.data/backups/`. It does nothing without `--yes`. |
 
 To try the whole contract without city data, run `npm run dev:sample`. It creates the labeled sample store in `.data-sample/` when it is missing, never in the live store, and starts the app on it. `npm run seed:sample` rebuilds that store. The commands are written in Node, without Unix-only shell syntax, so they work in Windows shells too (a test guards this). `.env.example` lists the settings; none is required.
 

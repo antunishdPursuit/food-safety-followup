@@ -8,9 +8,9 @@ One storyline, on real data: a critical pest finding at one restaurant was cited
 
 1. Run `npm run data:status` and check it says **38 verified**, **118 inspections**, **271 citations**. Do not run `npm run data:import` after you rehearse: a refresh can change these numbers.
 2. Confirm the screens are connected to the API (Dennys). If they are not connected by **Tuesday 12:00**, record the fallback at the end of this page instead.
-3. Run `npm run demo:reset -- --yes` to clear rehearsal follow-ups and link decisions. It saves a copy of the store first and refuses to run without `--yes`.
-4. Start the app on the live store (`npm run dev`, not `npm run dev:sample`).
-5. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer, resetting between runs.
+3. Use a separate copy of the city-data store for rehearsal, selected with `FSF_DATA_DIR`. Saved follow-ups and link decisions remain in that copy.
+4. Start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
+5. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer. Saved actions remain available between runs.
 
 ## The beats
 
