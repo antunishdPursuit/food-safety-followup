@@ -79,7 +79,7 @@ function SourceContext({ location, citation, check }) {
     return () => narrow.removeEventListener('change', update);
   }, []);
   return <details className="form-context source-context" open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
-    <summary>Source {citation && check ? 'findings' : 'finding'}</summary>
+    <summary><span>Source {citation && check ? 'findings' : 'finding'}</span><small className="source-summary-meta">{citation ? `Code ${citation.code} · ${formatDate(citation.inspectionDate)}${check ? ' · Fictional check' : ''}` : check ? `Fictional check · ${check.type} · ${formatDate(check.date)}` : 'Source unavailable'}</small></summary>
     <p className="source-location"><strong>{location.name}</strong><br />{location.address}</p>
     {citation && <div className="context-finding"><SourceBadge source={location.isSample ? 'Sample public-data fixture' : 'NYC inspection record'} /><p className="record-meta">Inspection: {formatDate(citation.inspectionDate)}</p><h3>Code {citation.code}</h3><p>{citation.description}</p><Badge kind={citation.critical ? 'review' : 'muted'}>{citation.criticalFlag || (citation.critical == null ? 'Critical status unavailable' : citation.critical ? 'Critical' : 'Not critical')}</Badge>{citation.historical && <p className="quiet">Historical finding. Existing saved work remains editable.</p>}{citation.sourceUrl && <p><a href={citation.sourceUrl} target="_blank" rel="noreferrer">View city source</a></p>}</div>}
     {check && <div className="context-finding"><SourceBadge source="Fictional demo check" /><p className="record-meta">Observation: {formatDate(check.date)}</p><h3>{check.type}</h3><p>{check.note}</p></div>}
