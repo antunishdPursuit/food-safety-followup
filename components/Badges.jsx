@@ -3,6 +3,6 @@ export function Badge({ kind = 'muted', children }) {
 }
 
 export function SourceBadge({ source }) {
-  const kind = source === 'Fictional demo check' ? 'demo' : source === 'Prototype follow-up' ? 'muted' : 'public';
+  const kind = source === 'Fictional demo check' ? 'demo' : ['Manager follow-up', 'Sample follow-up'].includes(source) ? 'muted' : 'public';
   return <Badge kind={kind}>{source}</Badge>;
 }

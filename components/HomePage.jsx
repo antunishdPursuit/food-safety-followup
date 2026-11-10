@@ -3,26 +3,25 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePreview } from './PreviewProvider';
+import { formatTimestamp } from '../lib/presentation';
 
 export default function HomePage() {
   const { locationsResponse } = usePreview();
   const { importStatus } = locationsResponse;
   const sample = importStatus.state === 'not-connected';
   const pending = Math.max(0, importStatus.totalCount - importStatus.verifiedCount);
-  const importedAt = importStatus.lastSuccess && new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York', dateStyle: 'medium', timeStyle: 'short',
-  }).format(new Date(importStatus.lastSuccess));
+  const importedAt = importStatus.lastSuccess && formatTimestamp(importStatus.lastSuccess);
 
   return <>
     <section className="home-intro">
       <h1>Inspection findings.<br />Documented follow-ups.</h1>
-      <p>Review NYC restaurant inspections and keep the next step connected to its source.</p>
+      <p>For food safety managers reviewing Sweetgreen’s NYC locations and documenting follow-ups linked to their source.</p>
       <Link href="/locations" className="primary-button">Open locations</Link>
     </section>
     <Image className="home-photo" src="/restaurant-review.png" width={2172} height={724} priority alt="Illustrative generated scene of two restaurant colleagues reviewing a tablet." />
     <section className="home-coverage" aria-label="Data coverage">
-      <div>{sample ? <p>Fictional sample records for exploring the workflow.</p> : <><p><strong>{importStatus.verifiedCount}</strong> locations matched to city permits.</p><p><strong>{pending}</strong> locations awaiting permit confirmation.</p></>}
-        <p className="quiet">Last city import: {sample ? 'Not connected in sample mode' : importedAt ? `${importedAt} (New York)` : 'No successful import yet'}</p>
+      <div>{sample ? <p>Fictional sample records for exploring the workflow.</p> : <><p><strong>{importStatus.verifiedCount}</strong> {importStatus.verifiedCount === 1 ? 'location' : 'locations'} matched to city permits.</p><p><strong>{pending}</strong> {pending === 1 ? 'location' : 'locations'} awaiting permit confirmation.</p></>}
+        <p className="quiet">Last city import: {sample ? 'Not connected in sample mode' : importedAt || 'No successful import yet'}</p>
       </div>
       <a href="#about-data">About the data</a>
     </section>

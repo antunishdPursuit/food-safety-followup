@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { permitStatusLabel } from '../lib/presentation';
 
 export default function LocationMap({ locations, selectedId, selectionRevision, onSelect }) {
   const host = useRef(null);
@@ -33,7 +34,7 @@ export default function LocationMap({ locations, selectedId, selectionRevision, 
           fillColor: colors.getPropertyValue('--primary').trim(), fillOpacity: 1,
         }).addTo(markers);
         const label = document.createElement('span');
-        label.textContent = `${location.name} · ${location.isSample ? 'Sample location' : location.matchStatus === 'verified' ? 'Verified match' : 'Inspection match unverified'}`;
+        label.textContent = `${location.name} · ${permitStatusLabel(location)}`;
         marker.bindTooltip(label);
         const popup = document.createElement('div');
         const title = document.createElement('strong');

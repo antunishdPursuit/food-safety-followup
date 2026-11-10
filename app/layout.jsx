@@ -4,8 +4,8 @@ import { PreviewProvider } from '../components/PreviewProvider';
 import AppShell from '../components/AppShell';
 
 export const metadata = {
-  title: 'Food Safety Follow-Up | Manager preview',
-  description: 'A prototype for reviewing NYC inspection findings and tracking follow-ups.',
+  title: 'Food Safety Follow-Up | NYC manager workspace',
+  description: 'Review public NYC inspection findings and document manager follow-ups for Sweetgreen locations.',
 };
 
 export default function RootLayout({ children }) {
