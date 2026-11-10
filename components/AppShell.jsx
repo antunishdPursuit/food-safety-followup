@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePreview } from './PreviewProvider';
+import ImportWarning from './ImportWarning';
 
 export default function AppShell({ children }) {
   const { locationsResponse, loading, error, reload, notice } = usePreview();
@@ -12,6 +13,7 @@ export default function AppShell({ children }) {
       <div className="header-status"><span className="header-tag">Manager workspace</span><span className="connection-dot" aria-hidden="true" /> <span>{sample ? 'Sample data' : 'Saved city records'}</span></div>
     </header>
     {sample && <div className="preview-banner" role="status"><strong>Sample data.</strong> The locations, citations and internal checks in this mode are fictional. Follow-ups are saved in the local sample store.</div>}
+    <ImportWarning status={locationsResponse?.importStatus} />
     {locationsResponse && ['failed', 'stale', 'never-run'].includes(locationsResponse.importStatus.state) && <div className="preview-banner" role="status"><strong>City import: {locationsResponse.importStatus.state}.</strong> {locationsResponse.importStatus.error || 'Review the record dates before acting.'} Stored findings and saved follow-ups remain available.</div>}
     {notice && <p className="save-message" role="status">{notice}</p>}
     {error ? <section className="page-error" role="alert"><h1>{error.status === 404 ? 'Location unavailable' : 'Records could not be loaded'}</h1><p>{error.message}</p><button className="secondary-button" onClick={reload}>Retry</button> <Link href="/">Back to locations</Link></section> : loading ? <section className="page-error" role="status">Loading records…</section> : children}

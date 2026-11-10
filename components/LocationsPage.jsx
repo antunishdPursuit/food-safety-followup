@@ -14,7 +14,7 @@ export default function LocationsPage() {
   return <>
     <section className="intro">
       <div><p className="eyebrow">NYC REGION · WORKSPACE</p><h1>Stay ahead of every follow-up.</h1><p>Choose a location to review its findings, compare sources, and record the next step.</p></div>
-      <div className="intro-meta"><span>Data connection</span><strong>{importStatus.state === 'ok' ? 'Imported city data' : importStatus.state === 'not-connected' ? 'Sample mode' : importStatus.state}</strong><small>Last successful refresh: {importStatus.lastSuccess ? new Date(importStatus.lastSuccess).toLocaleString() : 'unavailable'}</small></div>
+      <div className="intro-meta"><span>Data connection</span><strong>{importStatus.warning ? 'City refresh warning' : importStatus.state === 'ok' ? 'Imported city data' : importStatus.state === 'not-connected' ? 'Sample mode' : importStatus.state}</strong><small>Last successful import run: {importStatus.lastSuccess ? new Date(importStatus.lastSuccess).toLocaleString() : 'unavailable'}</small></div>
     </section>
     <section className="overview" aria-labelledby="locations-title">
       <div className="section-heading"><div><h2 id="locations-title">Locations</h2><p>{locations.length} locations · {importStatus.coverage}</p></div><Badge kind="review">{importStatus.coverage}</Badge></div>
@@ -28,6 +28,6 @@ export default function LocationsPage() {
         <div className="map-wrap"><LocationMap locations={locations} selectedId={null} onSelect={(id) => router.push(`/locations/${id}`)} /><p className="map-caption">{locations.filter((location) => location.coordinates).length} of {locations.length} locations have pins. Pins use city coordinates or the directory position; locations without coordinates remain in the list.</p></div>
       </div>
     </section>
-    <section className="summary-strip" aria-label="Data status"><div><strong>{importStatus.verifiedCount} of {importStatus.totalCount}</strong><span>locations verified</span></div><div><strong>{importStatus.lastSuccess ? new Date(importStatus.lastSuccess).toLocaleDateString() : 'Unavailable'}</strong><span>last city-data refresh</span></div><div><strong>{importStatus.state === 'not-connected' ? 'Sample mode' : 'Public city records'}</strong><span>Internal company data unavailable</span></div></section>
+    <section className="summary-strip" aria-label="Data status"><div><strong>{importStatus.verifiedCount} of {importStatus.totalCount}</strong><span>locations verified</span></div><div><strong>{importStatus.lastSuccess ? new Date(importStatus.lastSuccess).toLocaleDateString() : 'Unavailable'}</strong><span>{importStatus.warning ? 'last successful import · see warning' : 'last successful city-data import'}</span></div><div><strong>{importStatus.state === 'not-connected' ? 'Sample mode' : 'Public city records'}</strong><span>Internal company data unavailable</span></div></section>
   </>;
 }

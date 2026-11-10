@@ -23,7 +23,7 @@ test('a manager can link one action to both a citation and demo check', () => {
 });
 
 test('overdue status applies only to unfinished actions past their due date', () => {
-  const today = new Date(2026, 10, 4);
+  const today = new Date('2026-11-04T17:00:00Z');
   assert.equal(isOverdue({ status: 'Open', dueDate: '2026-10-15' }, today), true);
   assert.equal(isOverdue({ status: 'Complete', dueDate: '2026-10-15' }, today), false);
   assert.equal(isOverdue({ status: 'In progress', dueDate: '2026-11-04' }, today), false);

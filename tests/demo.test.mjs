@@ -100,7 +100,10 @@ for (const history of ['removed citation', 'previous permit']) {
     const citation = before.inspections.flatMap((inspection) => inspection.citations)[0];
     await createFollowUp({ locationId: 'union-square', citationId: citation.id, owner: 'Manager', dueDate: '2026-12-01', notes: 'Keep this history.' }, { dir });
     if (history === 'removed citation') {
-      await refreshInspections({ client: client([]), dir });
+      // The city lists a newer clean inspection and no longer lists the cited finding. (An answer with no rows at
+      // all is a failed refresh that keeps the stored findings as they were, so it cannot stand for this case.)
+      const clean = { camis: '1', inspection_date: '2026-10-20T00:00:00.000', inspection_type: 'Cycle', action: 'No violations were recorded at the time of this inspection.', critical_flag: 'Not Applicable' };
+      await refreshInspections({ client: client([clean]), dir });
     } else {
       await matchLocationsToCity({ client: {
         ...client([]),
