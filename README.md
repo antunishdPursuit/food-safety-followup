@@ -24,6 +24,8 @@ The backend is a set of Next.js Route Handlers in `app/api` over a small server 
 
 ![Architecture: public pages and city data are matched and imported by the backend; the manager alone confirms matches, judges findings, and closes follow-ups](docs/architecture.svg)
 
+The diagram shows the intended API-connected flow. The published screens still use sample fixtures until frontend integration is merged.
+
 The same diagram is at `docs/architecture.png` (3200 by 1800, for slides). `docs/demo-script.md` is the two-and-a-half-minute demo on real data, and `docs/submission/` holds the deck outline and a business case draft.
 
 ### Set up the live data

@@ -6,11 +6,14 @@ One storyline, on real data: a critical pest finding at one restaurant was cited
 
 ## Before you record
 
-1. Run `npm run data:status` and check it says **38 verified**, **118 inspections**, **271 citations**. Do not run `npm run data:import` after you rehearse: a refresh can change these numbers.
-2. Confirm the screens are connected to the API. If they are not connected by **Tuesday 12:00**, record the fallback at the end of this page instead.
-3. Use a separate copy of the city-data store for rehearsal, selected with `FSF_DATA_DIR`. Saved follow-ups and link decisions remain in that copy.
-4. Start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
-5. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer. Saved actions remain available between runs.
+1. Use a separate copy of the city-data store for rehearsal, selected with `FSF_DATA_DIR`. Use that same selected store for every command below and for the app. Saved follow-ups and link decisions remain in that copy.
+2. Run `npm run data:status` against that copy and check it says **38 verified**, **118 inspections**, **271 citations**. Record `Last successful import` for this rehearsal. Do not run `npm run data:import` afterward: a refresh can change the numbers.
+3. Start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
+4. Confirm the screens are connected to the API. If they are not connected by **Tuesday 12:00**, record the fallback at the end of this page instead.
+5. On that same selected store, run `npm run seed:demo` if the fictional checks are missing. It seeds only the three locations with the most citations. Verify whether `demo-chambers-st-coded` exists and its suggested citation matches the one used below. If the check is absent or points elsewhere, use the city-record-only variant below.
+6. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer. Saved actions remain available between runs.
+
+**City-record-only variant:** Keep the Chambers St public-citation story, skip the fictional-check linking beat, and create the follow-up from the city citation alone. Say that no company internal checks are connected; do not claim an internal record was linked. Use that beat to show the public source and date. In the API fallback, skip the optional PUT; its POST already links only to the city citation.
 
 ## The beats
 
@@ -51,7 +54,7 @@ The narration is about 265 words, roughly 105 seconds at a relaxed 150 words a m
 ## If something goes wrong
 
 - **The app will not start or the screens are not connected.** Use the fallback below, or stop and tell the maintainer.
-- **Numbers differ from this page.** Run `npm run data:status`. If the date is later than 2026-11-09 17:50 UTC, someone refreshed the data. Quote what the status shows.
+- **Numbers differ from this page.** Run `npm run data:status`. Compare `Last successful import` with the value recorded for rehearsal; `Status as of` is only the current check time. If coverage or counts differ, quote the verified current values and rehearse again.
 - **A screen label differs from this script.** Follow the same beat with the new label. The storyline does not depend on a button name.
 
 ## Fallback: the same story through the API
@@ -62,12 +65,14 @@ Use this only if the screens are not connected. Start the app with `npm run dev`
 curl -s localhost:3000/api/locations/chambers-st
 ```
 
+**Optional:** Run this PUT only when the verified demo check exists and points to the chosen citation; otherwise skip it.
+
 ```bash
 curl -s -X PUT localhost:3000/api/internal-checks/demo-chambers-st-coded/link -H 'content-type: application/json' -d '{"decision":"linked"}'
 ```
 
 ```bash
-curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","checkId":"demo-chambers-st-coded","owner":"Kitchen manager","dueDate":"2026-11-20","notes":"Pest control visit; re-check seals and drains; verify before the next inspection."}'
+curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","owner":"Kitchen manager","dueDate":"2026-11-20","notes":"Pest control visit; re-check seals and drains; verify before the next inspection."}'
 ```
 
 Then complete it with the id the previous response returned:
