@@ -21,8 +21,9 @@
 <text x="280.0" y="236" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">map position, phone</text>
 <rect x="760" y="138" width="200" height="110" rx="10" fill="#e8f0fe" stroke="#1a56db" stroke-width="2.5"/>
 <text x="860.0" y="170" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">NYC Open Data</text>
-<text x="860.0" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">inspection results,</text>
-<text x="860.0" y="216" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">one row per citation</text>
+<text x="860.0" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">inspection results</text>
+<text x="860.0" y="216" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">with citations or</text>
+<text x="860.0" y="236" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">no cited violations</text>
 <rect x="1340" y="138" width="200" height="110" rx="10" fill="#fff4e0" stroke="#c76a00" stroke-width="2.5"/>
 <text x="1440.0" y="170" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#111827">Demo checks</text>
 <text x="1440.0" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" text-anchor="middle" fill="#374151">fictional, seeded,</text>
