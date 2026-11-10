@@ -2,12 +2,12 @@
 
 One storyline, on real data: a critical pest finding at one restaurant was cited twice in 15 days. The manager links a fictional internal check to it, records a follow-up, and closes it with a note. The original finding and the repeat flag stay visible.
 
-**Where it runs.** The click path below uses today's screen names. The screens still read sample data until Dennys connects them to the API, and the wording may change when he does. Every number below is real as of 2026-11-09 and was rehearsed on a copy of the live store through the same code the screens will call.
+**Where it runs.** The click path below uses today's screen names. The screens read sample data until the API integration is merged; wording may change with that integration. Every number below is real as of 2026-11-09 and was rehearsed on a copy of the live store through the same code the screens will call.
 
 ## Before you record
 
 1. Run `npm run data:status` and check it says **38 verified**, **118 inspections**, **271 citations**. Do not run `npm run data:import` after you rehearse: a refresh can change these numbers.
-2. Confirm the screens are connected to the API (Dennys). If they are not connected by **Tuesday 12:00**, record the fallback at the end of this page instead.
+2. Confirm the screens are connected to the API. If they are not connected by **Tuesday 12:00**, record the fallback at the end of this page instead.
 3. Use a separate copy of the city-data store for rehearsal, selected with `FSF_DATA_DIR`. Saved follow-ups and link decisions remain in that copy.
 4. Start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
 5. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer. Saved actions remain available between runs.
@@ -50,7 +50,7 @@ The narration is about 265 words, roughly 105 seconds at a relaxed 150 words a m
 
 ## If something goes wrong
 
-- **The app will not start or the screens are not connected.** Use the fallback below, or stop and tell Dennys.
+- **The app will not start or the screens are not connected.** Use the fallback below, or stop and tell the maintainer.
 - **Numbers differ from this page.** Run `npm run data:status`. If the date is later than 2026-11-09 17:50 UTC, someone refreshed the data. Quote what the status shows.
 - **A screen label differs from this script.** Follow the same beat with the new label. The storyline does not depend on a button name.
 

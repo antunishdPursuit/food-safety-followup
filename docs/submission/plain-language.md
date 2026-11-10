@@ -10,7 +10,7 @@ Four parts, in order: Who, Problem, Does, Changes. About 125 words, under a minu
 
 **Problem:**  The city inspects every restaurant and lists its violations. The manager must review them, make sure each one is corrected, write down what was done, and notice when a violation comes back. That means chasing findings across many restaurants.
 
-**Does:**  Food Safety Follow-Up puts every restaurant's inspection findings on one screen, shows which ones nobody has acted on, shows when the same violation returns, and lets the manager record who will fix it, by when, and what was done.
+**Does:**  Food Safety Follow-Up puts every restaurant's inspection findings on one screen, shows which ones have no linked follow-up in this prototype, shows when the same violation returns, and lets the manager record who will fix it, by when, and what was done.
 
 **Changes:**  The manager sees at a glance which findings still need action, catches repeat violations early, and keeps a written record that each correction was made and signed off by a person.
 
@@ -26,7 +26,7 @@ The posting's own words include "audits," "sanitation violations," "corrective a
 | --- | --- |
 | follow-up | corrective action |
 | citation | violation |
-| flag; needs review | an item that needs attention; a finding nobody has acted on |
+| flag; needs review | an item that needs attention; a finding with no linked follow-up in this prototype |
 | repeat code; repeat flag | the same violation coming back |
 | regional signal | the same violation at several restaurants |
 | points; severity; condition level | leave out: the city data has none |
