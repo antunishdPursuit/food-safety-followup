@@ -30,7 +30,7 @@ The same diagram is at `docs/architecture.png` (3200 by 1800, for slides). `docs
 
 ### Set up the live data
 
-Run these in order. Each step is safe to repeat. The city service can be slow (one lookup took 45 seconds) and sometimes returns "service unavailable"; the client waits up to 90 seconds and retries, and a failed run changes nothing.
+Use the saved directory already included in the repository: run `npm run data:sync`, `npm run data:match`, review candidates with `npm run data:status`, and confirm only candidates you have verified using `npm run data:confirm -- <locationId> <camis>`. Leave uncertain matches unverified. Then run `npm run data:import`; it imports verified locations only. Do not refresh the Sweetgreen directory for rehearsal; any directory-source change requires separate authorization. Fictional demo seeding is optional. The city service can be slow (one lookup took 45 seconds) and sometimes returns "service unavailable"; the client waits up to 90 seconds and retries, and a failed lookup leaves stored inspections and follow-ups intact.
 
 | Command | What it does |
 | --- | --- |
