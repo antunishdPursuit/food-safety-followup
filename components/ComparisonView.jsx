@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Badge, SourceBadge } from './Badges';
+import SourceDetails from './SourceDetails';
 import { usePreview } from './PreviewProvider';
 import { citationsFor, comparisonChecks, nextActionCitation, savedRecordFlag } from '../lib/records';
 
@@ -28,8 +29,8 @@ export default function ComparisonView() {
 
   return <>
     <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/locations">Locations</Link><span aria-hidden="true">/</span><Link href={`/locations/${id}`}>{location.name}</Link><span aria-hidden="true">/</span><span>{viewTitle}</span></nav>
-    <header className="page-heading"><div><p className="eyebrow">RECORD REVIEW</p><h1>{viewTitle}</h1><p>{viewDescription}</p></div></header>
-    <div className="source-note"><strong>{location.isSample ? 'Sample evidence only.' : 'Public NYC inspection records.'}</strong> {location.isSample ? 'These citations are fictional fixtures.' : `CAMIS: ${location.camis || 'Unverified'}. Last location refresh: ${location.lastRefreshed ? new Date(location.lastRefreshed).toLocaleString() : 'unavailable'}.`}</div>
+    <header className="page-heading"><div><h1>{viewTitle}</h1><p>{viewDescription}</p></div></header>
+    <SourceDetails location={location} sourceName={detail.importStatus.source.name} />
     {visibleFlags.length > 1 && <div className="flag-selector"><label htmlFor="flag-selector">Choose a flag ({visibleFlags.length})</label><select id="flag-selector" value={flag?.id || ''} onChange={(event) => router.push(`/locations/${id}/compare?flag=${encodeURIComponent(event.target.value)}`)}>{!flag && <option value="" disabled>Choose an available flag</option>}{visibleFlags.map((item) => {
       const firstCitation = citations.find((citation) => citation.id === item.citationIds[0]);
       const label = item.type === 'Repeat code' ? `Repeat code ${firstCitation?.code}` : `${item.type} · code ${firstCitation?.code} · ${firstCitation?.inspectionDate}`;

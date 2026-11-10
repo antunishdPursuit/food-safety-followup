@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Badge, SourceBadge } from './Badges';
+import SourceDetails from './SourceDetails';
 import { usePreview } from './PreviewProvider';
 import { citationsFor, reviewGroups, checkReviewTarget, inspectionTimeline } from '../lib/records';
 
@@ -24,13 +25,13 @@ export default function LocationDetail() {
 
   return <>
     <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/locations">Locations</Link><span aria-hidden="true">/</span><span>{location.name}</span></nav>
-    <header className="page-heading"><div><p className="eyebrow">LOCATION REVIEW</p><h1>{location.name}</h1><p>{location.address}</p></div><Badge kind={location.matchStatus === 'verified' ? 'complete' : 'review'}>{location.isSample ? 'Sample location' : location.matchStatus === 'verified' ? `Verified CAMIS ${location.camis}` : 'Inspection match unverified'}</Badge></header>
-    {(location.isSample || location.lastRefreshed) ? <div className="source-note"><strong>{location.isSample ? 'Sample records.' : detail.importStatus.source.name + '.'}</strong> {location.lastRefreshed && `Last successful location refresh: ${new Date(location.lastRefreshed).toLocaleString()}.`} {location.coordinatesSource && `Pin source: ${location.coordinatesSource}.`}</div> : location.coordinatesSource && <details className="source-note"><summary>Map source</summary><p>{location.coordinatesSource}</p></details>}
+    <header className="page-heading"><div><h1>{location.name}</h1><p>{location.address}</p></div><Badge kind={location.matchStatus === 'verified' ? 'complete' : 'review'}>{location.isSample ? 'Sample location' : location.matchStatus === 'verified' ? 'Permit matched' : 'Inspection match unverified'}</Badge></header>
+    <SourceDetails location={location} sourceName={detail.importStatus.source.name} />
     {latest && <div className="location-metrics inspection-summary"><div><span>Latest available inspection</span><strong>{latest.date || 'Date unavailable'}</strong></div><div><strong>{latestCitations}</strong><span>citations in that inspection</span></div><div><strong>{active.length}</strong><span>open follow-ups in this workspace</span></div></div>}
-    {(years.length > 0 || detail.internalChecks.length === 0) && <p className="quiet history-note">{years.length > 0 && 'Inspection dates describe past observations. City records do not supply earlier manager follow-ups or confirm whether a finding was corrected. '}{detail.internalChecks.length === 0 && 'Company internal checks are not supplied; this does not mean none were performed.'}</p>}
+    {(years.length > 0 || detail.internalChecks.length === 0) && <p className="quiet history-note">{years.length > 0 && 'City records do not confirm whether corrective work was completed. '}{detail.internalChecks.length === 0 && 'Company internal checks are not supplied; this does not mean none were performed.'}</p>}
 
     <div className="location-layout">
-      <section className="page-section inspection-history" aria-labelledby="inspections-title"><div className="column-title"><h2 id="inspections-title">Inspection history</h2><SourceBadge source={location.isSample ? 'Sample public-data fixture' : 'Public NYC inspection'} /></div>
+      <section className="page-section inspection-history" aria-labelledby="inspections-title"><div className="column-title"><h2 id="inspections-title">Inspection history</h2></div>
         {pendingPermit && years.length > 0 && <p className="quiet">Permit confirmation is needed before new city inspections can be imported. Retained records and saved follow-ups remain available.</p>}
         {years.length ? years.map(({ year, records }, index) => <details className="inspection-year" key={year} open={latest?.date ? year === latest.date.slice(0, 4) : index === 0}>
           <summary><strong>{year}</strong><span>{records.length} {records.length === 1 ? 'inspection' : 'inspections'} · {records.reduce((count, record) => count + record.citations.length, 0)} recorded citations</span></summary>
@@ -38,7 +39,7 @@ export default function LocationDetail() {
         </details>) : <div className="empty-state"><strong>{location.isSample ? 'No sample inspections available' : pendingPermit ? 'Permit confirmation pending' : location.dataState === 'not-imported' ? 'Inspection import pending' : 'No inspection records available'}</strong><p>{location.isSample ? 'This fictional fixture has no inspection records. Missing records are different from an inspection with no violations.' : pendingPermit ? 'Confirm this location’s permit before importing city inspections. This is a data-matching step, not a safety rating.' : location.dataState === 'not-imported' ? 'The confirmed permit has not been imported yet.' : 'No records returned in the last import. Missing records do not mean an inspection found no violations.'}</p></div>}
       </section>
       <aside className="location-sidebar">
-        <section className="page-section" aria-labelledby="followups-title"><h2 id="followups-title">Follow-ups</h2><p className="quiet">Saved in this workspace. No owner is notified.</p>
+        <section className="page-section" aria-labelledby="followups-title"><h2 id="followups-title">Follow-ups</h2>
           {active.length ? active.map((action) => <ActionCard key={action.id} action={action} detail={detail} locationId={id} />) : <p className="quiet">No open follow-ups recorded here.{canCreateFollowUp && ' Choose a finding to record the next step.'}</p>}
           {complete.length > 0 && <details className="completed-actions"><summary>Completed follow-ups ({complete.length})</summary>{complete.map((action) => <ActionCard key={action.id} action={action} detail={detail} locationId={id} />)}</details>}
         </section>
@@ -47,12 +48,12 @@ export default function LocationDetail() {
         </section>}
       </aside>
     </div>
-    {flags.length > 0 && <details className="page-section secondary-review"><summary>Review prompts and repeated codes ({flags.length})</summary><div className="section-heading"><div><h2 id="attention-title">Supporting-record review</h2><p>Findings grouped by inspection. A prompt is not proof that no action occurred elsewhere.</p></div></div>
+    {flags.length > 0 && <details className="page-section secondary-review"><summary>Review prompts and repeated codes ({flags.length})</summary><div className="section-heading"><div><h2 id="attention-title">Supporting-record review</h2><p>Findings grouped by inspection. City records do not show action taken elsewhere.</p></div></div>
       <div className="card-grid">{reviewGroups(detail).map((group) => {
         const flag = group.flags[0];
         const hasDemoMatch = detail.internalChecks.some((check) => flag.citationIds.includes(check.suggestedCitationId));
         const linkLabel = flag.type === 'Repeat code' ? 'Compare citations' : hasDemoMatch ? 'Compare citation and demo check' : 'Review citation';
-        if (group.flags.length > 1) return <article className="flag-card" key={group.id}><Badge kind="review">Needs review</Badge><h3>{group.date || 'Date unavailable'}</h3><p>{group.flags.length} citations without a linked follow-up. This does not establish whether action occurred elsewhere.</p><details><summary>Review {group.flags.length} findings</summary><ul>{group.flags.map((item) => <li key={item.id}><p>{item.reason}</p><Link href={`/locations/${id}/compare?flag=${item.id}`}>Review supporting record</Link></li>)}</ul></details></article>;
+        if (group.flags.length > 1) return <article className="flag-card" key={group.id}><Badge kind="review">Needs review</Badge><h3>{group.date || 'Date unavailable'}</h3><p>{group.flags.length} citations without a linked follow-up.</p><details><summary>Review {group.flags.length} findings</summary><ul>{group.flags.map((item) => <li key={item.id}><p>{item.reason}</p><Link href={`/locations/${id}/compare?flag=${item.id}`}>Review supporting record</Link></li>)}</ul></details></article>;
         return <article className="flag-card" key={group.id}><Badge kind="review">{flag.type}</Badge><p>{flag.reason}</p><Link className="text-button" href={`/locations/${id}/compare?flag=${flag.id}`}>{linkLabel}</Link></article>;
       })}</div>
     </details>}
