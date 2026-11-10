@@ -16,8 +16,6 @@ For an offline demonstration, run `npm run dev:sample` instead. It serves the la
 
 The frontend includes a homepage, location list/map, location detail, record comparison, follow-up create/edit, and completion-dialog screens. Pins and rows use the same location IDs. The API supplies flags and counts; findings retained as history remain visible without offering new actions. Missing inspection data is distinct from a no-violation inspection. Internal checks are unavailable unless fictional demo records have explicitly been seeded; the app has no company internal data.
 
-The [concept images](Production/Product%20Concepts) illustrate possible screens. Their locations, findings, counts, and dates are sample values, not verified inspection results.
-
 ## Backend API
 
 The backend is a set of Next.js Route Handlers in `app/api` over a small server library in `lib/server`. It builds the NYC Sweetgreen list from the public locations page, verifies each location's NYC Open Data CAMIS permit by address, imports public inspection records, applies the flag rules, and saves manager follow-ups. The screens call these endpoints for records and saved actions. Their response shapes extend the sample contract in `data/preview.json`.
