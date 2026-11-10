@@ -2,6 +2,8 @@
 
 The lesson: lead with the outcome, use the job description's own words, and run the jargon test (would a new hire follow every word?). Her Team Debrief at 14:00 ET asks for the product in one minute with zero technical terms, and for one plain-language sentence that defines a good explanation.
 
+**Readiness:** These speaker lines describe the intended API-connected workflow. Present it as proposed until frontend integration is merged and the browser walkthrough passes.
+
 ## One minute, zero technical words
 
 Four parts, in order: Who, Problem, Does, Changes. About 125 words, under a minute.
@@ -10,9 +12,9 @@ Four parts, in order: Who, Problem, Does, Changes. About 125 words, under a minu
 
 **Problem:**  The city inspects every restaurant and lists its violations. The manager must review them, make sure each one is corrected, write down what was done, and notice when a violation comes back. That means chasing findings across many restaurants.
 
-**Does:**  Food Safety Follow-Up puts every restaurant's inspection findings on one screen, shows which ones have no linked follow-up in this prototype, shows when the same violation returns, and lets the manager record who will fix it, by when, and what was done.
+**Does:**  Food Safety Follow-Up puts every restaurant's inspection findings on one screen, shows which ones have no linked follow-up in this prototype, shows when the same violation returns, and lets the manager record an owner, due date, notes, status, and completion note.
 
-**Changes:**  The manager sees at a glance which findings still need action, catches repeat violations early, and keeps a written record that each correction was made and signed off by a person.
+**Changes:**  The manager can review findings without a linked follow-up, see repeated codes, and keep an owner, due date, status and completion note for each recorded action. These are manager-entered records.
 
 ## One sentence for the debrief (a draft to adjust)
 

@@ -10,6 +10,8 @@ This is a hypothesis. The posting (sweetgreen, Senior Food Safety Manager) names
 
 ## What the prototype does
 
+This is the intended API-connected workflow. Frontend integration and a browser walkthrough are required before presenting it as the working real-data screen flow.
+
 It brings public NYC inspection records for 38 New York Sweetgreen locations into one view, labels every record by source, flags findings with no linked follow-up and codes that repeat, and lets the manager record a follow-up (owner, due date, notes, status) and close it with a note. It never decides compliance and never marks a finding corrected from city data.
 
 ## What the public data shows (2026-11-09)
@@ -28,8 +30,8 @@ These are recorded findings in a public dataset with limited history. They are n
 
 Using the value levers from class:
 
-- **Risk reduction (the main case).** Repeat critical findings are the ones a manager most needs to catch early. Today a manager would have to notice them by memory or by searching several records. The prototype surfaces them by rule.
-- **Documentation (the second case).** A saved owner, due date, and completion note give an audit trail that public data cannot provide. Even when a restaurant "cures" a violation with the city, the violation stays on the public record and no score or grade changes, so only a written note shows that someone corrected it.
+- **Risk reduction (the main case).** Repeat codes with critical citations are candidates for manager review. The prototype surfaces repeated codes by rule; any risk reduction is an untested hypothesis, not a measured result against the company's current process.
+- **Documentation (the second case).** A saved owner, due date, and completion note give an audit trail that public data cannot provide. Even when a restaurant "cures" a violation with the city, the violation stays on the public record and no score or grade changes, so a written note preserves the manager's reported work. The prototype does not independently verify the correction or the person's identity.
 - **Cost reduction (a modest case).** Time saved is small at this size. A rough range, with the assumption shown: 85 citations a year at 10 to 20 minutes saved each is about 14 to 28 hours a year across 38 restaurants. The 10 to 20 minutes is an **assumption**, not a measurement. This alone would not justify a product.
 - **Retention and revenue.** No evidence in this project. Do not claim either.
 
