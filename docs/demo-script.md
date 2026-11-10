@@ -6,14 +6,14 @@ One storyline, on real data: a critical pest finding at one restaurant was cited
 
 ## Before you record
 
-1. Use a separate copy of the city-data store for rehearsal, selected with `FSF_DATA_DIR`. Use that same selected store for every command below and for the app. Saved follow-ups and link decisions remain in that copy.
+1. For every rehearsal and recording, create a fresh copy of the unchanged pre-rehearsal city-data snapshot in a new directory and select it with `FSF_DATA_DIR`. Use that same selected store for every command below and for the app. Do not reuse a previous take's copy; its saved follow-ups and link decisions remain preserved there.
 2. Run `npm run data:status` against that copy and check it says **38 verified**, **118 inspections**, **271 citations**. Record `Last successful import` for this rehearsal. Do not run `npm run data:import` afterward: a refresh can change the numbers.
-3. Start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
+3. Stop the previous rehearsal server, then start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
 4. Confirm the screens are connected to the API. If they are not connected by **Tuesday 12:00**, record the fallback at the end of this page instead.
 5. On that same selected store, run `npm run seed:demo` if the fictional checks are missing. It seeds only the three locations with the most citations. Verify whether `demo-chambers-st-coded` exists and its suggested citation matches the one used below. If the check is absent or points elsewhere, use the city-record-only variant below.
-6. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer. Saved actions remain available between runs.
+6. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer, repeating steps 1–5 with a fresh copy for each run.
 
-**City-record-only variant:** Keep the Chambers St public-citation story, skip the fictional-check linking beat, and create the follow-up from the city citation alone. Say that no company internal checks are connected; do not claim an internal record was linked. Use that beat to show the public source and date. In the API fallback, skip the optional PUT; its POST already links only to the city citation.
+**City-record-only variant:** Keep the Chambers St public-citation story, skip the fictional-check linking beat, and create the follow-up from the city citation alone. Say that no company internal checks are connected; do not claim an internal record was linked. Use that beat to show the public source and date. In the API fallback, skip the optional PUT and use the city-record-only POST.
 
 ## The beats
 
@@ -70,6 +70,14 @@ curl -s localhost:3000/api/locations/chambers-st
 ```bash
 curl -s -X PUT localhost:3000/api/internal-checks/demo-chambers-st-coded/link -H 'content-type: application/json' -d '{"decision":"linked"}'
 ```
+
+**Choose exactly one create request.** For the full fictional-check variant, after verifying and linking that check:
+
+```bash
+curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","checkId":"demo-chambers-st-coded","owner":"Kitchen manager","dueDate":"2026-11-20","notes":"Pest control visit; re-check seals and drains; verify before the next inspection."}'
+```
+
+For the city-record-only variant, skip the PUT and use this POST instead:
 
 ```bash
 curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","owner":"Kitchen manager","dueDate":"2026-11-20","notes":"Pest control visit; re-check seals and drains; verify before the next inspection."}'
