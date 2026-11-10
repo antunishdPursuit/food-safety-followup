@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Badge, SourceBadge } from './Badges';
 import { usePreview } from './PreviewProvider';
-import { citationsFor, reviewGroups } from '../lib/records';
+import { citationsFor, reviewGroups, checkReviewTarget } from '../lib/records';
 
 export default function LocationDetail() {
   const { id } = useParams();
@@ -47,7 +47,7 @@ export default function LocationDetail() {
         </article>) : <div className="empty-state"><strong>No inspection records available.</strong><p>{location.dataState === 'unmatched' ? 'Inspection match unverified.' : location.dataState === 'not-imported' ? 'The matched permit has not been imported.' : 'No records returned in the last import.'} Missing data is different from an inspection with no violations.</p></div>}
       </section>
       <section className="detail-column" aria-labelledby="checks-title"><div className="column-title"><h2 id="checks-title">Internal checks</h2>{detail.internalChecks.length > 0 && <SourceBadge source="Fictional demo check" />}</div>
-        {detail.internalChecks.length ? detail.internalChecks.map((check) => <article className="record-card demo-card" key={check.id}><p className="record-meta"><SourceBadge source="Fictional demo check" /> <span>{check.date}</span></p><h3>{check.type}</h3><p>{check.note}</p>{check.suggestedCitationId && <p className="suggestion-summary"><Badge kind={suggestions[check.id]?.decision === 'linked' ? 'complete' : suggestions[check.id]?.decision === 'dismissed' ? 'muted' : 'review'}>{suggestions[check.id]?.decision === 'linked' ? 'Linked by manager' : suggestions[check.id]?.decision === 'dismissed' ? 'Suggestion dismissed' : 'Suggested relationship'}</Badge> <Link href={`/locations/${id}/compare?flag=unlinked-${check.suggestedCitationId}`}>Review the citation</Link></p>}<Link className="text-button" href={`/locations/${id}/follow-ups/new?check=${check.id}`}>Create follow-up</Link></article>) : <div className="empty-state"><strong>No internal checks available.</strong><p>No company internal system is connected. This does not imply that checks were not performed.</p></div>}
+        {detail.internalChecks.length ? detail.internalChecks.map((check) => <article className="record-card demo-card" key={check.id}><p className="record-meta"><SourceBadge source="Fictional demo check" /> <span>{check.date}</span></p><h3>{check.type}</h3><p>{check.note}</p>{(check.suggestedCitationId || check.link) && <p className="suggestion-summary"><Badge kind={suggestions[check.id]?.decision === 'linked' ? 'complete' : suggestions[check.id]?.decision === 'dismissed' ? 'muted' : 'review'}>{suggestions[check.id]?.decision === 'linked' ? 'Linked by manager' : suggestions[check.id]?.decision === 'dismissed' ? 'Suggestion dismissed' : 'Suggested relationship'}</Badge> {checkReviewTarget(check) && <Link href={`/locations/${id}/compare?flag=unlinked-${checkReviewTarget(check)}`}>Review linked records</Link>}</p>}<Link className="text-button" href={`/locations/${id}/follow-ups/new?check=${check.id}`}>Create follow-up</Link></article>) : <div className="empty-state"><strong>No internal checks available.</strong><p>No company internal system is connected. This does not imply that checks were not performed.</p></div>}
       </section>
     </div>
 
