@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Public pages and city data are matched and imported by the backend. The manager alone confirms matches, judges findings, and closes follow-ups.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="The backend matches and imports public pages and city data. The manager confirms uncertain matches, judges findings, and closes follow-ups.">
 <title>Food Safety Follow-Up: how a finding reaches the manager</title>
-<desc>Public pages and city data are matched and imported by the backend. The manager alone confirms matches, judges findings, and closes follow-ups.</desc>
+<desc>The backend matches and imports public pages and city data. The manager confirms uncertain matches, judges findings, and closes follow-ups.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/></marker></defs>
 <rect width="1600" height="900" fill="#ffffff"/>
 <text x="40" y="52" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" text-anchor="start" fill="#111827">Food Safety Follow-Up: how a finding reaches the manager</text>
-<text x="40" y="88" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" text-anchor="start" fill="#374151">Public pages and city data are matched and imported by the backend. The manager alone confirms matches, judges findings, and closes follow-ups.</text>
+<text x="40" y="88" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" text-anchor="start" fill="#374151">The backend matches and imports public pages and city data. The manager confirms uncertain matches, judges findings, and closes follow-ups.</text>
 <rect x="20" y="118" width="1560" height="150" rx="8" fill="#f8f9fb"/>
 <text x="40" y="196" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" text-anchor="start" fill="#475569">SOURCES</text>
 <rect x="20" y="278" width="1560" height="150" rx="8" fill="#f1f3f7"/>

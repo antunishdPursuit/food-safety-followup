@@ -2,7 +2,7 @@
 
 One storyline, on real data: a critical pest finding at one restaurant was cited twice in 15 days. The manager links a fictional internal check to it, records a follow-up, and closes it with a note. The original finding and the repeat flag stay visible. All manager actions below are hypothetical rehearsal entries in an isolated copy, not records of corrective work at this restaurant.
 
-**Where it runs.** The click path below uses today's screen names. The screens read sample data until the API integration is merged; wording may change with that integration. Every number below is real as of 2026-11-09 and was rehearsed on a copy of the live store through the same code the screens will call.
+**Where it runs.** The screens read records and save follow-ups through the API. A browser walkthrough and recording rehearsal are still required. The dated contributor-snapshot figures below were rehearsed by the contributor through the API; use the baseline checks below before recording.
 
 ## Choose the data baseline
 

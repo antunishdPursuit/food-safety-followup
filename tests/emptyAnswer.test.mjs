@@ -6,6 +6,9 @@ import path from 'node:path';
 import { matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
 import { getLocationDetail } from '../lib/server/service.js';
 import { readDb } from '../lib/server/store.js';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import ImportWarning from '../components/ImportWarning.js';
 
 const listing = (id, street, zip) => ({ id, name: `Sweetgreen ${id}`, street, zip, address: `${street}, New York, NY ${zip}`, sourceUrl: 'u' });
 const snapshot = { fetchedAt: '2026-11-09T12:00:00.000Z', sourceUrl: 'u', locations: [listing('a', '870 Broadway', '10003'), listing('b', '50 Washington St', '11201')] };
@@ -31,6 +34,22 @@ async function importedStore() {
   await refreshInspections({ client: client([row('1'), row('2')]), dir, now: first });
   return dir;
 }
+
+test('the shared screen banner renders a partial-import warning and clears after recovery', async () => {
+  const dir = await importedStore();
+  await refreshInspections({ client: client([row('2')]), dir, now: later });
+  const detail = await getLocationDetail('a', { dir });
+  const render = (status) => renderToStaticMarkup(createElement(ImportWarning, { status }));
+  const banner = render(detail.importStatus);
+  assert.match(banner, /role="status"/);
+  assert.match(banner, /Some locations were not refreshed/);
+  assert.ok(banner.includes(detail.importStatus.warning));
+  assert.match(banner, /earlier location refresh date/);
+  assert.equal(detail.location.lastRefreshed, first.toISOString());
+  await refreshInspections({ client: client([row('1'), row('2')]), dir, now: later });
+  assert.equal(render((await getLocationDetail('a', { dir })).importStatus), '');
+  assert.equal(render(undefined), '');
+});
 
 test('when the city returns nothing for one permit that has stored records, those records stay and the refresh says so', async () => {
   const dir = await importedStore();

@@ -10,7 +10,7 @@ This is a hypothesis. The posting (sweetgreen, Senior Food Safety Manager) names
 
 ## What the prototype does
 
-This is the intended API-connected workflow. Frontend integration and a browser walkthrough are required before presenting it as the working real-data screen flow.
+This API-connected workflow is implemented. The browser walkthrough and recording rehearsal remain unverified.
 
 It brings public NYC inspection records for 38 New York Sweetgreen locations into one view, labels every record by source, flags findings with no linked follow-up and codes that repeat, and lets the manager record a follow-up (owner, due date, notes, status) and close it with a note. It never decides compliance and never marks a finding corrected from city data.
 

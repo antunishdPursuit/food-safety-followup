@@ -2,7 +2,7 @@
 
 Lead with the outcome, use the job description's own words, and check whether a new hire could follow every word.
 
-**Readiness:** These speaker lines describe the intended API-connected workflow. Present it as proposed until frontend integration is merged and the browser walkthrough passes.
+**Readiness:** These speaker lines describe the implemented API-connected workflow. Complete the browser walkthrough and recording rehearsal before presenting it as a verified screen demonstration.
 
 ## One minute, zero technical words
 
