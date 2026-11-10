@@ -30,7 +30,7 @@ The city dataset has one row per citation or special no-violation/not-yet-inspec
 
 The proposed backend work will build the NYC restaurant list from Sweetgreen's public locations page, then verify each restaurant's NYC Open Data CAMIS ID using its address. Business name alone is insufficient. Public inspection coordinates can position matched locations on the map when present. Any location without usable coordinates remains in the list, and any location without a reliable CAMIS match is labeled **inspection match unverified**; neither is silently treated as clear. The product aims to include all currently listed NYC Sweetgreen restaurants and shows coverage count and last refresh time. The frontend receives the verified location records from the backend, rather than making its own city-data request.
 
-The prototype includes a small mix of fictional audit and temperature-check records for the same locations. Include one issue linked by the manager to a citation and one internal concern without a citation. Both are visibly marked fictional. The current frontend uses labeled sample citation fixtures; the target working product will use verified NYC Open Data citations. The images below contain sample values only.
+The prototype includes a small mix of fictional audit and temperature-check records for the same locations. Include one issue linked by the manager to a citation and one internal concern without a citation. Both are visibly marked fictional. The current frontend uses labeled sample citation fixtures; the target working product will use verified NYC Open Data citations.
 
 ## Manager flow
 
@@ -91,22 +91,16 @@ This is a **proposed split** for team review; the contract remains useful if own
 
 ## Visual concepts
 
-These are concept illustrations with sample values and illustrative pin positions, not running-app screenshots or evidence of actual Sweetgreen inspections. The working product must use real NYC public values and persistent demo/manager-entered records.
+These screen concepts describe the intended interactions. The working product must use real NYC public values and persistent demo/manager-entered records.
 
 ### NYC location map and list
 
-![Concept map and list for selecting an NYC location](<Production/Product Concepts/nyc-location-map-concept.png>)
-
-This earlier concept illustrates the map workspace. Home is the entry page; the workspace opens a location's inspection history before record comparison. Pin positions and location labels in this image are illustrative.
+Home is the entry page; the map workspace opens a location's inspection history before record comparison.
 
 ### Manager comparison view
 
-![Concept manager dashboard showing public inspection data next to demo internal records](<Production/Product Concepts/manager-comparison-concept.png>)
-
-The manager sees the public source, a demo internal record, and an explained follow-up flag. All pictured locations, dates, counts, and citations are illustrative.
+The manager sees the public source, a demo internal record, and an explained follow-up flag.
 
 ### Phone follow-up view
-
-![Concept phone screen for a manager to create a follow-up](<Production/Product Concepts/mobile-follow-up-concept.png>)
 
 The manager opens the source records, enters owner, due date, and notes, then saves. There is no staff sign-in or staff-completion step in version one.
