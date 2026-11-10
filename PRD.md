@@ -13,7 +13,7 @@ We have no access to sweetgreen's internal systems and no evidence of its curren
 
 ## Outcome
 
-The manager starts with a map and matching list of NYC Sweetgreen locations. Selecting a pin or list row opens that location's detail view: public inspection history beside clearly labeled demo internal checks, citations without a linked follow-up, repeated citations, and corrective actions. The same flow works on a phone or tablet during a restaurant visit and on a larger screen for regional review.
+The manager starts on Home with the product purpose, permit-match coverage and import date, then opens the map and matching list of NYC Sweetgreen locations. A list row or a pin's Open location link reaches the same detail view: public inspection history grouped by year beside saved follow-ups and clearly labeled demo internal checks when available. Supporting-record review retains citations without a linked follow-up and repeated codes. The latest available inspection is dated; older records do not establish unresolved conditions or completed corrections. The same flow works on a phone or tablet during a restaurant visit and on a larger screen for regional review.
 
 The manager is the **only interactive role in version one**. An action owner is a name or role the manager enters; that does not create an employee account or send a message. The manager records status and confirms completion. City data never confirms that a correction occurred.
 
