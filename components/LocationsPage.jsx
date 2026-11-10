@@ -1,33 +1,34 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRef, useState } from 'react';
 import LocationMap from './LocationMap';
 import { Badge } from './Badges';
 import { usePreview } from './PreviewProvider';
 
 export default function LocationsPage() {
-  const router = useRouter();
+  const [selection, setSelection] = useState({ id: null, revision: 0 });
+  const selectedId = selection.id;
+  const mapRegion = useRef(null);
+  const selectLocation = (id) => {
+    setSelection((previous) => ({ id, revision: previous.revision + 1 }));
+    mapRegion.current?.scrollIntoView({ block: 'nearest' });
+  };
   const { locationsResponse } = usePreview();
-  const { locations, importStatus } = locationsResponse;
+  const { locations } = locationsResponse;
 
   return <>
-    <section className="intro">
-      <div><p className="eyebrow">NYC REGION · WORKSPACE</p><h1>Stay ahead of every follow-up.</h1><p>Choose a location to review its findings, compare sources, and record the next step.</p></div>
-      <div className="intro-meta"><span>Data connection</span><strong>{importStatus.warning ? 'City refresh warning' : importStatus.state === 'ok' ? 'Imported city data' : importStatus.state === 'not-connected' ? 'Sample mode' : importStatus.state}</strong><small>Last successful import run: {importStatus.lastSuccess ? new Date(importStatus.lastSuccess).toLocaleString() : 'unavailable'}</small></div>
-    </section>
-    <section className="overview" aria-labelledby="locations-title">
-      <div className="section-heading"><div><h2 id="locations-title">Locations</h2><p>{locations.length} locations · {importStatus.coverage}</p></div><Badge kind="review">{importStatus.coverage}</Badge></div>
+    <header className="workspace-heading"><h1 id="locations-title">NYC locations</h1><span className="quiet">{locations.length} locations</span></header>
+    <section className="overview map-workspace" aria-labelledby="locations-title">
       <div className="overview-grid">
         <div className="location-list" role="region" tabIndex="0" aria-label="NYC locations">{!locations.length && <p className="empty-state">No locations loaded. Import the saved directory to begin.</p>}
-          {locations.map((location) => <Link className="location-row" href={`/locations/${location.id}`} key={location.id}>
-            <span className="location-main"><strong>{location.name}</strong><small>{location.address}</small><span className="row-meta"><span>{location.citationCount === null ? (location.matchStatus !== 'verified' ? 'Inspection match unverified' : location.dataState === 'not-imported' ? 'Not imported' : 'No inspection records') : `${location.citationCount} ${location.isSample ? 'sample ' : ''}citations`}</span><span>{location.openFollowUpCount} open follow-ups</span></span></span>
-            <span className="row-end" aria-hidden="true">View</span>
-          </Link>)}
+          {locations.map((location) => <div className={`location-row${selectedId === location.id ? ' selected' : ''}`} key={location.id}>
+            <Link className="location-select" href={`/locations/${location.id}`}><strong>{location.name}</strong><small>{location.address}</small>{location.matchStatus !== 'verified' && !location.isSample && <Badge kind="review">Permit confirmation pending</Badge>}<small>{location.citationCount === null ? location.matchStatus !== 'verified' ? 'Inspection match unverified' : location.dataState === 'not-imported' ? 'Not imported' : 'No inspection records' : `${location.citationCount} recorded citations`} · {location.openFollowUpCount} open follow-ups</small>{!location.coordinates && <small>Map position unavailable</small>}</Link>
+            {location.coordinates && <button className="location-open" onClick={() => selectLocation(location.id)} aria-pressed={selectedId === location.id} aria-label={`Show ${location.name} on map`}>Map</button>}
+          </div>)}
         </div>
-        <div className="map-wrap"><LocationMap locations={locations} selectedId={null} onSelect={(id) => router.push(`/locations/${id}`)} /><p className="map-caption">{locations.filter((location) => location.coordinates).length} of {locations.length} locations have pins. Pins use city coordinates or the directory position; locations without coordinates remain in the list.</p></div>
+        <div className="map-wrap" ref={mapRegion}><LocationMap locations={locations} selectedId={selectedId} selectionRevision={selection.revision} onSelect={selectLocation} /></div>
       </div>
     </section>
-    <section className="summary-strip" aria-label="Data status"><div><strong>{importStatus.verifiedCount} of {importStatus.totalCount}</strong><span>locations verified</span></div><div><strong>{importStatus.lastSuccess ? new Date(importStatus.lastSuccess).toLocaleDateString() : 'Unavailable'}</strong><span>{importStatus.warning ? 'last successful import · see warning' : 'last successful city-data import'}</span></div><div><strong>{importStatus.state === 'not-connected' ? 'Sample mode' : 'Public city records'}</strong><span>Internal company data unavailable</span></div></section>
   </>;
 }

@@ -34,7 +34,7 @@ The prototype includes a small mix of fictional audit and temperature-check reco
 
 ## Manager flow
 
-1. **Map and list:** See NYC Sweetgreen locations as pins and matching list rows, plus public-citation and follow-up counts, inspection-match coverage, and city-data freshness. Selecting either a pin or its row opens the same location. A location without coordinates remains accessible in the list.
+1. **Home, map and list:** Home explains the workflow and shows inspection-match coverage and the last successful city import. The locations workspace shows NYC Sweetgreen pins and matching list rows, public-citation and follow-up counts, and pending-match labels. A row opens its location directly; a pin offers an Open location link to the same record. A separate Map control selects the matching pin. A location without coordinates remains accessible in the list. Stale, failed and partial-import warnings remain visible throughout the app.
 2. **Location detail:** See inspections grouped by date/type and their citation rows beside demo internal checks. Every record carries a source label.
 3. **Compare:** Open an explained flag and its supporting records. The manager may link a demo check to a citation or dismiss a suggested relationship. The app never silently merges records.
 4. **Act:** Create or update a follow-up for a public citation or demo check. Enter owner, due date, notes, and Open or In progress status.
@@ -97,7 +97,7 @@ These are concept illustrations with sample values and illustrative pin position
 
 ![Concept map and list for selecting an NYC location](<Production/Product Concepts/nyc-location-map-concept.png>)
 
-The map is the first screen. A pin or list row opens that location's comparison view. Pin positions and location labels in this image are illustrative.
+This earlier concept illustrates the map workspace. Home is the entry page; the workspace opens a location's inspection history before record comparison. Pin positions and location labels in this image are illustrative.
 
 ### Manager comparison view
 
