@@ -13,7 +13,7 @@ export default function ComparisonView() {
   const { locationsResponse, detailResponses, actionsByLocation, suggestions, setSuggestion, saving } = usePreview();
   const location = locationsResponse.locations.find((item) => item.id === id);
   const detail = detailResponses[id];
-  if (!location || !detail) return <section className="page-error"><h1>Comparison unavailable</h1><Link href="/">Back to locations</Link></section>;
+  if (!location || !detail) return <section className="page-error"><h1>Comparison unavailable</h1><Link href="/locations">Back to locations</Link></section>;
   const flags = detail.flags;
   const citations = citationsFor(detail);
   const historicalFlag = savedRecordFlag(detail, requestedFlag);
@@ -27,7 +27,7 @@ export default function ComparisonView() {
   const viewDescription = flag?.type === 'Repeat code' ? 'Review the citations that produced the repeat-code flag.' : suggestedChecks.length ? 'Review the citation and fictional demo check before deciding whether to link them.' : 'Review the citation behind this flag.';
 
   return <>
-    <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Locations</Link><span aria-hidden="true">/</span><Link href={`/locations/${id}`}>{location.name}</Link><span aria-hidden="true">/</span><span>{viewTitle}</span></nav>
+    <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/locations">Locations</Link><span aria-hidden="true">/</span><Link href={`/locations/${id}`}>{location.name}</Link><span aria-hidden="true">/</span><span>{viewTitle}</span></nav>
     <header className="page-heading"><div><p className="eyebrow">RECORD REVIEW</p><h1>{viewTitle}</h1><p>{viewDescription}</p></div></header>
     <div className="source-note"><strong>{location.isSample ? 'Sample evidence only.' : 'Public NYC inspection records.'}</strong> {location.isSample ? 'These citations are fictional fixtures.' : `CAMIS: ${location.camis || 'Unverified'}. Last location refresh: ${location.lastRefreshed ? new Date(location.lastRefreshed).toLocaleString() : 'unavailable'}.`}</div>
     {visibleFlags.length > 1 && <div className="flag-selector"><label htmlFor="flag-selector">Choose a flag ({visibleFlags.length})</label><select id="flag-selector" value={flag?.id || ''} onChange={(event) => router.push(`/locations/${id}/compare?flag=${encodeURIComponent(event.target.value)}`)}>{!flag && <option value="" disabled>Choose an available flag</option>}{visibleFlags.map((item) => {

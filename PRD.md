@@ -13,7 +13,7 @@ We have no access to sweetgreen's internal systems and no evidence of its curren
 
 ## Outcome
 
-The manager starts with a map and matching list of NYC Sweetgreen locations. Selecting a pin or list row opens that location's detail view: public inspection history beside clearly labeled demo internal checks, citations without a linked follow-up, repeated citations, and corrective actions. The same flow works on a phone or tablet during a restaurant visit and on a larger screen for regional review.
+The manager starts on Home with the product purpose, permit-match coverage and import date, then opens the map and matching list of NYC Sweetgreen locations. A list row or a pin's Open location link reaches the same detail view: public inspection history grouped by year beside saved follow-ups and clearly labeled demo internal checks when available. Supporting-record review retains citations without a linked follow-up and repeated codes. The latest available inspection is dated; older records do not establish unresolved conditions or completed corrections. The same flow works on a phone or tablet during a restaurant visit and on a larger screen for regional review.
 
 The manager is the **only interactive role in version one**. An action owner is a name or role the manager enters; that does not create an employee account or send a message. The manager records status and confirms completion. City data never confirms that a correction occurred.
 
@@ -34,7 +34,7 @@ The prototype includes a small mix of fictional audit and temperature-check reco
 
 ## Manager flow
 
-1. **Map and list:** See NYC Sweetgreen locations as pins and matching list rows, plus public-citation and follow-up counts, inspection-match coverage, and city-data freshness. Selecting either a pin or its row opens the same location. A location without coordinates remains accessible in the list.
+1. **Home, map and list:** Home explains the workflow and shows inspection-match coverage and the last successful city import. The locations workspace shows NYC Sweetgreen pins and matching list rows, public-citation and follow-up counts, and pending-match labels. A row opens its location directly; a pin offers an Open location link to the same record. A separate Map control selects the matching pin. A location without coordinates remains accessible in the list. Stale, failed and partial-import warnings remain visible throughout the app.
 2. **Location detail:** See inspections grouped by date/type and their citation rows beside demo internal checks. Every record carries a source label.
 3. **Compare:** Open an explained flag and its supporting records. The manager may link a demo check to a citation or dismiss a suggested relationship. The app never silently merges records.
 4. **Act:** Create or update a follow-up for a public citation or demo check. Enter owner, due date, notes, and Open or In progress status.
@@ -97,7 +97,7 @@ These are concept illustrations with sample values and illustrative pin position
 
 ![Concept map and list for selecting an NYC location](<Production/Product Concepts/nyc-location-map-concept.png>)
 
-The map is the first screen. A pin or list row opens that location's comparison view. Pin positions and location labels in this image are illustrative.
+This earlier concept illustrates the map workspace. Home is the entry page; the workspace opens a location's inspection history before record comparison. Pin positions and location labels in this image are illustrative.
 
 ### Manager comparison view
 

@@ -1,6 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { citationsFor, comparisonChecks, nextActionCitation, reviewGroups, checkReviewTarget, savedRecordFlag } from '../lib/records.js';
+import { citationsFor, comparisonChecks, nextActionCitation, reviewGroups, checkReviewTarget, savedRecordFlag, inspectionTimeline } from '../lib/records.js';
+
+test('inspection timeline preserves old source records and separates latest inspection from retained history', () => {
+  const inspections = [
+    { id: 'old', date: '2022-12-19', citations: [{ id: 'c1' }] },
+    { id: 'previous-permit', date: '2026-09-01', previousPermit: true, citations: [] },
+    { id: 'removed', date: '2026-10-01', removedFromSource: true, citations: [] },
+    { id: 'latest', date: '2025-11-05', outcome: 'no-violations', citations: [] },
+    { id: 'unknown', date: null, citations: [] },
+  ];
+  const before = structuredClone(inspections);
+  const timeline = inspectionTimeline(inspections);
+  assert.equal(timeline.latest.id, 'latest');
+  assert.deepEqual(timeline.years.map((group) => group.year), ['2026', '2025', '2022', 'Date unavailable']);
+  assert.equal(timeline.years.flatMap((group) => group.records).length, inspections.length);
+  assert.equal(timeline.years[2].records[0].citations[0].id, 'c1');
+  assert.deepEqual(inspections, before);
+});
+
+test('not-yet-inspected and retained history do not produce a latest available inspection', () => {
+  assert.equal(inspectionTimeline([{ date: '1900-01-01', outcome: 'not-yet-inspected', citations: [] }]).latest, undefined);
+  assert.equal(inspectionTimeline([{ date: '2025-01-01', removedFromSource: true, citations: [] }]).latest, undefined);
+  assert.deepEqual(inspectionTimeline([]), { years: [], latest: undefined });
+});
 
 test('review grouping keeps every API flag and its supporting IDs, grouping only findings on one inspection', () => {
   const flags = [
