@@ -13,15 +13,17 @@ The fixed numbers and IDs below describe the backend contributor's reviewed 2026
 ## Before you record
 
 1. For every rehearsal and recording, create a fresh copy of the unchanged pre-rehearsal city-data snapshot in a new directory and select it with `FSF_DATA_DIR`. Use that same selected store for every command below and for the app. Do not reuse a previous take's copy; its saved follow-ups and link decisions remain preserved there.
-2. Run `npm run data:status` against that copy and check it says **38 verified**, **118 inspections**, **271 citations**. Record `Last successful import` for this rehearsal. Do not run `npm run data:import` afterward: a refresh can change the numbers.
+2. Run `npm run data:status` against that copy. For the contributor snapshot, check for **38 verified**, **118 inspections**, **271 citations**. For a current store, record and use its actual coverage and counts instead, including any unverified locations. In either mode, record `Last successful import` for this rehearsal. Do not run `npm run data:import` afterward: a refresh can change the numbers.
 3. Stop the previous rehearsal server, then start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
 4. Confirm the screens are connected to the API. If they are not connected, use the API fallback at the end of this page instead.
-5. On that same selected store, run `npm run seed:demo` if the fictional checks are missing. It seeds only the three locations with the most citations. Verify whether `demo-chambers-st-coded` exists and its suggested citation matches the one used below. If the check is absent or points elsewhere, use the city-record-only variant below.
+5. On that same selected store, run `npm run seed:demo` if the fictional checks are missing. It seeds only the three locations with the most citations. For the contributor snapshot, verify whether `demo-chambers-st-coded` exists and its suggested citation matches the example below. For a current store, use the chosen location's returned check and citation IDs. If the check is absent or points elsewhere, use the city-record-only variant below.
 6. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer, repeating steps 1–5 with a fresh copy for each run.
 
-**City-record-only variant:** Keep the Chambers St public-citation story, skip the fictional-check linking beat, and create the follow-up from the city citation alone. Say that no company internal checks are connected; do not claim an internal record was linked. Use that beat to show the public source and date. In the API fallback, skip the optional PUT and use the city-record-only POST.
+**City-record-only variant:** For the contributor snapshot, keep the Chambers St public-citation story; for a current store, use the verified location and citation you selected. Skip the fictional-check linking beat and create the follow-up from that city citation alone. Say that no company internal checks are connected; do not claim an internal record was linked. Use that beat to show the public source and date. In the API fallback, skip the optional PUT and use the city-record-only POST.
 
-## The beats
+## Example beats for the contributor snapshot
+
+These exact counts, dates and IDs apply to the contributor snapshot. For a current store, substitute the verified values and records selected above before recording.
 
 | Time | Screen | You do | You say |
 | --- | --- | --- | --- |
@@ -35,7 +37,7 @@ The fixed numbers and IDs below describe the backend contributor's reviewed 2026
 
 The narration is about 265 words, roughly 105 seconds at a relaxed 150 words a minute, which leaves about 45 seconds for clicking and typing. Speak while you type. If you run long, shorten the 0:38 beat first.
 
-## Real numbers to have in mind (2026-11-09)
+## Contributor snapshot figures (2026-11-09)
 
 - 38 of 38 locations verified (29 matched automatically, 9 confirmed by the manager), all 38 with a map pin. Penn Plaza's pin comes from Sweetgreen's own page, because the city record has no coordinates; the screens can show that source (`coordinatesSource`).
 - 118 inspections and 271 citations across all 38 locations, from 2022-10-18 to 2026-10-23. Of the citations, 112 are critical (41 percent).
@@ -63,9 +65,9 @@ The narration is about 265 words, roughly 105 seconds at a relaxed 150 words a m
 - **Numbers differ from this page.** Run `npm run data:status`. Compare `Last successful import` with the value recorded for rehearsal; `Status as of` is only the current check time. If coverage or counts differ, quote the verified current values and rehearse again.
 - **A screen label differs from this script.** Follow the same beat with the new label. The storyline does not depend on a button name.
 
-## Fallback: the same story through the API
+## API fallback example for the contributor snapshot
 
-Use this only if the screens are not connected. Start the app with `npm run dev`, then run each request in a terminal, showing the response each time.
+Use this if the screens are not connected. The literal IDs below apply to the contributor snapshot; for a current store, substitute the returned IDs for your selected records. Start the app on the selected rehearsal copy with `npm run dev`, then run each request in a terminal, showing the response each time.
 
 ```bash
 curl -s localhost:3000/api/locations/chambers-st
