@@ -1,6 +1,6 @@
 # Demo script: Food Safety Follow-Up (2 minutes 30 seconds)
 
-One storyline, on real data: a critical pest finding at one restaurant was cited twice in 15 days. The manager links a fictional internal check to it, records a follow-up, and closes it with a note. The original finding and the repeat flag stay visible.
+One storyline, on real data: a critical pest finding at one restaurant was cited twice in 15 days. The manager links a fictional internal check to it, records a follow-up, and closes it with a note. The original finding and the repeat flag stay visible. All manager actions below are hypothetical rehearsal entries in an isolated copy, not records of corrective work at this restaurant.
 
 **Where it runs.** The click path below uses today's screen names. The screens read sample data until the API integration is merged; wording may change with that integration. Every number below is real as of 2026-11-09 and was rehearsed on a copy of the live store through the same code the screens will call.
 
@@ -15,7 +15,7 @@ The fixed numbers and IDs below describe the backend contributor's reviewed 2026
 1. For every rehearsal and recording, create a fresh copy of the unchanged pre-rehearsal city-data snapshot in a new directory and select it with `FSF_DATA_DIR`. Use that same selected store for every command below and for the app. Do not reuse a previous take's copy; its saved follow-ups and link decisions remain preserved there.
 2. Run `npm run data:status` against that copy and check it says **38 verified**, **118 inspections**, **271 citations**. Record `Last successful import` for this rehearsal. Do not run `npm run data:import` afterward: a refresh can change the numbers.
 3. Stop the previous rehearsal server, then start the app on the selected city-data store (`npm run dev`, not `npm run dev:sample`).
-4. Confirm the screens are connected to the API. If they are not connected by **Tuesday 12:00**, record the fallback at the end of this page instead.
+4. Confirm the screens are connected to the API. If they are not connected, use the API fallback at the end of this page instead.
 5. On that same selected store, run `npm run seed:demo` if the fictional checks are missing. It seeds only the three locations with the most citations. Verify whether `demo-chambers-st-coded` exists and its suggested citation matches the one used below. If the check is absent or points elsewhere, use the city-record-only variant below.
 6. Window about 1280 by 720, browser zoom 110 to 125 percent, notifications off. Rehearse twice with a timer, repeating steps 1–5 with a fresh copy for each run.
 
@@ -29,8 +29,8 @@ The fixed numbers and IDs below describe the backend contributor's reviewed 2026
 | 0:20 to 0:38 | Click **Chambers St** | Scroll to the inspection history and the **Needs attention** cards | "Every record names its source. This is public NYC data: four inspections and 16 violations. The newest is a re-inspection on 29 July 2026, grade A, with three citations. The tool lists 20 items for review." |
 | 0:38 to 1:05 | Open the **Repeat code** flag for 04N | Show the two citations side by side | "Code 04N, filth flies, a critical violation, was cited on 14 July and again on 29 July, fifteen days apart. The tool marks the repeat, meaning the same code on two inspection dates. It does not say why it happened or whether anyone acted. That is for the manager." |
 | 1:05 to 1:25 | Same page, **Fictional demo check** | Click **Link records** | "This pest activity check is a fictional demo record, labeled as fictional. It names code 04N, so the tool suggests the link. A written rule suggests it; I decide. The records stay separate until I link them." |
-| 1:25 to 1:55 | Click **Create follow-up** | Owner: `Kitchen manager`. Due date: `2026-11-20`. Notes: `Pest control visit; re-check seals and drains; verify before the next inspection.` Status: Open. **Save follow-up** | "I record an owner, a due date, and the action. The owner is just a name. Nothing is sent to anyone. The item for that violation clears, from 20 items to 19, because it now has a corrective action." |
-| 1:55 to 2:15 | Open the follow-up, **Mark complete…** | Completion note: `Pest control completed; seals replaced; verified on a walkthrough.` Finish | "City data never shows a correction, even when a restaurant cures a violation with the city, so completion needs my note. The original finding stays visible, and the repeat marker stays, because a later inspection could cite the same violation again." |
+| 1:25 to 1:55 | Click **Create follow-up** | Owner: `Demo manager`. Due date: `2026-11-20`. Notes: `Hypothetical demo action: arrange a pest-control visit and check seals and drains. Not an actual restaurant action.` Status: Open. **Save follow-up** | "I record a hypothetical rehearsal action, an owner and a due date. No notification is sent. The count changes from 20 to 19 because this prototype now has a linked follow-up, not because real work was verified." |
+| 1:55 to 2:15 | Open the follow-up, **Mark complete…** | Completion note: `Hypothetical demo completion for rehearsal only. No corrective work at this restaurant was verified.` Finish | "I record a hypothetical completion note for rehearsal, not a claim about work at this restaurant. The source finding and repeat marker stay visible. The app stores my note; it does not independently verify corrective work." |
 | 2:15 to 2:30 | Back on the location | Pause on the location page | "One user, one workflow: public findings, labeled demo checks, and my decisions, in one place. A working model, with no access to sweetgreen's internal systems." |
 
 The narration is about 265 words, roughly 105 seconds at a relaxed 150 words a minute, which leaves about 45 seconds for clicking and typing. Speak while you type. If you run long, shorten the 0:38 beat first.
@@ -80,22 +80,22 @@ curl -s -X PUT localhost:3000/api/internal-checks/demo-chambers-st-coded/link -H
 **Choose exactly one create request.** For the full fictional-check variant, after verifying and linking that check:
 
 ```bash
-curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","checkId":"demo-chambers-st-coded","owner":"Kitchen manager","dueDate":"2026-11-20","notes":"Pest control visit; re-check seals and drains; verify before the next inspection."}'
+curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","checkId":"demo-chambers-st-coded","owner":"Demo manager","dueDate":"2026-11-20","notes":"Hypothetical demo action: arrange a pest-control visit and check seals and drains. Not an actual restaurant action."}'
 ```
 
 For the city-record-only variant, skip the PUT and use this POST instead:
 
 ```bash
-curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","owner":"Kitchen manager","dueDate":"2026-11-20","notes":"Pest control visit; re-check seals and drains; verify before the next inspection."}'
+curl -s -X POST localhost:3000/api/follow-ups -H 'content-type: application/json' -d '{"locationId":"chambers-st","citationId":"i-50091763-20260729-cycle-inspection-re-inspection--04N","owner":"Demo manager","dueDate":"2026-11-20","notes":"Hypothetical demo action: arrange a pest-control visit and check seals and drains. Not an actual restaurant action."}'
 ```
 
 Then complete it with the id the previous response returned:
 
 ```bash
-curl -s -X PATCH localhost:3000/api/follow-ups/FOLLOW-UP-ID -H 'content-type: application/json' -d '{"status":"Complete","completionNote":"Pest control completed; seals replaced; verified on a walkthrough."}'
+curl -s -X PATCH localhost:3000/api/follow-ups/FOLLOW-UP-ID -H 'content-type: application/json' -d '{"status":"Complete","completionNote":"Hypothetical demo completion for rehearsal only. No corrective work at this restaurant was verified."}'
 ```
 
-## Questions for Thursday
+## Questions and answers
 
 - **Is this real data?** The inspections are real NYC Open Data records. The internal checks are fictional and labeled. There is no sweetgreen internal data.
 - **How do you know a location matches its permit?** Street address and business name must both agree. Anything weaker is a candidate, and a person confirms it. Each automatic match sits within 116 meters of the location's own published map position.

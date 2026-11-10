@@ -1,6 +1,6 @@
-# Plain-language explanation (LaNice's lesson of 2026-11-09)
+# Plain-language explanation
 
-The lesson: lead with the outcome, use the job description's own words, and run the jargon test (would a new hire follow every word?). Her Team Debrief at 14:00 ET asks for the product in one minute with zero technical terms, and for one plain-language sentence that defines a good explanation.
+Lead with the outcome, use the job description's own words, and check whether a new hire could follow every word.
 
 **Readiness:** These speaker lines describe the intended API-connected workflow. Present it as proposed until frontend integration is merged and the browser walkthrough passes.
 
@@ -16,7 +16,7 @@ Four parts, in order: Who, Problem, Does, Changes. About 125 words, under a minu
 
 **Changes:**  The manager can review findings without a linked follow-up, see repeated codes, and keep an owner, due date, status and completion note for each recorded action. These are manager-entered records.
 
-## One sentence for the debrief (a draft to adjust)
+## One-sentence explanation
 
 "A good explanation tells the person what they can now do, in the words of their own job, and a new hire would follow every word."
 

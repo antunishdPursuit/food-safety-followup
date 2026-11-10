@@ -1,10 +1,10 @@
 # Business case (draft): Food Safety Follow-Up
 
-**Status: draft for Valerie to edit.** Everything here comes from public sources and the prototype's own data. There is no sweetgreen internal data, no interview with a food safety manager, and no measured baseline. Where a number is an assumption, it says so.
+Everything here comes from public sources and the prototype's own data. There is no sweetgreen internal data, no interview with a food safety manager, and no measured baseline. Where a number is an assumption, it says so.
 
 ## The user and the problem
 
-A food safety manager for a New York restaurant region experiences slow, scattered follow-up of inspection findings across many restaurants in daily operations, because public citations, internal checks, and corrective actions live in separate places. The result is findings that may lack an owner or a due date, and repeat violations that are noticed late.
+The selected role reviews inspection findings across New York restaurants and documents corrective actions. Our hypothesis is that viewing public findings and recorded actions together could help track owners, due dates and repeated codes. The company's actual workflow and any improvement from this prototype have not been measured.
 
 This is a hypothesis. The posting (sweetgreen, Senior Food Safety Manager) names reviewing audits and sanitation findings, driving corrective action to completion, and documenting it. It does not tell us how the work is done today, and an existing tool may already do this well.
 
@@ -28,7 +28,7 @@ These are recorded findings in a public dataset with limited history. They are n
 
 ## Where the value is
 
-Using the value levers from class:
+Potential value areas:
 
 - **Risk reduction (the main case).** Repeat codes with critical citations are candidates for manager review. The prototype surfaces repeated codes by rule; any risk reduction is an untested hypothesis, not a measured result against the company's current process.
 - **Documentation (the second case).** A saved owner, due date, and completion note give an audit trail that public data cannot provide. Even when a restaurant "cures" a violation with the city, the violation stays on the public record and no score or grade changes, so a written note preserves the manager's reported work. The prototype does not independently verify the correction or the person's identity.
@@ -37,7 +37,7 @@ Using the value levers from class:
 
 ## Limits of this case
 
-- No baseline. The JD selection document set the rule: establish a baseline before setting an improvement target.
+- No baseline. Establish a baseline before setting an improvement target.
 - Public data only. Citations show findings, not what the company did about them.
 - Up to 99 of the 271 citations carry codes that a restaurant can cure within 7 days (an upper bound). The data cannot show which were cured.
 - 17 of the 271 citations use administrative codes that the city does not score, such as calorie posting and plastic straws. They are not food-safety findings.

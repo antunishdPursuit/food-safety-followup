@@ -1,6 +1,6 @@
 # Deck outline: Food Safety Follow-Up (2 minutes 30 seconds)
 
-LaNice's Final Project Submission needs two parts, due **Wednesday 2026-11-11 at 12:00** through the Google Form: a 2.5-minute working demo video (script in `docs/demo-script.md`) and this 2.5-minute deck, with the architecture diagram shown. The deck covers three things she named: the JD, what the product addresses, and how it improves the workflow. Six slides, about 25 seconds each.
+A six-slide, two-and-a-half-minute presentation covering the job description, proposed workflow and value hypothesis. Show the architecture diagram and pair it with the demo script in `docs/demo-script.md`. Allow about 25 seconds per slide.
 
 **Readiness:** The architecture slide describes the intended API-connected flow. The published screens still use sample fixtures; present it as proposed architecture until frontend integration is merged and the browser walkthrough passes.
 
@@ -21,4 +21,4 @@ LaNice's Final Project Submission needs two parts, due **Wednesday 2026-11-11 at
 - **Quote the posting sparingly.** Paraphrase the duties, as above, and link to it.
 - **Do not claim** the app uses AI, that it reduces violations, or that any restaurant is unsafe.
 
-- **Plain wording:** the speaker lines follow LaNice's 2026-11-09 lesson. They lead with the outcome and use the job description's words ("corrective action," "documentation," "violations"). See `plain-language.md` for the one-minute version and the swap table.
+- **Plain wording:** the speaker lines lead with the outcome and use the job description's words ("corrective action," "documentation," "violations"). See `plain-language.md` for the one-minute version and the swap table.
