@@ -8,11 +8,29 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import * as dates from '../lib/followUps.js';
 import { getLocationDetail, listLocations, monthsAgo } from '../lib/server/service.js';
 import { updateDb } from '../lib/server/store.js';
+import { seedDemoChecks } from '../lib/server/demo.js';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const followUps = pathToFileURL(path.join(root, 'lib', 'followUps.js')).href;
 const due = (dueDate) => ({ status: 'Open', dueDate });
 const at = (iso) => new Date(iso);
+
+for (const [now, codedDate, walkthroughDate] of [
+  ['2026-03-20T04:30:00Z', '2026-03-06', '2026-03-07'],
+  ['2026-11-05T04:30:00Z', '2026-10-21', '2026-10-22'],
+]) {
+  test(`demo seed subtracts New York calendar days across the clock change at ${now}`, async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'fsf-seed-dst-'));
+    await updateDb((db) => {
+      db.locations.a = { id: 'a', name: 'Location A', address: 'Address', camis: '1', matchStatus: 'verified' };
+      db.inspections.a = [{ id: 'i1', date: '2026-01-01', citations: [{ id: 'c1', code: '04N', description: 'Flies' }] }];
+    }, dir);
+    await seedDemoChecks({ dir, now: at(now) });
+    const detail = await getLocationDetail('a', { dir, now: at(now) });
+    assert.equal(detail.internalChecks.find((check) => check.id === 'demo-a-coded').date, codedDate);
+    assert.equal(detail.internalChecks.find((check) => check.id === 'demo-a-walkthrough').date, walkthroughDate);
+  });
+}
 
 // "Today" is a New York calendar date wherever the code runs. A server set to UTC would otherwise call a follow-up that is
 // due today overdue from 19:00 in New York (20:00 in summer), and a browser in another zone would disagree with the server.
