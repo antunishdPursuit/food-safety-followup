@@ -1,8 +1,8 @@
 # Food Safety Follow-Up
 
-[![Watch the showcase film: one repeated city violation, from the public record to a documented follow-up](docs/media/showcase-poster.jpg)](docs/media/food-safety-follow-up-showcase.mp4)
+https://github.com/user-attachments/assets/27949cbb-be2a-497f-b223-0fb72f9d3bb8
 
-**[Watch the showcase film (1:28)](docs/media/food-safety-follow-up-showcase.mp4)**: a filth-flies violation cited twice in 15 days at one restaurant, carried from the public NYC inspection record to a manager's documented follow-up. Inspection records are from NYC Open Data; the follow-up shown is a hypothetical demo entry.
+**Showcase film (1:28)**: a filth-flies violation cited twice in 15 days at one restaurant, carried from the public NYC inspection record to a manager's documented follow-up. Inspection records are from NYC Open Data; the follow-up shown is a hypothetical demo entry. [Download the film](docs/media/food-safety-follow-up-showcase.mp4).
 
 Food Safety Follow-Up is a course prototype for a food safety manager overseeing sweetgreen restaurants in New York City. It brings public restaurant-inspection findings and manager-entered follow-ups into one review workflow, helping the manager identify citations that need attention and keep corrective actions connected to their source records.
 
