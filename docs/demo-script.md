@@ -4,6 +4,12 @@ One storyline, on real data: a critical pest finding at one restaurant was cited
 
 **Where it runs.** The click path below uses today's screen names. The screens read sample data until the API integration is merged; wording may change with that integration. Every number below is real as of 2026-11-09 and was rehearsed on a copy of the live store through the same code the screens will call.
 
+## Choose the data baseline
+
+The fixed numbers and IDs below describe the backend contributor's reviewed 2026-11-09 snapshot, not a data file shipped in Git. To reproduce that exact take, obtain the contributor's clean `db.json` export used for the [final status in backend PR #1](https://github.com/antunishdPursuit/food-safety-followup/pull/1): 38 verified locations, 118 inspections, 271 citations, last successful import `2026-11-09T17:39:11.188Z`. Check those fields with `npm run data:status` on the selected copy before using the fixed narration.
+
+**If that export is unavailable, use your own imported store instead.** Prepare it from the saved directory using the README setup, or use the current store you already imported. Leave uncertain permit matches unverified. With the app running on its rehearsal copy, read `GET /api/locations` and `GET /api/locations/<verified-location-id>`; choose an available current flag and its returned citation/check IDs. Replace the example counts, location, codes, dates and request IDs with those actual values in both the narration and deck. If no repeat flag is available, demonstrate a current Needs review citation rather than claiming a repeat. Use the city-record-only variant when no matching fictional check exists. The fixed-count checks below apply only to the contributor snapshot; for a current store, verify and quote its own coverage and counts.
+
 ## Before you record
 
 1. For every rehearsal and recording, create a fresh copy of the unchanged pre-rehearsal city-data snapshot in a new directory and select it with `FSF_DATA_DIR`. Use that same selected store for every command below and for the app. Do not reuse a previous take's copy; its saved follow-ups and link decisions remain preserved there.
