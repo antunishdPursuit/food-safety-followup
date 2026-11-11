@@ -1,6 +1,6 @@
 # Food Safety Follow-Up
 
-https://github.com/user-attachments/assets/27949cbb-be2a-497f-b223-0fb72f9d3bb8
+https://github.com/user-attachments/assets/e847a48e-6e39-43a7-8f0d-afdf96c714ec
 
 **Showcase film (1:28)**: a filth-flies violation cited twice in 15 days at one restaurant, carried from the public NYC inspection record to a manager's documented follow-up. Inspection records are from NYC Open Data; the follow-up shown is a hypothetical demo entry. [Download the film](docs/media/food-safety-follow-up-showcase.mp4).
 
