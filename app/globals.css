@@ -104,3 +104,6 @@ html{scroll-behavior:auto}
 
 .source-summary-meta{display:block;color:var(--muted);font-weight:400;margin-top:var(--space-1)}.source-context[open] .source-summary-meta{display:none}
 @media(max-width:850px){.map-workspace .location-list{max-height:none;overflow:visible;scrollbar-gutter:auto}}
+.access-control{display:inline-flex;align-items:center;gap:.35rem;margin-left:auto;font-size:.875rem;color:var(--muted)}
+.access-control a,.access-control .text-button{font-weight:700}
+.access-form{max-width:480px;padding:2rem 0}
