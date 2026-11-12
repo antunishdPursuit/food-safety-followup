@@ -24,4 +24,4 @@ export const POST = handle(async (request) => {
   } finally {
     running = false;
   }
-});
+}, { access: 'open' }); // Its own gate is the import key above, so a scheduler needs no access code.

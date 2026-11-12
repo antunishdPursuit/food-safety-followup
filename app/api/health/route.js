@@ -28,4 +28,4 @@ export const GET = handle(async () => {
     lastImportFailed: Boolean(summary.error),
     importStale: lastSuccess === null || now.getTime() - lastSuccess > staleAfterHours() * 3_600_000,
   });
-});
+}, { access: 'open' }); // A monitor must reach it without the access code.
