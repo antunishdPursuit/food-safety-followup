@@ -1,0 +1,620 @@
+{
+  "source": "NYC DOHMH Restaurant Inspection Results, permits whose name contains SWEETGREEN or SWEET GREEN. City records only; not Sweetgreen's website, and no internal safety data.",
+  "sourceUrl": "https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j",
+  "fetchedAt": "2026-11-12T19:25:58.233Z",
+  "count": 41,
+  "permits": [
+    {
+      "camis": "50178824",
+      "name": "SWEETGREEN",
+      "building": "1153",
+      "street": "BROADWAY",
+      "zip": "11221",
+      "borough": "Brooklyn",
+      "address": "1153 BROADWAY, Brooklyn, NY 11221",
+      "phone": "2138381668",
+      "coordinates": [
+        40.693127165038,
+        -73.928430007247
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50085657",
+      "name": "SWEETGREEN",
+      "building": "127",
+      "street": "COURT STREET",
+      "zip": "11201",
+      "borough": "Brooklyn",
+      "address": "127 COURT STREET, Brooklyn, NY 11201",
+      "phone": "3477676800",
+      "coordinates": [
+        40.690039410467,
+        -73.992182369427
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50158479",
+      "name": "SWEETGREEN",
+      "building": "723",
+      "street": "MANHATTAN AVENUE",
+      "zip": "11222",
+      "borough": "Brooklyn",
+      "address": "723 MANHATTAN AVENUE, Brooklyn, NY 11222",
+      "phone": "7244543105",
+      "coordinates": [
+        40.726074001233,
+        -73.952116274261
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50017284",
+      "name": "SWEETGREEN",
+      "building": "162",
+      "street": "NORTH 4 STREET",
+      "zip": "11211",
+      "borough": "Brooklyn",
+      "address": "162 NORTH 4 STREET, Brooklyn, NY 11211",
+      "phone": "2138381668",
+      "coordinates": [
+        40.715863403134,
+        -73.959042479911
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50172399",
+      "name": "SWEETGREEN",
+      "building": "78",
+      "street": "SAINT MARKS AVENUE",
+      "zip": "11217",
+      "borough": "Brooklyn",
+      "address": "78 SAINT MARKS AVENUE, Brooklyn, NY 11217",
+      "phone": "2138381688",
+      "coordinates": [
+        40.679829049101,
+        -73.97461102679
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50065314",
+      "name": "SWEETGREEN DUMBO",
+      "building": "50",
+      "street": "WASHINGTON STREET",
+      "zip": "11201",
+      "borough": "Brooklyn",
+      "address": "50 WASHINGTON STREET, Brooklyn, NY 11201",
+      "phone": "3479874185",
+      "coordinates": [
+        40.702827100892,
+        -73.989616562553
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50113986",
+      "name": "SWEETGREEN",
+      "building": "100",
+      "street": "WILLOUGHBY STREET",
+      "zip": "11201",
+      "borough": "Brooklyn",
+      "address": "100 WILLOUGHBY STREET, Brooklyn, NY 11201",
+      "phone": "4403600031",
+      "coordinates": [
+        40.692119194158,
+        -73.984699610102
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50097403",
+      "name": "SWEETGREEN",
+      "building": "606",
+      "street": "1 AVENUE",
+      "zip": "10016",
+      "borough": "Manhattan",
+      "address": "606 1 AVENUE, Manhattan, NY 10016",
+      "phone": "9175124728",
+      "coordinates": [
+        40.744072814683,
+        -73.973280045069
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50052428",
+      "name": "SWEETGREEN",
+      "building": "1321",
+      "street": "1 AVENUE",
+      "zip": "10021",
+      "borough": "Manhattan",
+      "address": "1321 1 AVENUE, Manhattan, NY 10021",
+      "phone": "6464906858",
+      "coordinates": [
+        40.767022134733,
+        -73.956574077888
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50050184",
+      "name": "SWEETGREEN",
+      "building": "1500",
+      "street": "3 AVENUE",
+      "zip": "10028",
+      "borough": "Manhattan",
+      "address": "1500 3 AVENUE, Manhattan, NY 10028",
+      "phone": "9172448234",
+      "coordinates": [
+        40.777843985308,
+        -73.954707487006
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50070146",
+      "name": "SWEETGREEN",
+      "building": "1114",
+      "street": "6 AVENUE",
+      "zip": "10036",
+      "borough": "Manhattan",
+      "address": "1114 6 AVENUE, Manhattan, NY 10036",
+      "phone": "9146023590",
+      "coordinates": [
+        40.755344761442,
+        -73.983732132268
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50098726",
+      "name": "SWEETGREEN",
+      "building": "347",
+      "street": "BOWERY",
+      "zip": "10003",
+      "borough": "Manhattan",
+      "address": "347 BOWERY, Manhattan, NY 10003",
+      "phone": "3472612717",
+      "coordinates": [
+        40.72652835049,
+        -73.991734300698
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50178823",
+      "name": "SWEETGREEN",
+      "building": "870",
+      "street": "BROADWAY",
+      "zip": "10003",
+      "borough": "Manhattan",
+      "address": "870 BROADWAY, Manhattan, NY 10003",
+      "phone": "6462956677",
+      "coordinates": [
+        40.737611587808,
+        -73.990166830327
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50001790",
+      "name": "SWEETGREEN",
+      "building": "1164",
+      "street": "BROADWAY",
+      "zip": "10001",
+      "borough": "Manhattan",
+      "address": "1164 BROADWAY, Manhattan, NY 10001",
+      "phone": "2138381668",
+      "coordinates": [
+        40.744813720972,
+        -73.988805210096
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50071277",
+      "name": "SWEETGREEN",
+      "building": "1384",
+      "street": "BROADWAY",
+      "zip": "10018",
+      "borough": "Manhattan",
+      "address": "1384 BROADWAY, Manhattan, NY 10018",
+      "phone": "2122780869",
+      "coordinates": [
+        40.752570268071,
+        -73.987378221704
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50105437",
+      "name": "SWEETGREEN",
+      "building": "1740",
+      "street": "BROADWAY",
+      "zip": "10019",
+      "borough": "Manhattan",
+      "address": "1740 BROADWAY, Manhattan, NY 10019",
+      "phone": "3472512514",
+      "coordinates": [
+        40.765091155007,
+        -73.982094413718
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50065575",
+      "name": "SWEETGREEN",
+      "building": "2460",
+      "street": "BROADWAY",
+      "zip": "10025",
+      "borough": "Manhattan",
+      "address": "2460 BROADWAY, Manhattan, NY 10025",
+      "phone": "4439946540",
+      "coordinates": [
+        40.791551786007,
+        -73.974026540769
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50091763",
+      "name": "SWEETGREEN",
+      "building": "125",
+      "street": "CHAMBERS STREET",
+      "zip": "10007",
+      "borough": "Manhattan",
+      "address": "125 CHAMBERS STREET, Manhattan, NY 10007",
+      "phone": "6468912620",
+      "coordinates": [
+        40.715302215618,
+        -74.008754893218
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50110093",
+      "name": "SWEETGREEN",
+      "building": "159",
+      "street": "COLUMBUS AVENUE",
+      "zip": "10023",
+      "borough": "Manhattan",
+      "address": "159 COLUMBUS AVENUE, Manhattan, NY 10023",
+      "phone": "9175308995",
+      "coordinates": [
+        40.774349043002,
+        -73.98100876451
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50041812",
+      "name": "SWEETGREEN",
+      "building": "8",
+      "street": "EAST 18 STREET",
+      "zip": "10003",
+      "borough": "Manhattan",
+      "address": "8 EAST 18 STREET, Manhattan, NY 10003",
+      "phone": "6466923131",
+      "coordinates": [
+        40.738262185299,
+        -73.99126012096
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50172400",
+      "name": "SWEETGREEN",
+      "building": "27",
+      "street": "EAST 23 STREET",
+      "zip": "10010",
+      "borough": "Manhattan",
+      "address": "27 EAST 23 STREET, Manhattan, NY 10010",
+      "phone": "6465224337",
+      "coordinates": [
+        40.740649776163,
+        -73.987452661991
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50105794",
+      "name": "SWEETGREEN",
+      "building": "155",
+      "street": "EAST 44 STREET",
+      "zip": "10017",
+      "borough": "Manhattan",
+      "address": "155 EAST 44 STREET, Manhattan, NY 10017",
+      "phone": "6469820900",
+      "coordinates": [
+        40.752378682374,
+        -73.974240385296
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50058588",
+      "name": "SWEETGREEN",
+      "building": "66",
+      "street": "EAST 55 STREET",
+      "zip": "10022",
+      "borough": "Manhattan",
+      "address": "66 EAST 55 STREET, Manhattan, NY 10022",
+      "phone": "6466785545",
+      "coordinates": [
+        40.760645501134,
+        -73.972529761483
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50052953",
+      "name": "SWEETGREEN",
+      "building": "32",
+      "street": "GANSEVOORT STREET",
+      "zip": "10014",
+      "borough": "Manhattan",
+      "address": "32 GANSEVOORT STREET, Manhattan, NY 10014",
+      "phone": "2016603960",
+      "coordinates": [
+        40.739401446475,
+        -74.0058387147
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50017275",
+      "name": "SWEETGREEN",
+      "building": "100",
+      "street": "KENMARE STREET",
+      "zip": "10012",
+      "borough": "Manhattan",
+      "address": "100 KENMARE STREET, Manhattan, NY 10012",
+      "phone": "6469645012",
+      "coordinates": [
+        40.721351982949,
+        -73.997153588714
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50113982",
+      "name": "SWEETGREEN",
+      "building": "599",
+      "street": "LEXINGTON AVENUE",
+      "zip": "10022",
+      "borough": "Manhattan",
+      "address": "599 LEXINGTON AVENUE, Manhattan, NY 10022",
+      "phone": "7182108491",
+      "coordinates": [
+        40.758268177392,
+        -73.971054408587
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50052431",
+      "name": "SWEETGREEN",
+      "building": "786",
+      "street": "LEXINGTON AVENUE",
+      "zip": "10065",
+      "borough": "Manhattan",
+      "address": "786 LEXINGTON AVENUE, Manhattan, NY 10065",
+      "phone": "9146023590",
+      "coordinates": [
+        40.763619413331,
+        -73.967178632672
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50172402",
+      "name": "SWEETGREEN",
+      "building": "167",
+      "street": "ORCHARD STREET",
+      "zip": "10002",
+      "borough": "Manhattan",
+      "address": "167 ORCHARD STREET, Manhattan, NY 10002",
+      "phone": "5512093295",
+      "coordinates": [
+        40.721159326566,
+        -73.988686540034
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50088095",
+      "name": "SWEETGREEN",
+      "building": "2",
+      "street": "PARK AVENUE",
+      "zip": "10016",
+      "borough": "Manhattan",
+      "address": "2 PARK AVENUE, Manhattan, NY 10016",
+      "phone": "3472132944",
+      "coordinates": [
+        40.746069970597,
+        -73.982092327777
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50097399",
+      "name": "SWEETGREEN",
+      "building": "230",
+      "street": "PARK AVENUE",
+      "zip": "10169",
+      "borough": "Manhattan",
+      "address": "230 PARK AVENUE, Manhattan, NY 10169",
+      "phone": "2016321090",
+      "coordinates": [
+        40.75450075314,
+        -73.975950427165
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50172006",
+      "name": "SWEETGREEN",
+      "building": "270",
+      "street": "PARK AVENUE",
+      "zip": "10017",
+      "borough": "Manhattan",
+      "address": "270 PARK AVENUE, Manhattan, NY 10017",
+      "phone": "7043286780",
+      "coordinates": [
+        40.755634159504,
+        -73.975109006874
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50098725",
+      "name": "SWEETGREEN",
+      "building": "7",
+      "street": "PENNSLYVANIA PLAZA",
+      "zip": null,
+      "borough": "Manhattan",
+      "address": "7 PENNSLYVANIA PLAZA, Manhattan, NY",
+      "phone": "6469924200",
+      "coordinates": null,
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50098724",
+      "name": "SWEETGREEN",
+      "building": "30",
+      "street": "ROCKEFELLER PLAZA",
+      "zip": "10112",
+      "borough": "Manhattan",
+      "address": "30 ROCKEFELLER PLAZA, Manhattan, NY 10112",
+      "phone": "7184144167",
+      "coordinates": [
+        40.758747437799,
+        -73.978692223615
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50112698",
+      "name": "SWEETGREEN",
+      "building": "293",
+      "street": "SPRING STREET",
+      "zip": "10013",
+      "borough": "Manhattan",
+      "address": "293 SPRING STREET, Manhattan, NY 10013",
+      "phone": "6468324922",
+      "coordinates": [
+        40.725853178868,
+        -74.007677533487
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50065580",
+      "name": "SWEETGREEN",
+      "building": "101",
+      "street": "UNIVERSITY PLACE",
+      "zip": "10003",
+      "borough": "Manhattan",
+      "address": "101 UNIVERSITY PLACE, Manhattan, NY 10003",
+      "phone": "7183099655",
+      "coordinates": [
+        40.7340024126,
+        -73.992707612722
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50050182",
+      "name": "SWEETGREEN",
+      "building": "67",
+      "street": "WALL STREET",
+      "zip": "10005",
+      "borough": "Manhattan",
+      "address": "67 WALL STREET, Manhattan, NY 10005",
+      "phone": "2124879030",
+      "coordinates": [
+        40.705742214113,
+        -74.008342460958
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50040802",
+      "name": "SWEETGREEN",
+      "building": "600",
+      "street": "WEST 115 STREET",
+      "zip": "10025",
+      "borough": "Manhattan",
+      "address": "600 WEST 115 STREET, Manhattan, NY 10025",
+      "phone": "5164573809",
+      "coordinates": [
+        40.807455118131,
+        -73.964711403469
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50080064",
+      "name": "SWEETGREEN",
+      "building": "501",
+      "street": "WEST 30 STREET",
+      "zip": "10001",
+      "borough": "Manhattan",
+      "address": "501 WEST 30 STREET, Manhattan, NY 10001",
+      "phone": "9146023590",
+      "coordinates": [
+        40.752131794857,
+        -74.001147754922
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50113988",
+      "name": "SWEETGREEN",
+      "building": "3",
+      "street": "WORLD TRADE CENTER",
+      "zip": "10007",
+      "borough": "Manhattan",
+      "address": "3 WORLD TRADE CENTER, Manhattan, NY 10007",
+      "phone": "6467599009",
+      "coordinates": [
+        40.710688062939,
+        -74.011026719737
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50119415",
+      "name": "SWEETGREEN",
+      "building": "25-35",
+      "street": "44 DRIVE",
+      "zip": "11101",
+      "borough": "Queens",
+      "address": "25-35 44 DRIVE, Queens, NY 11101",
+      "phone": "9294702030",
+      "coordinates": [
+        40.747179629635,
+        -73.942623750131
+      ],
+      "recordDate": "2026-11-11"
+    },
+    {
+      "camis": "50165686",
+      "name": "SWEETGREEN",
+      "building": "106-24",
+      "street": "71 AVENUE",
+      "zip": "11375",
+      "borough": "Queens",
+      "address": "106-24 71 AVENUE, Queens, NY 11375",
+      "phone": "2138381668",
+      "coordinates": [
+        40.719830957568,
+        -73.844984087258
+      ],
+      "recordDate": "2026-11-11"
+    }
+  ]
+}
