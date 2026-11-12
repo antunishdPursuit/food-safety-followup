@@ -1,0 +1,96 @@
+name: Snapshot
+
+# Rebuilds the read-only snapshot from live NYC Open Data and publishes it to GitHub Pages every Monday.
+# It runs only where the repository variable SNAPSHOT_PAGES is "true" (set in the copy that hosts the site), so it
+# does nothing in other copies. It costs nothing: public repositories get GitHub Actions and Pages for free.
+# A failed city lookup fails the run and leaves the last published site in place; GitHub emails the owner.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  FSF_DATA_DIR: /tmp/fsf-store
+
+jobs:
+  build:
+    if: vars.SNAPSHOT_PAGES == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - name: Rebuild the store from the saved directory, the confirmed matches, and live city data
+        env:
+          NYC_OPEN_DATA_APP_TOKEN: ${{ secrets.NYC_OPEN_DATA_APP_TOKEN }}
+        run: |
+          npm run data:sync
+          npm run data:seed-matches
+          npm run data:import
+          npm run seed:demo
+          npm run data:status
+      - name: Build the static site
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: npm run build:snapshot
+      - uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-data
+          path: public/snapshot
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    if: vars.SNAPSHOT_PAGES == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  housekeeping:
+    needs: deploy
+    if: vars.SNAPSHOT_PAGES == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: snapshot-data
+          path: snapshot-data
+      # GitHub switches scheduled workflows off after 60 days without repository activity; this commit is the activity.
+      - name: Record the refresh
+        run: |
+          date -u +%FT%TZ > .github/last-refresh.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/last-refresh.txt
+          git commit -m 'Record snapshot refresh' && git push
+      # A copy of the snapshot data, kept as a release each month, in case the site ever has to be rebuilt from files.
+      - name: Keep a copy once a month
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="snapshot-$(date -u +%Y-%m)"
+          if [ "$(date -u +%d)" -le 7 ] && ! gh release view "$tag" >/dev/null 2>&1; then
+            (cd snapshot-data && zip -qr ../snapshot-data.zip .)
+            gh release create "$tag" snapshot-data.zip --title "Snapshot copy $(date -u +%Y-%m)" --notes 'Public NYC inspection records and the location list, as published on the snapshot site that week.'
+          fi

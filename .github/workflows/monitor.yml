@@ -1,0 +1,25 @@
+name: Monitor
+
+# A free uptime check: every day it opens the published snapshot and fails if the page does not answer or the data
+# is more than 10 days old. A failed scheduled run emails the repository owner. Runs only where the repository
+# variable SNAPSHOT_PAGES is "true".
+on:
+  schedule:
+    - cron: '23 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: vars.SNAPSHOT_PAGES == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: The site answers and the data is fresh
+        env:
+          SITE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: |
+          curl --fail --silent --show-error --location --retry 3 --retry-delay 20 "$SITE/" | grep -q 'Food Safety Follow-Up'
+          curl --fail --silent --show-error --location --retry 3 --retry-delay 20 "$SITE/snapshot/locations.json" -o locations.json
+          node -e "const s = require('./locations.json').importStatus.lastSuccess; const age = (Date.now() - Date.parse(s)) / 864e5; if (!s || age > 10) { console.error('The data is ' + age.toFixed(1) + ' days old.'); process.exit(1); } console.log('The data is ' + age.toFixed(1) + ' days old.');"

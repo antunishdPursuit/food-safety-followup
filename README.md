@@ -121,3 +121,12 @@ Measured on 2026-11-09 by running the rule fresh on all 38 locations against eve
 `npm test` covers the store, directory parsing, address matching, the NYC client and import, the flag rules, and every endpoint. The tests use fake city responses, and a guard makes any request to the NYC Open Data service or sweetgreen.com fail, so a test run gives the same answer with or without a network. `npm run build` checks the route handlers.
 
 A GitHub Actions workflow (`.github/workflows/ci.yml`) runs `npm ci`, `npm test`, and `npm run build` on Node 20.10 and the current long-term-support release for every pull request and every push to `main`, plus an `npm audit` that only reports. It is not a required check, so nothing in it blocks a merge. By choice it never runs the live city lookups (the `data:*` and `seed:*` commands stay manual), and it has no linting, browser tests, or deployment. Add those after the showcase if the team wants them.
+
+## Free read-only snapshot
+
+A copy of the app that needs no server and no payment: every screen reads plain files, and saving is turned off with a clear message.  It suits a public demo (for example for buyers) on any free static host.
+
+- `npm run data:sync`, `npm run data:seed-matches`, `npm run data:import`, then `npm run build:snapshot` build it.  `data:seed-matches` restores the 38 confirmed location-to-permit matches from `data/confirmed-matches.json`, so a fresh store reaches the same 38 verified locations without the manual steps; `build:snapshot` writes `public/snapshot/` and a static export to `out/`.
+- Set `NEXT_PUBLIC_BASE_PATH=/repo-name` when the site lives under a GitHub Pages address, and `NEXT_PUBLIC_REPO_URL` for the link in the banner.
+- `.github/workflows/snapshot.yml` rebuilds it from live city data every Monday and publishes it to GitHub Pages; `.github/workflows/monitor.yml` checks it every day and fails (GitHub emails the owner) if the page is down or the data is more than 10 days old.  Both run only where the repository variable `SNAPSHOT_PAGES` is `true`.  Public repositories get Actions and Pages for free.
+- Limits: it shows public city records and fictional demo checks only; nothing a visitor types is saved; the data is as old as the last Monday run.
