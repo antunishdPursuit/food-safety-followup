@@ -47,3 +47,29 @@ test('runs of spaces in the city street name collapse to one space', () => {
   assert.equal(permit.street, 'EAST 18 STREET');
   assert.equal(permit.address, '8 EAST 18 STREET, Manhattan, NY 10012');
 });
+
+test('street names are title-cased without changing the words the city wrote', async () => {
+  const { titleCaseStreet } = await import('../lib/server/permits.js');
+  assert.equal(titleCaseStreet('125 CHAMBERS ST'), '125 Chambers St');
+  assert.equal(titleCaseStreet('8 EAST   18 STREET'), '8 East 18 Street');
+  assert.equal(titleCaseStreet('AVENUE OF THE AMERICAS'), 'Avenue of the Americas');
+  assert.equal(titleCaseStreet('1ST AVENUE'), '1st Avenue');
+  assert.equal(titleCaseStreet("O'BRIEN ST"), "O'Brien St");
+});
+
+test('a location entry takes everything from its permit, applies a documented correction, and prefers a documented pin', async () => {
+  const { directoryFromPermits } = await import('../lib/server/permits.js');
+  const permits = { fetchedAt: '2026-11-12T12:00:00.000Z', permits: [
+    { camis: '1', name: 'SWEETGREEN', building: '7', street: 'PENNSLYVANIA PLAZA', zip: null, borough: 'Manhattan', phone: '6469924200', coordinates: null },
+    { camis: '2', name: 'SWEETGREEN', building: '125', street: 'CHAMBERS ST', zip: '10007', borough: 'Manhattan', phone: null, coordinates: [40.7, -74.0] },
+  ] };
+  const confirmed = { matches: [
+    { id: 'penn', camis: '1', correction: { street: 'PENNSYLVANIA PLAZA', zip: '10001' }, pin: [40.7489, -73.9925], pinSource: 'NYC Planning Labs geocoder' },
+    { id: 'chambers', camis: '2' },
+  ] };
+  const { locations } = directoryFromPermits({ confirmed, permits });
+  const [chambers, penn] = locations;
+  assert.deepEqual([chambers.name, chambers.address, chambers.coordinates, chambers.coordinatesSource], ['Sweetgreen, 125 Chambers St', '125 Chambers St, Manhattan, NY 10007', [40.7, -74.0], 'NYC Open Data inspection record']);
+  assert.deepEqual([penn.name, penn.address, penn.coordinates, penn.coordinatesSource], ['Sweetgreen, 7 Pennsylvania Plaza', '7 Pennsylvania Plaza, Manhattan, NY 10001', [40.7489, -73.9925], 'NYC Planning Labs geocoder']);
+  assert.throws(() => directoryFromPermits({ confirmed: { matches: [{ id: 'x', camis: '9' }] }, permits }), /not in the city permit list/);
+});

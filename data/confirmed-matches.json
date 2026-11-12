@@ -160,7 +160,17 @@
     {
       "id": "penn-plaza",
       "camis": "50098725",
-      "confirmedByManager": true
+      "confirmedByManager": true,
+      "correction": {
+        "street": "PENNSYLVANIA PLAZA",
+        "zip": "10001"
+      },
+      "correctionReason": "The city record spells the street PENNSLYVANIA and has no ZIP code; the matched permit is the one with this location phone number (issue 7).",
+      "pin": [
+        40.748937,
+        -73.992548
+      ],
+      "pinSource": "NYC Planning Labs geocoder, 7 Pennsylvania Plaza, 10001 (the city record has no map position)"
     },
     {
       "id": "rockefeller-center",

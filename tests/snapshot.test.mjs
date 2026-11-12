@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { createApiClient } from '../lib/api.js';
 import { restoreConfirmedMatches } from '../lib/server/matches.js';
+import { directoryFromPermits } from '../lib/server/permits.js';
 import { syncDirectory } from '../lib/server/importer.js';
 import { seedSample } from '../lib/server/sample.js';
 import { readDb } from '../lib/server/store.js';
@@ -16,7 +17,7 @@ const tempDir = (label) => fs.mkdtemp(path.join(os.tmpdir(), `fsf-${label}-`));
 test('the confirmed matches name 38 distinct locations and 38 distinct city permits that exist', async () => {
   const confirmed = await dataFile('confirmed-matches.json');
   const permits = await dataFile('permit-directory.json');
-  const directory = await dataFile('sweetgreen-nyc-locations.json');
+  const directory = directoryFromPermits({ confirmed, permits });
   assert.equal(confirmed.count, confirmed.matches.length);
   assert.equal(confirmed.matches.length, 38);
   assert.equal(new Set(confirmed.matches.map((match) => match.id)).size, 38);
@@ -24,7 +25,7 @@ test('the confirmed matches name 38 distinct locations and 38 distinct city perm
   const listed = new Set(directory.locations.map((location) => location.id));
   const known = new Set(permits.permits.map((permit) => permit.camis));
   for (const match of confirmed.matches) {
-    assert.ok(listed.has(match.id), `${match.id} is in the saved directory`);
+    assert.ok(listed.has(match.id), `${match.id} is in the location list`);
     assert.ok(known.has(match.camis), `${match.camis} is in the city permit list`);
   }
   assert.equal(confirmed.matches.filter((match) => match.confirmedByManager).length, 9);
@@ -34,7 +35,7 @@ test('restoring the confirmed matches into a fresh store verifies all 38 locatio
   const dir = await tempDir('matches');
   const confirmed = await dataFile('confirmed-matches.json');
   const permits = await dataFile('permit-directory.json');
-  await syncDirectory({ snapshot: await dataFile('sweetgreen-nyc-locations.json'), dir });
+  await syncDirectory({ snapshot: directoryFromPermits({ confirmed, permits }), dir });
   assert.deepEqual(await restoreConfirmedMatches({ confirmed, permits, dir }), { restored: 38 });
   const locations = Object.values((await readDb(dir)).locations);
   assert.equal(locations.filter((location) => location.matchStatus === 'verified').length, 38);
@@ -48,7 +49,7 @@ test('restoring matches fails clearly for an unknown location or a permit that i
   const dir = await tempDir('matches-bad');
   const permits = { permits: [{ camis: '1', coordinates: null }] };
   await assert.rejects(restoreConfirmedMatches({ confirmed: { matches: [{ id: 'nowhere', camis: '1' }] }, permits, dir }), /Unknown location "nowhere"/);
-  await syncDirectory({ snapshot: await dataFile('sweetgreen-nyc-locations.json'), dir });
+  await syncDirectory({ snapshot: directoryFromPermits({ confirmed: await dataFile('confirmed-matches.json'), permits: await dataFile('permit-directory.json') }), dir });
   await assert.rejects(restoreConfirmedMatches({ confirmed: { matches: [{ id: '23rd-park', camis: '999' }] }, permits, dir }), /not in the city permit list/);
 });
 
