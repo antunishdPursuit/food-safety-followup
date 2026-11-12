@@ -8,7 +8,6 @@
     "build": "next build",
     "start": "next start",
     "test": "node scripts/test.mjs",
-    "data:directory": "node scripts/refresh-directory.mjs",
     "data:permits": "node scripts/build-permit-directory.mjs",
     "data:sync": "node scripts/data.mjs sync",
     "data:match": "node scripts/data.mjs match",
