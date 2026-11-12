@@ -43,7 +43,7 @@ Potential value areas:
 - 17 of the 271 citations use administrative codes that the city does not score, such as calorie posting and plastic straws. They are not food-safety findings.
 - The city removes violations dismissed at a hearing and drops closed restaurants, so counts can fall between refreshes.
 - Matching needed a person for 9 of 38 locations, so scaling to many more restaurants would need a better review step. Run fresh on all 38, the rule alone verified 29, all of them agreeing with the final match, and offered the right permit first for the other 9. An independent building check agrees for 33 of 37 testable locations, and the two it could not settle (Hudson Yards and NoMad) agree on a map.
-- The location list came from reading Sweetgreen's public pages once. Sweetgreen's terms of use limit automated reading, so the list is a one-time snapshot, and the preferred plan is to rebuild it from city permit data.
+- The location list now comes from NYC Open Data alone. The earlier one-time read of Sweetgreen's public pages was retired on 12 November 2026, because Sweetgreen's terms of use limit automated reading. Location names are the city's street addresses (for example "Sweetgreen, 125 Chambers St"), and the confirmed permit matches are kept in `data/confirmed-matches.json`.
 - Storage is a local file with no sign-in. Fine for a local demo, not for public use.
 - Existing audit and compliance tools were not evaluated. If one already covers this, the case weakens.
 

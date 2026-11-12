@@ -22,7 +22,7 @@ The manager is the **only interactive role in version one**. An action owner is 
 | Source | Fields used | Label in the app |
 | --- | --- | --- |
 | [NYC DOHMH Restaurant Inspection Results](https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j) | CAMIS permit ID, address, latitude/longitude when present, inspection date/type, action, violation code/description, critical flag, grade/score when present, record date | Public NYC inspection; show source and last successful refresh |
-| [Sweetgreen's public location list](https://www.sweetgreen.com/locations) | NYC restaurant name and address | Location directory only; it is not inspection or internal safety data |
+| [NYC Open Data permit list](https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j) (permits whose name contains SWEETGREEN) | Restaurant name, address, phone, and map position | Location list; city records only, with nothing read from Sweetgreen's website |
 | Prototype internal checks | Fictional audit and temperature-check records: location, observed date, issue type, note, optional explicit citation link | Demo internal record on every screen and export |
 | Manager-entered follow-ups | Linked citation and/or demo check, owner, due date, notes, status, completion note/time | Prototype follow-up |
 
