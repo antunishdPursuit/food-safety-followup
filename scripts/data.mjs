@@ -1,5 +1,5 @@
 // Command-line steps for the city data. Run through the npm scripts:
-//   npm run data:sync      bring the saved Sweetgreen directory into the store
+//   npm run data:sync      bring the location list (built from the city permit list) into the store
 //   npm run data:match     match each location to its NYC CAMIS permit by address
 //   npm run data:confirm -- <locationId> <camis>   choose one of a location's candidate permits
 //   npm run data:import    refresh inspection records for verified locations
@@ -10,6 +10,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { dataDir } from '../lib/server/config.js';
 import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
+import { directoryFromPermits } from '../lib/server/permits.js';
 import { createNycClient } from '../lib/server/nyc.js';
 import { summarizeStore } from '../lib/server/status.js';
 import { backupDb, listBackups, readDb, restoreDb } from '../lib/server/store.js';
@@ -39,7 +40,8 @@ async function status() {
 
 const steps = {
   sync: async () => {
-    const snapshot = JSON.parse(await readFile(new URL('../data/sweetgreen-nyc-locations.json', import.meta.url), 'utf8'));
+    const read = async (name) => JSON.parse(await readFile(new URL(`../data/${name}`, import.meta.url), 'utf8'));
+    const snapshot = directoryFromPermits({ confirmed: await read('confirmed-matches.json'), permits: await read('permit-directory.json') });
     console.log(await syncDirectory({ snapshot, dir }));
   },
   match: async () => console.log(await matchLocationsToCity({ client: createNycClient(), dir })),

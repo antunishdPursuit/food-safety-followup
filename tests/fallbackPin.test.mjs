@@ -33,7 +33,7 @@ async function store() {
 test('a location whose city record has no usable position gets Sweetgreen’s published position, with the source named', async () => {
   const { locations } = await listLocations({ dir: await store() });
   const row = Object.fromEntries(locations.map((location) => [location.id, location]));
-  assert.deepEqual([row.unplaced.matchStatus, row.unplaced.coordinates, row.unplaced.coordinatesSource], ['verified', [40.75158, -73.99371], 'Sweetgreen location page']);
+  assert.deepEqual([row.unplaced.matchStatus, row.unplaced.coordinates, row.unplaced.coordinatesSource], ['verified', [40.75158, -73.99371], 'Location list position']);
 });
 
 test('a location with a usable city position keeps it, and the source says so', async () => {
@@ -45,14 +45,14 @@ test('a location with a usable city position keeps it, and the source says so', 
 test('an unmatched location can still be placed from its own page, and one with no position stays off the map', async () => {
   const { locations } = await listLocations({ dir: await store() });
   const row = Object.fromEntries(locations.map((location) => [location.id, location]));
-  assert.deepEqual([row.unmatched.matchStatus, row.unmatched.coordinates, row.unmatched.coordinatesSource], ['unverified', [40.7275, -74.0092], 'Sweetgreen location page']);
+  assert.deepEqual([row.unmatched.matchStatus, row.unmatched.coordinates, row.unmatched.coordinatesSource], ['unverified', [40.7275, -74.0092], 'Location list position']);
   assert.deepEqual([row['no-position'].coordinates, row['no-position'].coordinatesSource], [null, null]);
 });
 
 test('the detail view reports the same position and source as the list', async () => {
   const dir = await store();
   const { location } = await getLocationDetail('unplaced', { dir });
-  assert.deepEqual([location.coordinates, location.coordinatesSource], [[40.75158, -73.99371], 'Sweetgreen location page']);
+  assert.deepEqual([location.coordinates, location.coordinatesSource], [[40.75158, -73.99371], 'Location list position']);
 });
 
 test('sample locations name the sample fixture as their source, and a missing position stays empty', async () => {
