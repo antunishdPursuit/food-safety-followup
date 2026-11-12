@@ -20,7 +20,7 @@ It brings public NYC inspection records for 38 New York Sweetgreen locations int
 - In the last 12 months: 36 inspections at 28 locations, with 85 citations, 38 of them critical.
 - 45 repeat flags (the same code on different inspection dates) at 25 locations. 17 of them involve a critical citation, at 14 locations.
 - One location had the same critical code cited twice 15 days apart (Chambers St, code 04N, July 2026).
-- The most common code, 10F, appears at 35 of the 38 locations and is 64 of the 271 citations. Since 2020 the city files general upkeep problems under 10F, such as dirty or damaged floors, walls, and equipment, so it is a broad code and not a specific hazard.
+- The most common code, 10F, appears at 35 of the 38 locations and is 64 of the 271 citations. Since the rules adopted in 2021 (proposed in 2020), the city files general upkeep problems under 10F, such as dirty or damaged floors, walls, and equipment, so it is a broad code and not a specific hazard.
 - "Repeat" means the same code on a different inspection date at one restaurant. That is our rule, not the city's. The city data has no points or severity for a violation, so these counts are not weighted by how serious each violation was.
 - Every one of the 118 inspections has at least one violation. That is normal: only 0.3 percent of New York cycle initial inspections in the last 12 months had none.
 
