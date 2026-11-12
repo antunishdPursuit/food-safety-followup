@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { citationsFor, comparisonChecks, nextActionCitation, reviewGroups, checkReviewTarget, savedRecordFlag, inspectionTimeline } from '../lib/records.js';
+import { citationsFor, comparisonChecks, nextActionCitation, reviewGroups, checkReviewTarget, savedRecordFlag, inspectionTimeline, inspectionNotice } from '../lib/records.js';
 
 test('inspection timeline preserves old source records and separates latest inspection from retained history', () => {
   const inspections = [
@@ -83,4 +83,19 @@ test('presentation marks removed findings and prior permits as history without c
   assert.deepEqual(records.map((record) => record.historical), [false, true, true, true]);
   assert.equal(records[0].sourceUrl, 'https://example.org');
   assert.equal(detail.inspections[0].citations[0].historical, undefined);
+});
+
+test('an inspection that became "no violations" still lists the retained citations that saved records use', () => {
+  const retained = { id: 'c-old', removedFromSource: true };
+  const inspection = { id: 'i1', outcome: 'no-violations', citations: [retained] };
+  assert.equal(inspectionNotice(inspection), 'no-violations');
+  assert.deepEqual(citationsFor({ inspections: [inspection] }).map((citation) => [citation.id, citation.historical]), [['c-old', true]]);
+});
+
+test('inspection notices separate no violations, not yet inspected, and missing details, and stay quiet when citations exist', () => {
+  assert.equal(inspectionNotice({ outcome: 'no-violations', citations: [] }), 'no-violations');
+  assert.equal(inspectionNotice({ outcome: 'not-yet-inspected', citations: [] }), 'not-yet-inspected');
+  assert.equal(inspectionNotice({ outcome: 'violations', citations: [] }), 'details-unavailable');
+  assert.equal(inspectionNotice({ citations: [] }), 'details-unavailable');
+  assert.equal(inspectionNotice({ outcome: 'violations', citations: [{ id: 'c1' }] }), null);
 });
