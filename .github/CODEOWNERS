@@ -1,0 +1,5 @@
+# Both of us own every file, so GitHub asks the other person to review each
+# pull request automatically. The author of a pull request is never asked to
+# review it. This file does not block merging; a branch protection rule that
+# requires a code owner review (set by the repository owner) would enforce it.
+* @antunishdPursuit @valerie-zandoli
