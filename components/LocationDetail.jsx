@@ -5,14 +5,14 @@ import { useParams } from 'next/navigation';
 import { Badge, SourceBadge } from './Badges';
 import SourceDetails from './SourceDetails';
 import { usePreview } from './PreviewProvider';
-import { citationsFor, reviewGroups, checkReviewTarget, inspectionTimeline } from '../lib/records';
+import { citationsFor, reviewGroups, checkReviewTarget, inspectionTimeline, inspectionNotice, locationFor } from '../lib/records';
 import { formatDate, formatTimestamp, formatDateMentions, countLabel, permitStatusLabel } from '../lib/presentation';
 
 export default function LocationDetail() {
   const { id } = useParams();
   const { locationsResponse, detailResponses, actionsByLocation, suggestions } = usePreview();
-  const location = locationsResponse.locations.find((item) => item.id === id);
   const detail = detailResponses[id];
+  const location = locationFor(locationsResponse, detail, id);
   if (!location || !detail) return <section className="page-error"><h1>Location unavailable</h1><p>This location ID is not available.</p><Link href="/locations">Back to locations</Link></section>;
 
   const actions = actionsByLocation[id];
@@ -63,12 +63,19 @@ export default function LocationDetail() {
   </>;
 }
 
+const INSPECTION_NOTICES = {
+  'no-violations': 'No violations recorded in this inspection. This does not confirm current compliance.',
+  'not-yet-inspected': 'The city record indicates not yet inspected.',
+  'details-unavailable': 'No citation details available; this is not a no-violation result.',
+};
+
 function InspectionRecord({ inspection, location }) {
   const history = inspection.previousPermit || inspection.removedFromSource;
+  const notice = inspectionNotice(inspection);
   return <article className="record-card inspection-record">
     <header><h3>{formatDate(inspection.date)} · {inspection.type}</h3><p className="record-meta"><SourceBadge source={location.isSample ? 'Sample public-data fixture' : 'Public NYC inspection'} /> Grade {inspection.grade || 'not stated'} · Score {inspection.score ?? 'not stated'}</p>{history && <Badge kind="muted">Historical record · {inspection.previousPermit ? 'previous permit' : 'removed from source'}</Badge>}</header>
-    {!inspection.citations.length && inspection.outcome !== 'no-violations' && <p>{inspection.outcome === 'not-yet-inspected' ? 'The city record indicates not yet inspected.' : 'No citation details available; this is not a no-violation result.'}</p>}
-    {inspection.outcome === 'no-violations' ? <p>No violations recorded in this inspection. This does not confirm current compliance.</p> : inspection.citations.map((citation) => <div className="finding" key={citation.id}>
+    {notice && <p>{INSPECTION_NOTICES[notice]}</p>}
+    {inspection.citations.map((citation) => <div className="finding" key={citation.id}>
       <div><strong>Code {citation.code}</strong><p>{citation.description}</p><Badge kind={citation.critical ? 'review' : 'muted'}>{citation.criticalFlag || (citation.critical == null ? 'Critical status unavailable' : citation.critical ? 'Critical' : 'Not critical')}</Badge></div>
       {history || citation.removedFromSource ? <Badge kind="muted">History · no new follow-up</Badge> : <Link className="secondary-button" href={`/locations/${location.id}/follow-ups/new?citation=${citation.id}`}>Create follow-up</Link>}
     </div>)}

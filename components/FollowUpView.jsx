@@ -5,7 +5,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { Badge, SourceBadge } from './Badges';
 import { usePreview } from './PreviewProvider';
-import { citationsFor } from '../lib/records';
+import { citationsFor, locationFor } from '../lib/records';
 import { validateFollowUp } from '../lib/followUps';
 import { formatDate, formatTimestamp } from '../lib/presentation';
 
@@ -14,8 +14,8 @@ export default function FollowUpView({ mode }) {
   const search = useSearchParams();
   const router = useRouter();
   const { locationsResponse, detailResponses, actionsByLocation, saveFollowUp, completeFollowUp, saving } = usePreview();
-  const location = locationsResponse.locations.find((item) => item.id === id);
   const detail = detailResponses[id];
+  const location = locationFor(locationsResponse, detail, id);
   const existing = mode === 'edit' ? actionsByLocation[id]?.find((item) => item.id === followUpId) : null;
   const citationId = mode === 'edit' ? existing?.citationId : search.get('citation');
   const checkId = mode === 'edit' ? existing?.checkId : search.get('check');
