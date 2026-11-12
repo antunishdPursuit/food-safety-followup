@@ -15,11 +15,13 @@
     "data:confirm": "node scripts/data.mjs confirm",
     "data:import": "node scripts/data.mjs import",
     "data:status": "node scripts/data.mjs status",
+    "data:seed-matches": "node scripts/seed-matches.mjs",
     "data:backup": "node scripts/data.mjs backup",
     "data:restore": "node scripts/data.mjs restore",
     "seed:demo": "node scripts/seed.mjs demo",
     "seed:sample": "node scripts/seed.mjs sample",
-    "dev:sample": "node scripts/dev-sample.mjs"
+    "dev:sample": "node scripts/dev-sample.mjs",
+    "build:snapshot": "node scripts/build-snapshot.mjs"
   },
   "dependencies": {
     "leaflet": "1.9.4",

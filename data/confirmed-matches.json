@@ -1,0 +1,196 @@
+{
+  "source": "Location-to-permit matches that were verified by 11 November 2026: 29 matched automatically by street, building number, ZIP, and name, and 9 confirmed by the manager after checks against city records (see README assumptions 3 and 13 and issue 7). A fresh store restores them with npm run data:seed-matches, then npm run data:import loads the inspections.",
+  "count": 38,
+  "matches": [
+    {
+      "id": "12th-university",
+      "camis": "50065580",
+      "confirmedByManager": false
+    },
+    {
+      "id": "23rd-park",
+      "camis": "50172400",
+      "confirmedByManager": false
+    },
+    {
+      "id": "32nd-park",
+      "camis": "50088095",
+      "confirmedByManager": false
+    },
+    {
+      "id": "38th-broadway",
+      "camis": "50071277",
+      "confirmedByManager": false
+    },
+    {
+      "id": "44th-3rd",
+      "camis": "50105794",
+      "confirmedByManager": false
+    },
+    {
+      "id": "52nd-lex",
+      "camis": "50113982",
+      "confirmedByManager": false
+    },
+    {
+      "id": "55th-park",
+      "camis": "50058588",
+      "confirmedByManager": true
+    },
+    {
+      "id": "56th-broadway",
+      "camis": "50105437",
+      "confirmedByManager": false
+    },
+    {
+      "id": "61st-lex",
+      "camis": "50052431",
+      "confirmedByManager": true
+    },
+    {
+      "id": "67th-columbus",
+      "camis": "50110093",
+      "confirmedByManager": false
+    },
+    {
+      "id": "71st-1st",
+      "camis": "50052428",
+      "confirmedByManager": false
+    },
+    {
+      "id": "85th-3rd",
+      "camis": "50050184",
+      "confirmedByManager": false
+    },
+    {
+      "id": "91st-broadway",
+      "camis": "50065575",
+      "confirmedByManager": false
+    },
+    {
+      "id": "bowery",
+      "camis": "50098726",
+      "confirmedByManager": true
+    },
+    {
+      "id": "bryant-park",
+      "camis": "50070146",
+      "confirmedByManager": false
+    },
+    {
+      "id": "chambers-st",
+      "camis": "50091763",
+      "confirmedByManager": false
+    },
+    {
+      "id": "columbia-u",
+      "camis": "50040802",
+      "confirmedByManager": true
+    },
+    {
+      "id": "court-atlantic",
+      "camis": "50085657",
+      "confirmedByManager": false
+    },
+    {
+      "id": "downtown-brooklyn",
+      "camis": "50113986",
+      "confirmedByManager": true
+    },
+    {
+      "id": "dumbo",
+      "camis": "50065314",
+      "confirmedByManager": false
+    },
+    {
+      "id": "forest-hills",
+      "camis": "50165686",
+      "confirmedByManager": false
+    },
+    {
+      "id": "grand-central",
+      "camis": "50097399",
+      "confirmedByManager": false
+    },
+    {
+      "id": "greenpoint",
+      "camis": "50158479",
+      "confirmedByManager": false
+    },
+    {
+      "id": "hudson-yards",
+      "camis": "50080064",
+      "confirmedByManager": true
+    },
+    {
+      "id": "long-island-city",
+      "camis": "50119415",
+      "confirmedByManager": false
+    },
+    {
+      "id": "lower-east-side",
+      "camis": "50172402",
+      "confirmedByManager": false
+    },
+    {
+      "id": "meatpacking",
+      "camis": "50052953",
+      "confirmedByManager": false
+    },
+    {
+      "id": "murray-hill",
+      "camis": "50097403",
+      "confirmedByManager": false
+    },
+    {
+      "id": "nolita",
+      "camis": "50017275",
+      "confirmedByManager": false
+    },
+    {
+      "id": "nomad",
+      "camis": "50001790",
+      "confirmedByManager": true
+    },
+    {
+      "id": "park-slope",
+      "camis": "50172399",
+      "confirmedByManager": false
+    },
+    {
+      "id": "penn-plaza",
+      "camis": "50098725",
+      "confirmedByManager": true
+    },
+    {
+      "id": "rockefeller-center",
+      "camis": "50098724",
+      "confirmedByManager": false
+    },
+    {
+      "id": "spring-hudson",
+      "camis": "50112698",
+      "confirmedByManager": true
+    },
+    {
+      "id": "union-square",
+      "camis": "50178823",
+      "confirmedByManager": false
+    },
+    {
+      "id": "wall-street",
+      "camis": "50050182",
+      "confirmedByManager": false
+    },
+    {
+      "id": "williamsburg",
+      "camis": "50017284",
+      "confirmedByManager": false
+    },
+    {
+      "id": "world-trade-center",
+      "camis": "50113988",
+      "confirmedByManager": false
+    }
+  ]
+}
