@@ -36,7 +36,8 @@ Use the saved directory already included in the repository: run `npm run data:sy
 
 | Command | What it does |
 | --- | --- |
-| `npm run data:directory` | Refreshes `data/sweetgreen-nyc-locations.json` from sweetgreen.com/locations (38 NYC locations on 2026-11-09), then reads each location's own page (about 40 requests). Names, addresses, map positions, and phone numbers only. |
+| `npm run data:permits` | Builds `data/permit-directory.json` from NYC Open Data alone: every permit whose name contains SWEETGREEN (41 on 2026-11-12; 38 are our locations, 3 are unclaimed). City fields only; one request. This starts replacing the scraper below. |
+| `npm run data:directory` | **Being retired; do not run.** Refreshes `data/sweetgreen-nyc-locations.json` from sweetgreen.com/locations (38 NYC locations on 2026-11-09), then reads each location's own page (about 40 requests). Names, addresses, map positions, and phone numbers only. |
 | `npm run data:sync` | Loads that directory into the store (`.data/`). Locations start as unverified. |
 | `npm run data:match` | Looks each location up in the city dataset by address. **Verified** needs the street address and a Sweetgreen business name to agree. Anything less becomes a **candidate** for the manager to decide, or stays unverified. A Sweetgreen-named permit within 250 m of the location's own map position, or with the same phone number, is also offered as a candidate, with its distance and the address the city lists. A permit in another borough is never offered, and a permit is never offered to two locations. Map coordinates come from the matched city record. |
 | `npm run data:status` | Shows coverage, freshness, and each candidate with the reason it was not verified. |
