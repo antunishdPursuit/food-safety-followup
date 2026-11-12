@@ -1,6 +1,6 @@
 # NYC Food Safety Follow-Up — Product Requirements Document
 
-**Status:** Product requirements reviewed. The frontend preview is implemented with labeled sample fixtures; verified NYC data and persistent follow-ups are pending.
+**Status:** Product requirements reviewed. Implemented and shown at the L2 showcase on 12 November 2026: the screens read and save through the local backend API, all 38 locations are matched to NYC permits, and follow-ups persist in a local file. Pending: a durable database, sign-in, and validation with a working food safety manager.
 **Selected JD:** [sweetgreen — Senior Food Safety Manager](https://careers.sweetgreen.com/jobs/8191701?gh_jid=8191701), New York, NY / Remote. The linked role describes NYC Region duties. The posting's current status should be checked at the source.
 **Primary user:** The food safety manager responsible for sweetgreen's NYC Region.
 **Scope:** Sweetgreen locations in New York City only.
