@@ -14,6 +14,8 @@
     "data:confirm": "node scripts/data.mjs confirm",
     "data:import": "node scripts/data.mjs import",
     "data:status": "node scripts/data.mjs status",
+    "data:backup": "node scripts/data.mjs backup",
+    "data:restore": "node scripts/data.mjs restore",
     "seed:demo": "node scripts/seed.mjs demo",
     "seed:sample": "node scripts/seed.mjs sample",
     "dev:sample": "node scripts/dev-sample.mjs"
