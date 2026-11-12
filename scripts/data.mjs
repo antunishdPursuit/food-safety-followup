@@ -4,12 +4,15 @@
 //   npm run data:confirm -- <locationId> <camis>   choose one of a location's candidate permits
 //   npm run data:import    refresh inspection records for verified locations
 //   npm run data:status    show coverage, freshness, and candidates needing a decision
+//   npm run data:backup    copy the store to backups/ now (every write also keeps the last 20 copies)
+//   npm run data:restore -- <file>   put a backup back; with no file, list the backups, newest first
 import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 import { dataDir } from '../lib/server/config.js';
 import { confirmMatch, matchLocationsToCity, refreshInspections, syncDirectory } from '../lib/server/importer.js';
 import { createNycClient } from '../lib/server/nyc.js';
 import { summarizeStore } from '../lib/server/status.js';
-import { readDb } from '../lib/server/store.js';
+import { backupDb, listBackups, readDb, restoreDb } from '../lib/server/store.js';
 
 // Read .env when this Node version can (20.12 or newer); otherwise use the shell's environment.
 try { process.loadEnvFile?.(); } catch { /* no .env file */ }
@@ -52,6 +55,20 @@ const steps = {
     console.log(`${location.id} is now verified with CAMIS ${location.camis}. Run npm run data:import to load its inspections.`);
   },
   status,
+  backup: async () => {
+    const target = await backupDb(dir, { version: (await readDb(dir)).version });
+    console.log(target ? `Backed up the store to ${target}. Keep one copy off this computer.` : `There is no store at ${dir} to back up.`);
+  },
+  restore: async () => {
+    const [file] = args;
+    if (!file) {
+      const names = await listBackups(dir);
+      console.log(names.length ? `Backups in ${path.join(dir, 'backups')}, newest first:\n${names.map((name) => `  ${name}`).join('\n')}\nRestore one with: npm run data:restore -- ${path.join(dir, 'backups', '<file>')}` : `No backups yet in ${path.join(dir, 'backups')}.`);
+      return;
+    }
+    await restoreDb(path.resolve(file), dir);
+    console.log(`Restored the store from ${file}. The store it replaced was backed up first.`);
+  },
 };
 
 if (!steps[command]) {
