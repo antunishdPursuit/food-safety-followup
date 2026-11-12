@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { citationsFor, comparisonChecks, nextActionCitation, reviewGroups, checkReviewTarget, savedRecordFlag, inspectionTimeline, inspectionNotice } from '../lib/records.js';
+import { citationsFor, comparisonChecks, nextActionCitation, reviewGroups, checkReviewTarget, savedRecordFlag, inspectionTimeline, inspectionNotice, locationFor } from '../lib/records.js';
 
 test('inspection timeline preserves old source records and separates latest inspection from retained history', () => {
   const inspections = [
@@ -98,4 +98,14 @@ test('inspection notices separate no violations, not yet inspected, and missing 
   assert.equal(inspectionNotice({ outcome: 'violations', citations: [] }), 'details-unavailable');
   assert.equal(inspectionNotice({ citations: [] }), 'details-unavailable');
   assert.equal(inspectionNotice({ outcome: 'violations', citations: [{ id: 'c1' }] }), null);
+});
+
+test('a location missing from the list still resolves from its detail response, so saved work stays reachable', () => {
+  const listed = { id: 'a', name: 'Listed' };
+  const removed = { id: 'b', name: 'No longer listed' };
+  const response = { locations: [listed] };
+  assert.equal(locationFor(response, { location: listed }, 'a'), listed);
+  assert.equal(locationFor(response, { location: removed }, 'b'), removed);
+  assert.equal(locationFor(response, undefined, 'b'), null);
+  assert.equal(locationFor(null, undefined, 'b'), null);
 });

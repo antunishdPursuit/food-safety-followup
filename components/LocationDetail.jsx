@@ -5,14 +5,14 @@ import { useParams } from 'next/navigation';
 import { Badge, SourceBadge } from './Badges';
 import SourceDetails from './SourceDetails';
 import { usePreview } from './PreviewProvider';
-import { citationsFor, reviewGroups, checkReviewTarget, inspectionTimeline, inspectionNotice } from '../lib/records';
+import { citationsFor, reviewGroups, checkReviewTarget, inspectionTimeline, inspectionNotice, locationFor } from '../lib/records';
 import { formatDate, formatTimestamp, formatDateMentions, countLabel, permitStatusLabel } from '../lib/presentation';
 
 export default function LocationDetail() {
   const { id } = useParams();
   const { locationsResponse, detailResponses, actionsByLocation, suggestions } = usePreview();
-  const location = locationsResponse.locations.find((item) => item.id === id);
   const detail = detailResponses[id];
+  const location = locationFor(locationsResponse, detail, id);
   if (!location || !detail) return <section className="page-error"><h1>Location unavailable</h1><p>This location ID is not available.</p><Link href="/locations">Back to locations</Link></section>;
 
   const actions = actionsByLocation[id];

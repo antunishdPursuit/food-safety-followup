@@ -5,7 +5,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Badge, SourceBadge } from './Badges';
 import SourceDetails from './SourceDetails';
 import { usePreview } from './PreviewProvider';
-import { citationsFor, comparisonChecks, nextActionCitation, savedRecordFlag } from '../lib/records';
+import { citationsFor, comparisonChecks, nextActionCitation, savedRecordFlag, locationFor } from '../lib/records';
 import { formatDate, formatTimestamp, formatDateMentions } from '../lib/presentation';
 
 export default function ComparisonView() {
@@ -13,8 +13,8 @@ export default function ComparisonView() {
   const router = useRouter();
   const requestedFlag = useSearchParams().get('flag');
   const { locationsResponse, detailResponses, actionsByLocation, suggestions, setSuggestion, saving } = usePreview();
-  const location = locationsResponse.locations.find((item) => item.id === id);
   const detail = detailResponses[id];
+  const location = locationFor(locationsResponse, detail, id);
   if (!location || !detail) return <section className="page-error"><h1>Comparison unavailable</h1><Link href="/locations">Back to locations</Link></section>;
   const flags = detail.flags;
   const citations = citationsFor(detail);
